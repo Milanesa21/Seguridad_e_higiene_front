@@ -1,0 +1,240 @@
+.input-group {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.input {
+  border: solid 1.5px #fff;
+  border-radius: 7px;
+  background: none;
+  padding: 15px;
+  font-size: 18px;
+  color: #f5f5f5;
+}
+
+.label {
+  position: absolute;
+  left: 15px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 18px;
+  pointer-events: none;
+  transform: translateY(15px);
+  transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.input:focus,
+.input:valid {
+  outline: none;
+  border: 1.5px solid #fff;
+}
+
+.input:focus ~ .label,
+.input:valid ~ .label {
+  transform: translateX(-10px) translateY(-50%) scale(0.8);
+  background-color: #004173;
+  padding: 0.2em;
+  color: #fff;
+}
+
+.input1 {
+  border: solid 1.5px #fff;
+  border-radius: 7px;
+  background: none;
+  padding: 15px;
+  font-size: 18px;
+  color: #f5f5f5;
+}
+
+.label1 {
+  position: absolute;
+  left: 15px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 18px;
+  pointer-events: none;
+  transform: translateY(15px);
+  transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.input1:focus,
+.input1:valid {
+  outline: none;
+  border: 1.5px solid #fff;
+}
+
+.input1:focus ~ .label1,
+.input1:valid ~ .label1 {
+  transform: translateX(-10px) translateY(-50%) scale(0.8);
+  background-color: #004173;
+  padding: 0.2em;
+  color: #fff;
+}
+
+.ContenedorLogin {
+  margin-top: 4%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ContenedorFormulario {
+  background-color: #004173;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 3px solid #001b30;
+  border-radius: 30px;
+  box-shadow: rgb(48, 48, 48) 10px 10px 20px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-bottom: 20px;
+}
+
+.LogoForm {
+  width: 110px;
+  height: 110px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 2px solid #001b30;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.LogoForm > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 0px;
+}
+
+.titulo-Login {
+  color: #fff;
+  font-size: 50px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  margin-right: 30px;
+  margin-left: 30px;
+}
+
+.Pedro {
+  width: 110px;
+  height: 110px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 2px solid #001b30;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.Pedro > img {
+  width: 107%;
+  height: 100%;
+  object-fit: cover;
+  object-position: -0.2px;
+}
+
+/*------ Settings ------*/
+.containera {
+  --color: #a5a5b0;
+  --size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  font-size: var(--size);
+  user-select: none;
+  fill: var(--color);
+  transform: translate(40%, -29px);
+}
+
+.containera .eye {
+  position: absolute;
+  animation: keyframes-fill 0.5s;
+}
+
+.containera .eye-slash {
+  position: absolute;
+  animation: keyframes-fill 0.5s;
+  display: none;
+}
+
+/* ------ On check event ------ */
+.containera input:checked ~ .eye {
+  display: none;
+}
+
+.containera input:checked ~ .eye-slash {
+  display: block;
+}
+
+/* ------ Hide the default checkbox ------ */
+.containera input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* ------ Animation ------ */
+@keyframes keyframes-fill {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+/*------ Settings ------*/
+.containera1 {
+  --color: #a5a5b0;
+  --size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  font-size: var(--size);
+  user-select: none;
+  fill: var(--color);
+  transform: translate(60%, -70px);
+}
+
+.containera1 .eye1 {
+  position: absolute;
+  animation: keyframes-fill 0.5s;
+}
+
+.containera1 .eye-slash1 {
+  position: absolute;
+  animation: keyframes-fill 0.5s;
+  display: none;
+}
+
+/* ------ On check event ------ */
+.containera1 input:checked ~ .eye1 {
+  display: none;
+}
+
+.containera1 input:checked ~ .eye-slash1 {
+  display: block;
+}
+
+/* ------ Hide the default checkbox ------ */
+.containera1 input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}

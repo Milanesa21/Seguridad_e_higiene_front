@@ -1,0 +1,32 @@
+.boton {
+  width: 300px; /* Ancho del botón */
+  height: 50px; /* Alto del botón */
+  margin-top: 20px; /* Espacio superior de 20px */
+  font-size: 20px;
+  font-weight: bold;
+  -webkit-text-stroke: 1px rgb(102, 84, 1); /* Borde del texto */
+  background-color: rgb(208, 168, 92); /* Color de fondo del botón */
+  color: white; /* Color del texto */
+  border: none; /* Sin bordes */
+  outline: none; /* Sin contorno al hacer clic */
+  cursor: pointer; /* Cambia el cursor al pasar el mouse */
+  clip-path: polygon(
+    20px 0,
+    calc(100% - 20px) 0,
+    100% 20px,
+    100% calc(100% - 0px),
+    calc(100% - 0px) 100%,
+    20px 100%,
+    0 calc(100% - 20px),
+    0 0px
+  ); /* Recorta los ángulos superior derecho e inferior izquierdo */
+}
+
+.boton:hover {
+  clip-path: polygon(
+    0% 0%,
+    100% 0%,
+    100% 100%,
+    0% 100%
+  ); /* Forma inicial del botón (rectangular) */
+}
