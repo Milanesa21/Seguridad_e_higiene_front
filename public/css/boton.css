@@ -1,32 +1,77 @@
-.boton {
-  width: 300px; /* Ancho del botón */
-  height: 50px; /* Alto del botón */
-  margin-top: 20px; /* Espacio superior de 20px */
-  font-size: 20px;
-  font-weight: bold;
-  -webkit-text-stroke: 1px rgb(102, 84, 1); /* Borde del texto */
-  background-color: rgb(208, 168, 92); /* Color de fondo del botón */
-  color: white; /* Color del texto */
-  border: none; /* Sin bordes */
-  outline: none; /* Sin contorno al hacer clic */
-  cursor: pointer; /* Cambia el cursor al pasar el mouse */
-  clip-path: polygon(
-    20px 0,
-    calc(100% - 20px) 0,
-    100% 20px,
-    100% calc(100% - 0px),
-    calc(100% - 0px) 100%,
-    20px 100%,
-    0 calc(100% - 20px),
-    0 0px
-  ); /* Recorta los ángulos superior derecho e inferior izquierdo */
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 15px;
+  gap: 15px;
+  background-color: #007acc;
+  outline: 3px #007acc solid;
+  outline-offset: -3px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: 400ms;
 }
 
-.boton:hover {
-  clip-path: polygon(
-    0% 0%,
-    100% 0%,
-    100% 100%,
-    0% 100%
-  ); /* Forma inicial del botón (rectangular) */
+.button .text {
+  color: white;
+  font-weight: 700;
+  font-size: 1em;
+  transition: 400ms;
+}
+
+.button svg path {
+  transition: 400ms;
+}
+
+.button:hover {
+  background-color: transparent;
+}
+
+.button:hover .text {
+  color: #007acc;
+}
+
+.button:hover svg path {
+  fill: #007acc;
+}
+
+.buttonEmergencia {
+  height: 150px;
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 15px;
+  gap: 15px;
+  background-color: #ff0000;
+  outline: 3px #ff0000 solid;
+  outline-offset: -3px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: 400ms;
+}
+
+.buttonEmergencia .text {
+  color: white;
+  font-weight: 700;
+  font-size: 2em;
+  transition: 400ms;
+}
+
+.buttonEmergencia svg path {
+  transition: 400ms;
+}
+
+.buttonEmergencia:hover {
+  background-color: transparent;
+}
+
+.buttonEmergencia:hover .text {
+  color: #cc0000;
+}
+
+.buttonEmergencia:hover svg path {
+  fill: #ff0000;
 }

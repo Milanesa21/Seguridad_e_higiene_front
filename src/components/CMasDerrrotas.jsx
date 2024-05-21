@@ -1,6 +1,7 @@
 import React from "react";
 import "../../public/css/img.css";
 import "../../public/css/boton.css";
+import "@bitnoi.se/react-scheduler/dist/style.css";
 
 export const CMasDerrotas = () => {
   // Función para abrir una ventana de imagen con una URL específica

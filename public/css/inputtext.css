@@ -1,0 +1,41 @@
+/* Import Google font - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+::selection {
+  color: #f0f8ff;
+  background: #4671ea;
+}
+.inputwrapper {
+  width: 470px;
+  background: #f0f8ff;
+  border-radius: 5px;
+  padding: 25px 25px 30px;
+}
+.inputwrapper h2 {
+  color: #4671ea;
+  font-size: 28px;
+  text-align: center;
+}
+.inputwrapper textarea {
+  width: 100%;
+  resize: none;
+  height: 59px;
+  outline: none;
+  padding: 15px;
+  font-size: 16px;
+  margin-top: 20px;
+  border-radius: 5px;
+  max-height: 330px;
+  caret-color: #4671ea;
+  border: 1px solid #bfbfbf;
+}
+textarea::placeholder {
+  color: #b3b3b3;
+}
+textarea:is(:focus, :valid) {
+  padding: 14px;
+  border: 2px solid #4671ea;
+}
+textarea::-webkit-scrollbar {
+  width: 0px;
+}

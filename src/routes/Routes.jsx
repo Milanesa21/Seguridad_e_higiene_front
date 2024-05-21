@@ -2,6 +2,8 @@ import App from "../App.jsx";
 import { Login } from "../page/Login.jsx";
 import { PasswordChange } from "../page/PasswordChange.jsx";
 import { SeccionEmergencia } from "../page/SeccionEmergencia.jsx";
+import { Registroempleados } from "../page/Registroempleados.jsx";
+import { Registroempresa } from "../page/registroempresa.jsx";
 
 export const routes = [
   {
@@ -19,5 +21,13 @@ export const routes = [
   {
     path: "/SeccionEmergencia",
     element: <SeccionEmergencia />,
+  },
+  {
+    path: "Registroempleados",
+    element: <Registroempleados />,
+  },
+  {
+    path: "Registroempresa",
+    element: <Registroempresa />,
   },
 ];

@@ -1,5 +1,6 @@
 import React from "react";
 import { Navbar } from "../components/Navbar";
+import { CMasJugado } from "../components/CMasJugado";
 
 export const SeccionEmergencia = () => {
   return (
@@ -8,7 +9,7 @@ export const SeccionEmergencia = () => {
       <br />
       <br />
       <br />
-      SeccionEmergencia
+      <CMasJugado />
     </div>
   );
 };
