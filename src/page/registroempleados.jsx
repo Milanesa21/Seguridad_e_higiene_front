@@ -15,7 +15,10 @@ export const Registroempleados = () => {
   };
 
   const handleChangeNumUsuarios = (e) => {
-    setNumUsuarios(e.target.value);
+    const value = e.target.value;
+    if (/^\d*$/.test(value) && value <= 100) {
+      setNumUsuarios(value);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -24,9 +27,9 @@ export const Registroempleados = () => {
       puesto_trabajo: selectedPuesto,
       num_usuarios: numUsuarios,  
     };
-  
+
     console.log("Datos enviados al backend: ", data);
-  
+
     fetch("http://127.0.0.1:8000/Usuarios/createUsers", {
       method: "POST",
       headers: {
@@ -40,7 +43,6 @@ export const Registroempleados = () => {
       })
       .catch((error) => console.error("Error:", error));
   };
-  
 
   const music = () => {
     if (pedro) {
