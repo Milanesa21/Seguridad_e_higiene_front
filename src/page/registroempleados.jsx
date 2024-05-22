@@ -40,9 +40,10 @@ export const Registroempleados = () => {
             </div>
 
             <h4 className="titulo-Login">Registro Empleados</h4>
-
+            {/* INPUT NUMERICO PARA LA CANTIDAD DE REGISTROS A REALIZAR */}
             <NumericInput min={0} max={100} step={1} />
             <div className="input-groupRE">
+              {/* INPUT EN FORMA DE LISTA PARA LA POSICION DE TRABAJO */}
               <select
                 id="car-select"
                 value={selectedCar}
@@ -73,6 +74,7 @@ export const Registroempleados = () => {
               </label>
             </div>
             <div className="button-container">
+              {/* BOTON DE REGISTRO DE EMPLEADO */}
               <button type="submit" className="animated-button">
                 <span>Registrar</span>
               </button>

@@ -41,7 +41,9 @@ export const Registroempresa = () => {
             </div>
 
             <h4 className="titulo-Login">Bienvenido</h4>
+
             <form action="submit" method="post">
+              {/* INPUT DE NOMBRE DE EMPRESA */}
               <div className="input-group">
                 <input
                   type="text"
@@ -54,7 +56,8 @@ export const Registroempresa = () => {
                   Nombre Empresa
                 </label>
                 <br />
-                <br />{" "}
+                <br />
+                {/* INPUT DE NOMBRE DEl DUEÑO */}
                 <input
                   type="text"
                   name="text"
@@ -67,6 +70,7 @@ export const Registroempresa = () => {
                 </label>
                 <br />
                 <br />
+                {/* INPUT DEl CORREO */}
                 <input
                   type="text"
                   name="text"
@@ -79,6 +83,7 @@ export const Registroempresa = () => {
                 </label>
                 <br />
                 <br />
+                {/* INPUT DEL NUMERO DE TELEFONO */}
                 <input
                   type="text"
                   name="text"
@@ -91,6 +96,7 @@ export const Registroempresa = () => {
                 </label>
                 <br />
                 <br />
+                {/* INPUT DE LA CONTRASEÑA */}
                 <input
                   type={passwordType} // Usar el tipo de campo de contraseña dinámico
                   name="password"
@@ -101,6 +107,7 @@ export const Registroempresa = () => {
                 <label className="label1" htmlFor="inputFieldPassword">
                   Password
                 </label>
+                {/* BOTON DE VISIBILIDAD PARA CONTRASEÑA */}
                 <div className="containera" onClick={handleCheckboxChange}>
                   <input type="checkbox" checked={isChecked} />
                   <svg
@@ -123,7 +130,7 @@ export const Registroempresa = () => {
                   </svg>
                 </div>
               </div>
-
+              {/* BOTON DE REGISTRO */}
               <div className="button-container">
                 <button type="submit" className="animated-button">
                   <span>Login</span>
