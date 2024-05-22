@@ -27,11 +27,10 @@ export const CMasJugado = () => {
         <h2>Emergencia</h2>
         <div className="DivSeccion">
           <div className="DivBotones">
-            {/* Botón para la región NA */}
+            {/* BOTON DE EMERGENCIA */}
             <button className="buttonEmergencia">
               <p className="text">OMAIGAAAAA</p>
             </button>
-            {/* Botón para la región KR */}
           </div>
           {/* Contenedor de la imagen */}
           <div className="inputwrapper">
@@ -42,6 +41,7 @@ export const CMasJugado = () => {
               placeholder="Type something here..."
               required
             ></textarea>
+            {/* BOTON DE DENUNCIA */}
             <button className="button">
               <p className="text">OMAIGAAAAA</p>
             </button>

@@ -22,6 +22,7 @@ export const PasswordChange = () => {
             <h4 className="titulo-Login">Cambio de Contraseña</h4>
             <form action="submit" method="post">
               <div className="input-group">
+                {/* INPUT DE NUEVA CONTRASEÑA */}
                 <input
                   type={passwordType} // Usar el tipo de campo de contraseña dinámico
                   name="password"
@@ -35,6 +36,7 @@ export const PasswordChange = () => {
 
                 <br />
                 <br />
+                {/* INPUT PARA CONFIRMACION DE CONTRASEÑA */}
                 <input
                   type={passwordType} // Usar el tipo de campo de contraseña dinámico
                   name="password"
@@ -45,6 +47,7 @@ export const PasswordChange = () => {
                 <label className="label" htmlFor="inputFieldPassword">
                   Confirmar contraseña
                 </label>
+                {/* BOTON PARA LA VISIBILIDAD DE CONTRASEÑA */}
                 <div className="containera1" onClick={handleCheckboxChange}>
                   <input type="checkbox" checked={isChecked} />
                   <svg
@@ -67,7 +70,7 @@ export const PasswordChange = () => {
                   </svg>
                 </div>
               </div>
-
+              {/* BOTON PARA CONFIRMACION DE LA CONTRASEÑA */}
               <div className="button-container">
                 <button type="submit" className="animated-button">
                   <span>Confirmar</span>

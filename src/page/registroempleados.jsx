@@ -77,6 +77,7 @@ export const Registroempleados = () => {
               handleChangeNumUsuarios={handleChangeNumUsuarios} // Pasando las propiedades
             />
             <div className="input-groupRE">
+              {/* INPUT EN FORMA DE LISTA PARA LA POSICION DE TRABAJO */}
               <select
                 id="puesto-select"
                 name="puesto_trabajo"
