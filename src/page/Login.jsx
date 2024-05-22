@@ -71,6 +71,7 @@
 
               <h4 className="titulo-Login">Bienvenido</h4>
               <form onSubmit={handleSubmit} onChange={handleChange}>
+                  {/* INPUT DE NOMBRE */}
                 <div className="input-group">
                   <input
                     type="text"
@@ -85,6 +86,7 @@
 
                   <br />
                   <br />
+                    {/* INPUT DE CONTRASEÑA */} 
                   <input
                     type={passwordType} // Usar el tipo de campo de contraseña dinámico
                     name="password"

@@ -71,7 +71,7 @@ export const Registroempleados = () => {
             </div>
 
             <h4 className="titulo-Login">Registro Empleados</h4>
-
+                    {/* INPUT NUMERICO PARA LA CANTIDAD DE REGISTROS A REALIZAR */}
             <div className="input-groupRE">
               <select
                 id="puesto-select"
@@ -81,12 +81,12 @@ export const Registroempleados = () => {
                 className="inputRE"
               >
                 <option value="">Seleccione un puesto</option>
-                <option value="Hombre">Hombre</option>
-                <option value="Mujer">Mujer</option>
-                <option value="Gato">Gato</option>
-                <option value="Mercedes">Mercedes</option>
-                <option value="Helicoptero apache">Helicoptero apache</option>
-                <option value="Panzer">Panzer</option>
+                <option value="Electricidad">Electricidad</option>
+                <option value="Construccion">Construccion</option>
+                <option value="Quimica">Quimica</option>
+                <option value="Agropecuaria">Agropecuaria</option>
+                <option value="Metalurgia">Metalurgia</option>
+                <option value="Area de seguridad">Area de seguridad</option>
               </select>
               <label className="labelRE" htmlFor="puesto_select">
                 Puesto de trabajo
@@ -99,6 +99,7 @@ export const Registroempleados = () => {
             />
 
             <div className="button-container">
+               {/* BOTON DE REGISTRO DE EMPLEADO */}
               <button type="submit" className="animated-button">
                 <span>Registrar</span>
               </button>
