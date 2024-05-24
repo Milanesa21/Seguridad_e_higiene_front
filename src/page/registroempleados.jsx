@@ -97,7 +97,7 @@ export const Registroempleados = () => {
               numUsuarios={numUsuarios} 
               handleChangeNumUsuarios={handleChangeNumUsuarios} // Pasando las propiedades
             />
-
+ {/* Ola */}
             <div className="button-container">
                {/* BOTON DE REGISTRO DE EMPLEADO */}
               <button type="submit" className="animated-button">
