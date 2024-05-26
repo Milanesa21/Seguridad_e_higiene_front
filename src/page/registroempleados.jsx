@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import "../../public/css/img.css";
 import "../../public/css/Login.css";
 import "../../public/css/botonanimado.css";
-import NumericInput from "../components/Inputnumerico.jsx"; 
+import NumericInput from "../components/Inputnumerico.jsx";
 
 export const Registroempleados = () => {
   const [selectedPuesto, setSelectedPuesto] = useState("");
@@ -25,7 +25,7 @@ export const Registroempleados = () => {
     e.preventDefault();
     const data = {
       puesto_trabajo: selectedPuesto,
-      num_usuarios: numUsuarios,  
+      num_usuarios: numUsuarios,
     };
 
     console.log("Datos enviados al backend: ", data);
@@ -71,7 +71,11 @@ export const Registroempleados = () => {
             </div>
 
             <h4 className="titulo-Login">Registro Empleados</h4>
-                    {/* INPUT NUMERICO PARA LA CANTIDAD DE REGISTROS A REALIZAR */}
+            {/* INPUT NUMERICO PARA LA CANTIDAD DE REGISTROS A REALIZAR */}
+            <NumericInput
+              numUsuarios={numUsuarios}
+              handleChangeNumUsuarios={handleChangeNumUsuarios} // Pasando las propiedades
+            />
             <div className="input-groupRE">
               <select
                 id="puesto-select"
@@ -80,26 +84,36 @@ export const Registroempleados = () => {
                 onChange={handleChangePuesto}
                 className="inputRE"
               >
-                <option value="">Seleccione un puesto</option>
-                <option value="Electricidad">Electricidad</option>
-                <option value="Construccion">Construccion</option>
-                <option value="Quimica">Quimica</option>
-                <option value="Agropecuaria">Agropecuaria</option>
-                <option value="Metalurgia">Metalurgia</option>
-                <option value="Area de seguridad">Area de seguridad</option>
+                <option className="Options" value="">
+                  Seleccione un puesto
+                </option>
+                <option className="Options" value="Electricidad">
+                  Electricidad
+                </option>
+                <option className="Options" value="Construccion">
+                  Construccion
+                </option>
+                <option className="Options" value="Quimica">
+                  Quimica
+                </option>
+                <option className="Options" value="Agropecuaria">
+                  Agropecuaria
+                </option>
+                <option className="Options" value="Metalurgia">
+                  Metalurgia
+                </option>
+                <option className="Options" value="Area de seguridad">
+                  Area de seguridad
+                </option>
               </select>
               <label className="labelRE" htmlFor="puesto_select">
                 Puesto de trabajo
               </label>
             </div>
 
-            <NumericInput 
-              numUsuarios={numUsuarios} 
-              handleChangeNumUsuarios={handleChangeNumUsuarios} // Pasando las propiedades
-            />
- {/* Ola */}
+            {/* Ola */}
             <div className="button-container">
-               {/* BOTON DE REGISTRO DE EMPLEADO */}
+              {/* BOTON DE REGISTRO DE EMPLEADO */}
               <button type="submit" className="animated-button">
                 <span>Registrar</span>
               </button>

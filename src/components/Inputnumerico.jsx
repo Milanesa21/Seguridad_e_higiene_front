@@ -15,11 +15,11 @@ function NumericInput({ numUsuarios, handleChangeNumUsuarios }) {
     <div className="input-group">
       <input
         id="numeric-input"
+        className="input"
         type="number"
         value={numUsuarios}
         onChange={handleChangeNumUsuarios}
         onKeyPress={handleKeyPress}
-        className="input"
         min="1"
         max="100"
         required

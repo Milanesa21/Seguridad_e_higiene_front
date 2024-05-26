@@ -1,4 +1,3 @@
-import "./App.css";
 import { Navbar } from "./components/Navbar.jsx";
 import { Footer } from "./components/Footer.jsx";
 import { CMasJugado } from "./components/CMasJugado.jsx";
@@ -9,6 +8,8 @@ import { RolMasJugado } from "./components/RolMasJugado.jsx";
 import { MuertesRol } from "./components/MuertesRol.jsx";
 import { CMasVictorias } from "./components/CMasVictorias.jsx";
 import { CMasDerrotas } from "./components/CMasDerrrotas.jsx";
+import "normalize.css";
+import "./App.css";
 
 function App() {
   return (
