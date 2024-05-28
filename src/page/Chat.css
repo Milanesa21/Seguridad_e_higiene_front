@@ -1,53 +1,59 @@
 .chat-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-  }
-  
-  .messages-container {
-    flex: 1;
-    overflow-y: scroll;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-  }
-  
-  .message {
-    max-width: 70%;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 10px;
-  }
-  
-  .question {
-    align-self: flex-start;
-    background-color: #c7ecee;
-  }
-  
-  .answer {
-    align-self: flex-end;
-    background-color: #dff9fb;
-  }
-  
-  .input-form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-  }
-  
-  .input-field {
-    flex: 1;
-    margin-right: 10px;
-    padding: 5px;
-  }
-  
-  .send-button {
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #4cd137;
-    color: white;
-    cursor: pointer;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.messages-container {
+  flex: 1;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.message {
+  max-width: 70%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.question {
+  align-self: flex-start;
+  background-color: #c7ecee;
+}
+
+.answer {
+  align-self: flex-end;
+  background-color: #dff9fb;
+}
+
+.input-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.input-field {
+  flex: 1;
+  margin-right: 10px;
+  padding: 5px;
+}
+
+.send-button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4cd137;
+  color: white;
+  cursor: pointer;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
