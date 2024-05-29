@@ -89,3 +89,8 @@ export const Chat = () => {
     </div>
   );
 };
+<<<<<<< HEAD
+=======
+
+export default Chat;
+>>>>>>> 19d6972 (No me acuerdo que hice)
