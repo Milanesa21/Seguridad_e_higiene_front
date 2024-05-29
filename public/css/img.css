@@ -119,21 +119,69 @@
   object-position: -310px;
 }
 
-.Lee {
-  width: 350px;
-  height: 350px;
+.InicioLogo {
   margin-top: 20px;
-  margin-bottom: 10px;
-  border: 2px solid var(--color-border);
-  border-radius: 50%;
+  margin-bottom: 20px;
+  width: 500px;
+  height: 500px;
+  border-radius: 10%;
   overflow: hidden;
+  box-shadow: 10px 10px 10px 5px rgba(0, 0, 0, 0.5);
 }
 
-.Lee > img {
-  width: 100%;
-  height: 100%;
+.InicioLogo > img {
+  width: 110%;
+  height: 110%;
   object-fit: cover;
-  object-position: 0px 20px;
+  object-position: -20px -20px;
+}
+
+.DivPresentacion {
+  display: flex;
+  flex-direction: column;
+  margin-top: 12px;
+  width: 50%;
+}
+
+.DivPresentacion > h1 {
+  text-align: center;
+  font-size: 50px;
+  color: #f0f8ff;
+  background-color: rgba(128, 157, 163, 0.9);
+  -webkit-text-stroke: 1.25px black;
+  border-radius: 10px;
+  width: 500px;
+  margin-right: 30px;
+}
+
+.BoxP {
+  background-color: rgba(128, 157, 163, 0.9);
+  width: 500px;
+  border-radius: 10px;
+  margin-right: 30px;
+  margin-top: 2px;
+}
+
+.BoxP > p {
+  text-align: center;
+  margin: 15px;
+  font-size: 22px;
+  font-weight: 800;
+  -webkit-text-stroke: 0.5px black;
+  color: #f0f8ff;
+}
+
+#inicio {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  background-image: url(../img/fondoinicio.jpg);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 
 .Yasuo {
@@ -181,6 +229,12 @@ section {
 .DivSeccion {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+}
+
+.linea-divisoria {
+  border-left: 2px solid var(--color-border);
+  margin-top: 40px;
 }
 
 .DivBotones {
@@ -188,6 +242,7 @@ section {
   flex-direction: column;
   justify-content: center;
   padding-right: 100px;
+  padding-left: 100px;
 }
 
 p {
@@ -197,7 +252,7 @@ p {
 
 h2 {
   border-top: 2px solid var(--color-border);
-  padding-top: 10px;
+  padding-top: 5px;
   font-size: 50px;
 }
 h3 {

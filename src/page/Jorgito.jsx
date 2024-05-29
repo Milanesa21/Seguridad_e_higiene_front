@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const Chat = () => {
+export const Chat = () => {
   const [inputText, setInputText] = useState('');
   const [responseText, setResponseText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -57,5 +57,3 @@ const Chat = () => {
     </div>
   );
 };
-
-export default Chat;

@@ -18,8 +18,8 @@ function App() {
       <br />
       <br />
       <br />
-      <CMasJugado />
       <CMasKills />
+      <CMasJugado />
       <Flash />
       <MasDObjetivos />
       <MuertesRol />

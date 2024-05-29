@@ -6,16 +6,30 @@
   background: #4671ea;
 }
 .inputwrapper {
+  margin-top: 11%;
+  margin-left: 80px;
   width: 470px;
   background: #f0f8ff;
   border-radius: 5px;
   padding: 25px 25px 30px;
 }
+
+.buttonwrapper {
+  margin-top: 43%;
+}
+
 .inputwrapper h2 {
   color: #4671ea;
   font-size: 28px;
   text-align: center;
 }
+
+.buttonwrapper h2 {
+  color: #4671ea;
+  font-size: 28px;
+  text-align: center;
+}
+
 .inputwrapper textarea {
   width: 100%;
   resize: none;

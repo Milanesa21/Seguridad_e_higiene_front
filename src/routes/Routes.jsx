@@ -4,7 +4,7 @@ import { PasswordChange } from "../page/PasswordChange.jsx";
 import { SeccionEmergencia } from "../page/SeccionEmergencia.jsx";
 import { Registroempleados } from "../page/registroempleados.jsx";
 import { Registroempresa } from "../page/registroempresa.jsx";
-import Chat from "../page/Jorgito.jsx";
+import { Chat } from "../page/Jorgito.jsx";
 
 export const routes = [
   {

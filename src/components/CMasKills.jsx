@@ -10,35 +10,26 @@ export const CMasKills = () => {
 
   return (
     <div className="SECCION">
-      <section id="cmaskills">
-        <h2>Campeon con mas kills</h2>
+      <section id="inicio">
         <div className="DivSeccion">
-          <div className="DivBotones">
-            {/* Botón para la región EU */}
-            <button
-              className="boton"
-              onClick={() => abrirVentanaImagen("../../public/img/CMKEU.jpeg")}
-            >
-              EU
-            </button>
-            {/* Botón para la región NA */}
-            <button
-              className="boton"
-              onClick={() => abrirVentanaImagen("../../public/img/CMKNA.jpeg")}
-            >
-              NA
-            </button>
-            {/* Botón para la región KR */}
-            <button
-              className="boton"
-              onClick={() => abrirVentanaImagen("../../public/img/CMKKR.jpeg")}
-            >
-              KR
-            </button>
+          <div className="DivPresentacion">
+            <h1> ¡Bienvenidos a Centinela!</h1>
+            <div className="BoxP">
+              <p>
+                Somos tu aliado en seguridad industrial, una plataforma diseñada
+                para brindarte información precisa y herramientas efectivas para
+                proteger tus entornos de trabajo. En un mundo donde la seguridad
+                es primordial, Centinela se destaca como tu compañero confiable.
+                Nuestro objetivo es simple: proporcionarte la tranquilidad que
+                necesitas al ofrecerte soluciones integrales para la protección
+                de tus instalaciones industriales.
+              </p>
+            </div>
           </div>
           {/* Contenedor de la imagen */}
-          <div className="Lee">
-            <img src="./img/Lee.png" alt="" />
+
+          <div className="InicioLogo">
+            <img className="imagenCortada" src="./img/logo.jpg" alt="" />
           </div>
         </div>
       </section>

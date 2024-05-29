@@ -25,10 +25,10 @@ export const Navbar = () => {
           </label>
           <p className="pseccion">Secciones</p>
           <li>
-            <a onClick={() => scrollToSection("cmasjugado")}>1ra</a>
+            <a onClick={() => scrollToSection("inicio")}>1ra</a>
           </li>
           <li>
-            <a onClick={() => scrollToSection("cmaskills")}>2da</a>
+            <a onClick={() => scrollToSection("cmasjugado")}>2da</a>
           </li>
           <li>
             <a onClick={() => scrollToSection("flash")}>3ra</a>

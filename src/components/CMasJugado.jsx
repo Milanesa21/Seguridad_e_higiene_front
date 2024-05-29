@@ -24,17 +24,22 @@ export const CMasJugado = () => {
   return (
     <div className="SECCION">
       <section id="cmasjugado">
-        <h2>Emergencia</h2>
+        <h2>Alerta de Seguridad: Denuncias y Emergencias</h2>
         <div className="DivSeccion">
           <div className="DivBotones">
             {/* BOTON DE EMERGENCIA */}
-            <button className="buttonEmergencia">
-              <p className="text">OMAIGAAAAA</p>
-            </button>
+            <div className="buttonwrapper">
+              <h2>hi hi</h2>
+              <button className="buttonEmergencia">
+                <p className="text">¡EMERGENCIA!</p>
+              </button>
+            </div>
           </div>
+          <div className="linea-divisoria"></div>
           {/* Contenedor de la imagen */}
+
           <div className="inputwrapper">
-            <h2>Mensaje</h2>
+            <h2>hi hi</h2>
             <textarea
               ref={textareaRef}
               spellCheck="false"
@@ -43,7 +48,7 @@ export const CMasJugado = () => {
             ></textarea>
             {/* BOTON DE DENUNCIA */}
             <button className="button">
-              <p className="text">OMAIGAAAAA</p>
+              <p className="text">Denuncia</p>
             </button>
           </div>
         </div>
