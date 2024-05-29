@@ -1,25 +1,52 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import "../../public/css/img.css";
 import "../../public/css/boton.css";
 import "../../public/css/inputtext.css";
 
 export const CMasJugado = () => {
-  const textareaRef = useRef(null);
+  const emergencyRef = useRef(null);
+  const denunciaRef = useRef(null);
+  const [emergencyMessage, setEmergencyMessage] = useState("");
+  const [denunciaMessage, setDenunciaMessage] = useState("");
 
-  useEffect(() => {
-    const textarea = textareaRef.current;
-    const handleKeyUp = (e) => {
-      textarea.style.height = "63px";
-      let scHeight = e.target.scrollHeight;
-      textarea.style.height = `${scHeight}px`;
-    };
+  const handleSendMessage = async (message) => {
+    try {
+      const response = await fetch("http://localhost:8000/Usuarios/sendMessage", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          full_name: fullName,
+          puesto_trabajo: puestoTrabajo,
+          message: message,
+        }),
+      });
 
-    textarea.addEventListener("keyup", handleKeyUp);
+      if (response.ok) {
+        alert("Mensaje enviado con éxito");
+      } else {
+        const data = await response.json();
+        console.log("Error al enviar el mensaje:", data.detail);
+        alert(`Error: ${data.detail}`);
+      }
+    } catch (error) {
+      console.log("Error al enviar el mensaje:", error);
+      alert("Error al enviar el mensaje");
+    }
+  };
 
-    return () => {
-      textarea.removeEventListener("keyup", handleKeyUp);
-    };
-  }, []);
+  const handleEmergencyClick = async () => {
+    await handleSendMessage("¡Emergencia! Necesito asistencia.");
+  };
+
+  const handleDenunciaClick = async () => {
+    if (denunciaMessage.trim() !== "") {
+      await handleSendMessage(denunciaMessage);
+    } else {
+      alert("No puedes enviar una denuncia vacía");
+    }
+  };
 
   return (
     <div className="SECCION">
@@ -29,25 +56,26 @@ export const CMasJugado = () => {
           <div className="DivBotones">
             {/* BOTON DE EMERGENCIA */}
             <div className="buttonwrapper">
-              <h2>hi hi</h2>
-              <button className="buttonEmergencia">
+              <h2>Boton de Emergencias</h2>
+              <button className="buttonEmergencia" onClick={handleEmergencyClick} ref={emergencyRef}>
                 <p className="text">¡EMERGENCIA!</p>
               </button>
             </div>
           </div>
           <div className="linea-divisoria"></div>
-          {/* Contenedor de la imagen */}
-
+          
           <div className="inputwrapper">
-            <h2>hi hi</h2>
+            <h2>Realice su Denuncia de seguridad</h2>
             <textarea
-              ref={textareaRef}
+              ref={denunciaRef}
               spellCheck="false"
               placeholder="Type something here..."
+              value={denunciaMessage}
+              onChange={(e) => setDenunciaMessage(e.target.value)}
               required
             ></textarea>
             {/* BOTON DE DENUNCIA */}
-            <button className="button">
+            <button className="button" onClick={handleDenunciaClick} ref={denunciaRef}>
               <p className="text">Denuncia</p>
             </button>
           </div>
