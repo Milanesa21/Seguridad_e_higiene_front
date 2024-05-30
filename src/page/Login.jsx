@@ -1,7 +1,8 @@
-  import React, { useRef, useState, useEffect } from "react";
+  import React, { useRef, useState, useContext } from "react";
   import "../../public/css/img.css";
   import "../../public/css/Login.css";
   import "../../public/css/botonanimado.css";
+  import { AuthContext } from "../context/AuthProvider";
 
   export const Login = () => {
     const [pedro, setPedro] = React.useState(true);
@@ -12,6 +13,9 @@
       full_name: "",
       password: "",
     });
+
+
+    const {login} = useContext(AuthContext);
 
     const music = () => {
       if (pedro) {
@@ -45,8 +49,14 @@
         body: JSON.stringify(user)
       })
       .then(response => response.json())
-      .then(data => console.log(data))
+      .then(data => {
+        if (data !== undefined && data !== null) {
+          login(data)
+          localStorage.setItem('token', data)
+      }})
       .catch(error => console.error('Error:', error));
+
+
     }
     
 
