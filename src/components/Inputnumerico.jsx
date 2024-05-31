@@ -15,7 +15,7 @@ function NumericInput({ numUsuarios, handleChangeNumUsuarios }) {
     <div className="input-group">
       <input
         id="numeric-input"
-        className="input"
+        className="inputNum"
         type="number"
         value={numUsuarios}
         onChange={handleChangeNumUsuarios}

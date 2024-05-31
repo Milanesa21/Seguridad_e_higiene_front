@@ -2,7 +2,7 @@ import React from "react";
 import "../../public/css/img.css";
 import "../../public/css/boton.css";
 
-export const CMasKills = () => {
+export const Inicio = () => {
   // Función para abrir una ventana de imagen con una URL específica
   const abrirVentanaImagen = (urlImagen) => {
     window.open(urlImagen, "_blank", "width=400,height=400");

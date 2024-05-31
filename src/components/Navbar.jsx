@@ -28,22 +28,22 @@ export const Navbar = () => {
             <a onClick={() => scrollToSection("inicio")}>1ra</a>
           </li>
           <li>
-            <a onClick={() => scrollToSection("cmasjugado")}>2da</a>
+            <a onClick={() => scrollToSection("Denuncias")}>2da</a>
           </li>
           <li>
-            <a onClick={() => scrollToSection("flash")}>3ra</a>
+            <a onClick={() => scrollToSection("Seccion3")}>3ra</a>
           </li>
           <li>
-            <a onClick={() => scrollToSection("masdobjetivos")}>4ta</a>
+            <a onClick={() => scrollToSection("Seccion4")}>4ta</a>
           </li>
           <li>
-            <a onClick={() => scrollToSection("muertesrol")}>5ta</a>
+            <a onClick={() => scrollToSection("Seccion5")}>5ta</a>
           </li>
           <li>
-            <a onClick={() => scrollToSection("rolmasjugado")}>6ta</a>
+            <a onClick={() => scrollToSection("Seccion6")}>6ta</a>
           </li>
           <li>
-            <a onClick={() => scrollToSection("cmasvictorias")}>7ma</a>
+            <a onClick={() => scrollToSection("Seccion7")}>7ma</a>
           </li>
           <li>
             <a href="#" class="desktop-item">
