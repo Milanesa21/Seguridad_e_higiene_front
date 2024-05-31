@@ -54,6 +54,7 @@ export const Chat = () => {
       setLoading(false);
     }
   };
+  
 
   return (
     <div className="chat-container">
