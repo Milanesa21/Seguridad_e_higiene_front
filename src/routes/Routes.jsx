@@ -1,7 +1,7 @@
 import App from "../App.jsx";
 import { Login } from "../page/Login.jsx";
 import { PasswordChange } from "../page/PasswordChange.jsx";
-import { SeccionEmergencia } from "../page/SeccionEmergencia.jsx";
+
 import { Registroempleados } from "../page/registroempleados.jsx";
 import { Registroempresa } from "../page/registroempresa.jsx";
 import { Chat } from "../page/Jorgito.jsx";
@@ -20,10 +20,6 @@ export const routes = [
     element: <PasswordChange />,
   },
   {
-    path: "/SeccionEmergencia",
-    element: <SeccionEmergencia />,
-  },
-  {
     path: "Registroempleados",
     element: <Registroempleados />,
   },
@@ -34,5 +30,5 @@ export const routes = [
   {
     path: "Jorgito",
     element: <Chat />,
-  }
+  },
 ];

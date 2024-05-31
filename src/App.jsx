@@ -1,13 +1,12 @@
 import { Navbar } from "./components/Navbar.jsx";
 import { Footer } from "./components/Footer.jsx";
-import { CMasJugado } from "./components/CMasJugado.jsx";
-import { CMasKills } from "./components/CMasKills.jsx";
-import { Flash } from "./components/Flash.jsx";
-import { MasDObjetivos } from "./components/MasDObjetivos.jsx";
-import { RolMasJugado } from "./components/RolMasJugado.jsx";
-import { MuertesRol } from "./components/MuertesRol.jsx";
-import { CMasVictorias } from "./components/CMasVictorias.jsx";
-import { CMasDerrotas } from "./components/CMasDerrrotas.jsx";
+import { DenunciasyEmergencias } from "./components/DenunciasyEmergencias.jsx";
+import { Inicio } from "./components/Inicio.jsx";
+import { Seccion3 } from "./components/Seccion3.jsx";
+import { Seccion4 } from "./components/Seccion4.jsx";
+import { Seccion5 } from "./components/Seccion5.jsx";
+import { Seccion6 } from "./components/Seccion6.jsx";
+import { Seccion7 } from "./components/Seccion7.jsx";
 import "normalize.css";
 import "./App.css";
 
@@ -18,14 +17,13 @@ function App() {
       <br />
       <br />
       <br />
-      <CMasKills />
-      <CMasJugado />
-      <Flash />
-      <MasDObjetivos />
-      <MuertesRol />
-      <RolMasJugado />
-      <CMasVictorias />
-      <CMasDerrotas />
+      <Inicio />
+      <DenunciasyEmergencias />
+      <Seccion3 />
+      <Seccion4 />
+      <Seccion5 />
+      <Seccion6 />
+      <Seccion7 />
       <br />
       <Footer />
     </>

@@ -3,7 +3,7 @@ import "../../public/css/img.css";
 import "../../public/css/boton.css";
 import "../../public/css/inputtext.css";
 
-export const CMasJugado = () => {
+export const DenunciasyEmergencias = () => {
   const textareaRef = useRef(null);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export const CMasJugado = () => {
 
   return (
     <div className="SECCION">
-      <section id="cmasjugado">
+      <section id="Denuncias">
         <h2>Alerta de Seguridad: Denuncias y Emergencias</h2>
         <div className="DivSeccion">
           <div className="DivBotones">

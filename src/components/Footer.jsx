@@ -9,7 +9,6 @@ export const Footer = () => {
         <br />
         <br />
         <br />
-        <a>HENTAI</a>
       </div>
     </div>
   );
