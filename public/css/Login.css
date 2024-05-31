@@ -1,6 +1,8 @@
 .input-group {
   position: relative;
   margin-bottom: 40px;
+  margin-left: 30px;
+  margin-right: 30px;
 }
 
 .input {
