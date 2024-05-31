@@ -4,7 +4,10 @@ import "../../public/css/boton.css";
 import "../../public/css/inputtext.css";
 
 export const DenunciasyEmergencias = () => {
-  const textareaRef = useRef(null);
+  const emergencyRef = useRef(null);
+  const denunciaRef = useRef(null);
+  const [emergencyMessage, setEmergencyMessage] = useState("");
+  const [denunciaMessage, setDenunciaMessage] = useState("");
 
   const handleSendMessage = async (message) => {
     try {
