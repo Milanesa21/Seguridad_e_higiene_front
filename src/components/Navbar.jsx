@@ -55,16 +55,16 @@ export const Navbar = () => {
             </label>
             <ul class="drop-menu">
               <li>
-                <a href="#">Drop menu 1</a>
+                <a href="/Login">Inicio de sesion</a>
               </li>
               <li>
-                <a href="#">Drop menu 2</a>
+                <a href="/Registroempleados">Registro empleados</a>
               </li>
               <li>
-                <a href="#">Drop menu 3</a>
+                <a href="/Registroempresa">Registro empresa</a>
               </li>
               <li>
-                <a href="#">Drop menu 4</a>
+                <a href="/Jorgito">Asistenve virtual</a>
               </li>
             </ul>
           </li>
