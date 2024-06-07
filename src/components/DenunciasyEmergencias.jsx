@@ -29,7 +29,7 @@ export const DenunciasyEmergencias = () => {
           <div className="DivBotones">
             {/* BOTON DE EMERGENCIA */}
             <div className="buttonwrapper">
-              <h2>hi hi</h2>
+              <h2>Boton Emergencia</h2>
               <button className="buttonEmergencia">
                 <p className="text">¡EMERGENCIA!</p>
               </button>
@@ -39,7 +39,7 @@ export const DenunciasyEmergencias = () => {
           {/* Contenedor de la imagen */}
 
           <div className="inputwrapper">
-            <h2>hi hi</h2>
+            <h2>Boton Para Denuncias</h2>
             <textarea
               ref={textareaRef}
               spellCheck="false"
