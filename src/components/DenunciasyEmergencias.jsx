@@ -65,7 +65,7 @@ export const DenunciasyEmergencias = () => {
           <div className="linea-divisoria"></div>
           
           <div className="inputwrapper">
-            <h2>Realice su Denuncia de seguridad</h2>
+            <h2>hi hi</h2>
             <textarea
               ref={denunciaRef}
               spellCheck="false"
