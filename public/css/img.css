@@ -264,3 +264,23 @@ h3 {
 .SECCION {
   border-top: 2px solid black;
 }
+
+.ChartsDiv {
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  border-radius: 50px;
+  border: black 2px solid;
+  box-shadow: 10px 10px 10px 5px rgba(0, 0, 0, 0.5);
+  width: 80%;
+  height: 70%;
+}
+
+.Charts {
+  width: 80%;
+  height: 80%;
+  padding-left: 100px;
+  padding-right: 100px;
+}

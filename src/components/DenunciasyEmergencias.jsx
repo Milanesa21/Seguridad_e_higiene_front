@@ -3,10 +3,9 @@ import "../../public/css/img.css";
 import "../../public/css/boton.css";
 import "../../public/css/inputtext.css";
 
-export const CMasJugado = () => {
+export const DenunciasyEmergencias = () => {
   const emergencyRef = useRef(null);
   const denunciaRef = useRef(null);
-  const [emergencyMessage, setEmergencyMessage] = useState("");
   const [denunciaMessage, setDenunciaMessage] = useState("");
 
   const handleSendMessage = async (message) => {
@@ -50,7 +49,7 @@ export const CMasJugado = () => {
 
   return (
     <div className="SECCION">
-      <section id="cmasjugado">
+      <section id="Denuncias">
         <h2>Alerta de Seguridad: Denuncias y Emergencias</h2>
         <div className="DivSeccion">
           <div className="DivBotones">

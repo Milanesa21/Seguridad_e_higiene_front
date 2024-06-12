@@ -34,13 +34,21 @@ export const Chat = () => {
         body: JSON.stringify({ input_text: inputText, conversation_history: conversationHistory }),
       });
 
-      const responseData = await response.text();
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let text = '';
 
-      setMessages(prevMessages => {
-        const updatedMessages = [...prevMessages];
-        updatedMessages[updatedMessages.length - 1] = { type: 'answer', text: responseData };
-        return updatedMessages;
-      });
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        text += decoder.decode(value, { stream: true });
+        setMessages(prevMessages => {
+          const updatedMessages = [...prevMessages];
+          updatedMessages[updatedMessages.length - 1] = { type: 'answer', text: text };
+          return updatedMessages;
+        });
+      }
 
       setConversationHistory([...conversationHistory, inputText]); // Actualizar el historial de conversación
     } catch (error) {
@@ -71,7 +79,7 @@ export const Chat = () => {
                 <p>Jorgito está pensando...</p>
               </div>
             ) : (
-              <p>{message.text}</p>
+              <p dangerouslySetInnerHTML={{ __html: message.text.replace(/\n/g, '<br/>') }}></p>
             )}
           </div>
         ))}
@@ -90,4 +98,4 @@ export const Chat = () => {
   );
 };
 
-export default Chat
+export default Chat;
