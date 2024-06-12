@@ -6,7 +6,6 @@ import "../../public/css/inputtext.css";
 export const DenunciasyEmergencias = () => {
   const emergencyRef = useRef(null);
   const denunciaRef = useRef(null);
-  const [emergencyMessage, setEmergencyMessage] = useState("");
   const [denunciaMessage, setDenunciaMessage] = useState("");
 
   const handleSendMessage = async (message) => {
@@ -65,7 +64,7 @@ export const DenunciasyEmergencias = () => {
           <div className="linea-divisoria"></div>
           
           <div className="inputwrapper">
-            <h2>hi hi</h2>
+            <h2>Realice su Denuncia de seguridad</h2>
             <textarea
               ref={denunciaRef}
               spellCheck="false"

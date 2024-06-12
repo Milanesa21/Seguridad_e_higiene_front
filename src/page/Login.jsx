@@ -39,7 +39,6 @@
     }
 
     const handleSubmit = (e) => {
-      console.log(user)
       e.preventDefault()
       fetch("http://127.0.0.1:8000/Usuarios/login", {
         method: "POST",
@@ -53,6 +52,9 @@
         if (data !== undefined && data !== null) {
           login(data)
           localStorage.setItem('token', data)
+          if (data !== null) {
+            window.location.href = "/"
+          }
       }})
       .catch(error => console.error('Error:', error));
 
