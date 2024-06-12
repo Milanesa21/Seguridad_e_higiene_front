@@ -9,10 +9,25 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem('token') || null;
+    const [userId,setUserId] = useState('');
     const [user,setUser] = useState({});
+    const inicialState = {
+        logged: false,
+        token: null,
+    };
+    const [state, dispatch] = useReducer(AuthReducer, inicialState);
 
     useEffect(()=>{
-
+        if (token === null) return
+        if (token !== null) {
+            dispatch({
+                type: types.LOGIN,
+                payload: {
+                    logged: true,
+                    token
+                }
+            });
+        }
         if(state.logged){
             fetch('http://127.0.0.1:8000/auth/validate/token',{
                 method: 'POST',
@@ -22,36 +37,43 @@ export const AuthProvider = ({ children }) => {
                 },
                 
         }).then(response => {
-            response.json()
             if(response.status === 401){
                 dispatch({
                     type: types.LOGOUT
                 })
                 localStorage.removeItem('token')
             }
-            if(response.status === 200 && token !== null){
-                dispatch({
-                    type: types.LOGIN,
-                    payload: {
-                        logged: true,
-                        token
-                    }
-                });
-            }
+            return response.json()
         })
         .then(data => {
-            /* setUser(data) */
-            console.log(data)
+            setUserId(data.Usuario.id)
+        })
+        .catch(error => {
+            console.log(error)
         })
     }
-})
+},[token,state.logged])
 
-    const inicialState = {
-        logged: false,
-        token: null,
-    };
+useEffect(()=>{
+    if (userId === '') return
+    if (!state.logged) return
+    fetch(`http://127.0.0.1:8000/Usuarios/${userId}`,
+    {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+}).then(response => response.json())
+    .then(data => {
+        setUser(data.Usuario)
+    })
+    .catch(error => {
+        console.log(error)
+    })
+},[userId])
 
-    const [state, dispatch] = useReducer(AuthReducer, inicialState);
+
+
     const login = (token) => {
         dispatch({
             type: types.LOGIN,
@@ -69,6 +91,7 @@ export const AuthProvider = ({ children }) => {
             login,
             logout,
             state,
+            user,
         }}>
             {children}
         </AuthContext.Provider>

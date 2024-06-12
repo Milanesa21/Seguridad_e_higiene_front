@@ -1,12 +1,18 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useContext } from "react";
 import "../../public/css/img.css";
 import "../../public/css/boton.css";
 import "../../public/css/inputtext.css";
+import { AuthContext } from "../context/AuthProvider";
+
 
 export const DenunciasyEmergencias = () => {
   const emergencyRef = useRef(null);
   const denunciaRef = useRef(null);
   const [denunciaMessage, setDenunciaMessage] = useState("");
+
+  const { user } = useContext(AuthContext);
+
+
 
   const handleSendMessage = async (message) => {
     try {
@@ -16,11 +22,14 @@ export const DenunciasyEmergencias = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          full_name: fullName,
-          puesto_trabajo: puestoTrabajo,
+
+          user_id: user.id,
+          full_name: user.full_name,
+          puesto_trabajo: user.puesto_trabajo,
           message: message,
-        }),
+        })
       });
+
 
       if (response.ok) {
         alert("Mensaje enviado con éxito");

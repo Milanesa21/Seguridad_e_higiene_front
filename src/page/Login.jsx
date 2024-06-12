@@ -52,9 +52,7 @@
         if (data !== undefined && data !== null) {
           login(data)
           localStorage.setItem('token', data)
-          if (data !== null) {
-            window.location.href = "/"
-          }
+          window.location.href = "/"
       }})
       .catch(error => console.error('Error:', error));
 
