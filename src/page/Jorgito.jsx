@@ -9,6 +9,7 @@ export const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [conversationHistory, setConversationHistory] = useState([]);
+  const [disableInput, setDisableInput] = useState(false);
 
   const handleChange = (e) => {
     setInputText(e.target.value);
@@ -21,6 +22,7 @@ export const Chat = () => {
     setMessages([...messages, newMessage]);
     setLoading(true);
     setInputText('');
+    setDisableInput(true); // Desactivar el campo de entrada y el botón de enviar
 
     const loadingMessage = { type: 'answer', text: 'loading' };
     setMessages(prevMessages => [...prevMessages, loadingMessage]);
@@ -50,6 +52,12 @@ export const Chat = () => {
         });
       }
 
+      // Agregar mensaje de la IA al final de cada respuesta
+      setMessages(prevMessages => [
+        ...prevMessages,
+        { type: 'answer', text: '¿Necesitas que te ayude con algo más?' }
+      ]);
+
       setConversationHistory([...conversationHistory, inputText]); // Actualizar el historial de conversación
     } catch (error) {
       console.error("Error fetching response:", error);
@@ -60,7 +68,23 @@ export const Chat = () => {
       });
     } finally {
       setLoading(false);
+      setDisableInput(false); // Habilitar el campo de entrada y el botón de enviar
     }
+  };
+
+  const renderMessageText = (text) => {
+    return text.split(/\*\*(.*?)\*\*/).map((part, index) => {
+      if (index % 2 === 0) {
+        return part.split('\n').map((line, i) => (
+          <React.Fragment key={i}>
+            {line}
+            <br/>
+          </React.Fragment>
+        ));
+      } else {
+        return <strong key={index}>{part}</strong>;
+      }
+    });
   };
 
   return (
@@ -79,7 +103,9 @@ export const Chat = () => {
                 <p>Jorgito está pensando...</p>
               </div>
             ) : (
-              <p dangerouslySetInnerHTML={{ __html: message.text.replace(/\n/g, '<br/>') }}></p>
+              <p>
+                {typeof message.text === 'string' ? renderMessageText(message.text) : message.text}
+              </p>
             )}
           </div>
         ))}
@@ -91,8 +117,9 @@ export const Chat = () => {
           onChange={handleChange} 
           placeholder="Hazme tu pregunta" 
           className="input-field"
+          disabled={disableInput} // Deshabilitar el campo de entrada mientras se carga la respuesta
         />
-        <button type="submit" className="send-button">Enviar</button>
+        <button type="submit" className="send-button" disabled={disableInput}>Enviar</button>
       </form>
     </div>
   );
