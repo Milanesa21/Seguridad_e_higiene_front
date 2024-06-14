@@ -22,6 +22,7 @@ export const Registroempresa = () => {
     // Cambiar el tipo de campo de contraseña entre "password" y "text" según el estado del checkbox
     setPasswordType(passwordType === "password" ? "text" : "password");
   };
+
   return (
     <div className="prueba">
       <div className="ContenedorLogin">
@@ -62,10 +63,10 @@ export const Registroempresa = () => {
                   type="text"
                   name="text"
                   className="input3"
-                  id="inputField"
+                  id="inputFieldOwner"
                   required
                 />
-                <label className="label3" htmlFor="inputField">
+                <label className="label3" htmlFor="inputFieldOwner">
                   Nombre Dueño
                 </label>
                 <br />
@@ -75,10 +76,10 @@ export const Registroempresa = () => {
                   type="text"
                   name="text"
                   className="input4"
-                  id="inputField"
+                  id="inputFieldEmail"
                   required
                 />
-                <label className="label4" htmlFor="inputField">
+                <label className="label4" htmlFor="inputFieldEmail">
                   Correo
                 </label>
                 <br />
@@ -88,10 +89,10 @@ export const Registroempresa = () => {
                   type="text"
                   name="text"
                   className="input5"
-                  id="inputField"
+                  id="inputFieldPhone"
                   required
                 />
-                <label className="label5" htmlFor="inputField">
+                <label className="label5" htmlFor="inputFieldPhone">
                   Telefono
                 </label>
                 <br />
@@ -108,8 +109,12 @@ export const Registroempresa = () => {
                   Password
                 </label>
                 {/* BOTON DE VISIBILIDAD PARA CONTRASEÑA */}
-                <div className="containera" onClick={handleCheckboxChange}>
-                  <input type="checkbox" checked={isChecked} />
+                <div className="containera">
+                  <input
+                    type="checkbox"
+                    checked={isChecked}
+                    onChange={handleCheckboxChange}
+                  />
                   <svg
                     className="eye"
                     xmlns="http://www.w3.org/2000/svg"

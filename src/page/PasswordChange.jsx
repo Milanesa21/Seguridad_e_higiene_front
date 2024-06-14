@@ -25,7 +25,7 @@ export const PasswordChange = () => {
                 {/* INPUT DE NUEVA CONTRASEÑA */}
                 <input
                   type={passwordType} // Usar el tipo de campo de contraseña dinámico
-                  name="password"
+                  name="new_password"
                   className="input1"
                   id="inputFieldPassword"
                   required
@@ -39,17 +39,17 @@ export const PasswordChange = () => {
                 {/* INPUT PARA CONFIRMACION DE CONTRASEÑA */}
                 <input
                   type={passwordType} // Usar el tipo de campo de contraseña dinámico
-                  name="password"
+                  name="confirm_password"
                   className="input"
-                  id="inputFieldPassword"
+                  id="inputFieldConfirmPassword"
                   required
                 />
-                <label className="label" htmlFor="inputFieldPassword">
+                <label className="label" htmlFor="inputFieldConfirmPassword">
                   Confirmar contraseña
                 </label>
                 {/* BOTON PARA LA VISIBILIDAD DE CONTRASEÑA */}
                 <div className="containera1" onClick={handleCheckboxChange}>
-                  <input type="checkbox" checked={isChecked} />
+                  <input type="checkbox" defaultChecked={isChecked} />
                   <svg
                     className="eye1"
                     xmlns="http://www.w3.org/2000/svg"

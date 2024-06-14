@@ -1,7 +1,5 @@
-// Navbar.jsx
 
-import React from "react";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import { CerrarSesion } from "./CerrarSesion";
 import "/public/css/nav.css";
@@ -50,15 +48,23 @@ export const Navbar = () => {
             <a onClick={() => scrollToSection("Seccion7")}>7ma</a>
           </li>
           <li>
-            <a href="#" class="desktop-item">
+            <a href="#" className="desktop-item">
               Otras Opciones
             </a>
-            <input type="checkbox" id="showDrop"></input>
-            <label for="showDrop" class="mobile-item">
+            <input type="checkbox" id="showDrop" />
+            <label htmlFor="showDrop" className="mobile-item">
               Dropdown Menu
             </label>
-            <ul class="drop-menu">
-                {state.logged ? <li><CerrarSesion /> </li>: <li><a href="/Login">Inicio de sesion</a></li>}
+            <ul className="drop-menu">
+              {state.logged ? (
+                <li>
+                  <CerrarSesion />
+                </li>
+              ) : (
+                <li>
+                  <a href="/Login">Inicio de sesion</a>
+                </li>
+              )}
               <li>
                 <a href="/Registroempleados">Registro empleados</a>
               </li>
@@ -66,7 +72,7 @@ export const Navbar = () => {
                 <a href="/Registroempresa">Registro empresa</a>
               </li>
               <li>
-                <a href="/Jorgito">Asistenve virtual</a>
+                <a href="/Jorgito">Asistente virtual</a>
               </li>
             </ul>
           </li>
