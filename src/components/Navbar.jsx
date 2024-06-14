@@ -1,9 +1,13 @@
 // Navbar.jsx
 
 import React from "react";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthProvider";
+import { CerrarSesion } from "./CerrarSesion";
 import "/public/css/nav.css";
 
 export const Navbar = () => {
+  const { state } = useContext(AuthContext);
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
     if (section) {
@@ -54,9 +58,7 @@ export const Navbar = () => {
               Dropdown Menu
             </label>
             <ul class="drop-menu">
-              <li>
-                <a href="/Login">Inicio de sesion</a>
-              </li>
+                {state.logged ? <li><CerrarSesion /> </li>: <li><a href="/Login">Inicio de sesion</a></li>}
               <li>
                 <a href="/Registroempleados">Registro empleados</a>
               </li>

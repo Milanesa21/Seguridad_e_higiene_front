@@ -21,7 +21,7 @@ export const Registroempleados = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
       puesto_trabajo: selectedPuesto,
@@ -29,8 +29,8 @@ export const Registroempleados = () => {
     };
 
     console.log("Datos enviados al backend: ", data);
-
-    fetch("http://127.0.0.1:8000/Usuarios/createUsers", {
+    if (data.puesto_trabajo === "" || data.num_usuarios === 0) return;
+    await fetch("http://127.0.0.1:8000/Usuarios/createUsers", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

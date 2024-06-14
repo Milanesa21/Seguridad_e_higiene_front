@@ -9,6 +9,7 @@ export const AuthReducer = (state = {}, action) => {
             token: action.payload,
         };
         case types.LOGOUT:
+            console.log('Cerrando sesión reducer')
             return {
                 ...state,
                 logged: false,

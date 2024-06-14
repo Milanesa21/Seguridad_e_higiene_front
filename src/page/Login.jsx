@@ -3,6 +3,7 @@
   import "../../public/css/Login.css";
   import "../../public/css/botonanimado.css";
   import { AuthContext } from "../context/AuthProvider";
+  import { Navigate } from "react-router-dom";
 
   export const Login = () => {
     const [pedro, setPedro] = React.useState(true);
@@ -40,6 +41,7 @@
 
     const handleSubmit = async (e) => {
       e.preventDefault()
+      if (user.full_name === "" || user.password === "") return
       await fetch("http://127.0.0.1:8000/Usuarios/login", {
         method: "POST",
         headers: {

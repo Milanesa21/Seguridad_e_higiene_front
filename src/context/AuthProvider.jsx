@@ -2,8 +2,6 @@ import { createContext, useReducer, useEffect, useState } from "react";
 import { AuthReducer } from "../context/authReducer";
 import { types } from "../types/types";
 
-
-
 export const AuthContext = createContext();
 
 
@@ -18,8 +16,15 @@ export const AuthProvider = ({ children }) => {
     const [state, dispatch] = useReducer(AuthReducer, inicialState);
 
     useEffect(()=>{
-        if (token === null) return
-        if (token !== null) {
+        const validateToken = async () => {
+        if (token === null || token === undefined ){
+            dispatch({
+                type: types.LOGOUT
+            })
+            localStorage.removeItem('token')
+            return
+        }
+        if (token !== null && token !== undefined) {
             dispatch({
                 type: types.LOGIN,
                 payload: {
@@ -28,8 +33,8 @@ export const AuthProvider = ({ children }) => {
                 }
             });
         }
-        if(state.logged){
-            fetch('http://127.0.0.1:8000/auth/validate/token',{
+        if(state.logged && state.token.token !== null && state.token.token !== undefined){
+            await fetch('http://127.0.0.1:8000/auth/validate/token',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -37,27 +42,36 @@ export const AuthProvider = ({ children }) => {
                 },
                 
         }).then(response => {
-            if(response.status === 401){
+            if(response.status === 401 || response.status === 403 || response.status === 400 ){
                 dispatch({
                     type: types.LOGOUT
                 })
                 localStorage.removeItem('token')
             }
-            return response.json()
+            response.json()
         })
         .then(data => {
+            if (data === undefined || data === null) {
+                return
+            }
+            else {
             setUserId(data.Usuario.id)
+            }
         })
         .catch(error => {
             console.log(error)
         })
     }
+}
+validateToken();
 },[token,state.logged])
 
 useEffect(()=>{
-    if (userId === '') return
-    if (!state.logged) return
-    fetch(`http://127.0.0.1:8000/Usuarios/${userId}`,
+    if(userId === '' || userId === null || userId === undefined) {
+        return
+    }
+    const fetchUser = async () => {
+    await fetch(`http://127.0.0.1:8000/Usuarios/${userId}`,
     {
         method: 'GET',
         headers: {
@@ -70,6 +84,8 @@ useEffect(()=>{
     .catch(error => {
         console.log(error)
     })
+}
+fetchUser();
 },[userId])
 
 
@@ -81,6 +97,7 @@ useEffect(()=>{
         });
     }
     const logout = () => {
+        console.log('Cerrando sesión provider')
         dispatch({
             type: types.LOGOUT,
         });

@@ -1,6 +1,7 @@
 import App from "../App.jsx";
 import { Login } from "../page/Login.jsx";
 import { PasswordChange } from "../page/PasswordChange.jsx";
+import { ProtectRoutes } from "./ProtectRoutes.jsx";
 
 import { Registroempleados } from "../page/registroempleados.jsx";
 import { Registroempresa } from "../page/registroempresa.jsx";
@@ -12,8 +13,14 @@ export const routes = [
     element: <App />,
   },
   {
-    path: "/Login",
-    element: <Login />,
+    path: "/",
+    element: <ProtectRoutes />,
+    children: [
+      {
+        path: "/login",
+        element: <Login />,
+      }
+    ]
   },
   {
     path: "/PasswordChange",
