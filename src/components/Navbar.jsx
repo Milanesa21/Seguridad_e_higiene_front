@@ -74,6 +74,9 @@ export const Navbar = () => {
               <li>
                 <a href="/Jorgito">Asistente virtual</a>
               </li>
+              <li>
+                <a href="/Inspeccion">Inspecciones de seguridad</a>
+              </li>
             </ul>
           </li>
         </ul>
