@@ -386,7 +386,6 @@ export const InspectionForm = () => {
   />
 </div>
 
-<button type="submit">Enviar</button>
 <button type="button" onClick={generatePDF}>Descargar PDF</button>
 <button type="button" onClick={() => window.print()}>Imprimir</button>
 
