@@ -6,7 +6,7 @@ import { ProtectRoutes } from "./ProtectRoutes.jsx";
 import { Registroempleados } from "../page/registroempleados.jsx";
 import { Registroempresa } from "../page/registroempresa.jsx";
 import { Chat } from "../page/Jorgito.jsx";
-import { InspectionForm } from "../components/Inspecciones/InspeccionFormat.jsx";
+import { InspectionForm } from "../components/Inspecciones/InspeccionFormat.jsx"
 
 export const routes = [
   {

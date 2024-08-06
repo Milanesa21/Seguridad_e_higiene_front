@@ -1,4 +1,4 @@
-import { createContext, useReducer, useEffect, useState } from "react";
+import React, { createContext, useReducer, useEffect, useState } from "react";
 import { AuthReducer } from "../context/authReducer";
 import { types } from "../types/types";
 
@@ -8,7 +8,7 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem('token') || null;
     const [userId, setUserId] = useState('');
     const [user, setUser] = useState({});
-    
+
     const initialState = {
         logged: false,
         token: null,
@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }) => {
                     setUserId(data.Usuario.id);
                 }
             } catch (error) {
-                console.log(error);
+                console.error('Error validating token:', error);
                 dispatch({ type: types.LOGOUT });
                 localStorage.removeItem('token');
             }
@@ -79,7 +79,7 @@ export const AuthProvider = ({ children }) => {
                     }
                 }
             } catch (error) {
-                console.log(error);
+                console.error('Error fetching user data:', error);
             }
         };
 
@@ -95,7 +95,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     const logout = () => {
-        console.log('Cerrando sesión provider');
+        console.log('Logging out from provider');
         localStorage.removeItem('token');
         dispatch({ type: types.LOGOUT });
     };
