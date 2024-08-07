@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "../Inspecciones/inspeccion.css"
+import "../Inspecciones/Inspeccion.css"
 
 export const InspectionForm = () => {
   const [employerData, setEmployerData] = useState({
@@ -120,7 +120,7 @@ export const InspectionForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="ruc">N° RUC:</label>
+          <label htmlFor="ruc">DNI:</label>
           <input
             type="text"
             id="ruc"
