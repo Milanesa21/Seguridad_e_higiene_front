@@ -2,7 +2,7 @@ import App from "../App.jsx";
 import { Login } from "../page/Login.jsx";
 import { PasswordChange } from "../page/PasswordChange.jsx";
 import { ProtectRoutes } from "./ProtectRoutes.jsx";
-
+import { Gestor } from "../components/Gestor de tareas/Gestor.jsx";
 import { Registroempleados } from "../page/registroempleados.jsx";
 import { Registroempresa } from "../page/registroempresa.jsx";
 import { Chat } from "../page/Jorgito.jsx";
@@ -43,4 +43,8 @@ export const routes = [
     path: "Jorgito",
     element: <Chat />,
   },
+  {
+    path: "Gestordetareas",
+    element: <Gestor />,
+  }
 ];
