@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
-import "../Inspecciones/Inspeccion.css"
+import React, { useState } from "react";
+import "../Inspecciones/Inspeccion.css";
 
 export const InspectionForm = () => {
   const [employerData, setEmployerData] = useState({
-    centroTrabajo: '',
-    razonSocial: '',
-    ruc: '',
-    domicilio: '',
-    tipoActividad: '',
-    numTrabajadores: '',
+    centroTrabajo: "",
+    razonSocial: "",
+    ruc: "",
+    domicilio: "",
+    tipoActividad: "",
+    numTrabajadores: "",
   });
 
   const [inspectionData, setInspectionData] = useState({
-    empresaInspeccionada: '',
-    fecha: '',
-    hora: '',
-    tipoInspeccion: '',
-    inspeccionadoPor: '',
-    firmaInspeccion: '',
-    responsableArea: '',
-    firmaResponsable: '',
+    empresaInspeccionada: "",
+    fecha: "",
+    hora: "",
+    tipoInspeccion: "",
+    inspeccionadoPor: "",
+    firmaInspeccion: "",
+    responsableArea: "",
+    firmaResponsable: "",
   });
 
   const [inspectionResults, setInspectionResults] = useState([]);
@@ -61,36 +61,32 @@ export const InspectionForm = () => {
     setInspectionResults([
       ...inspectionResults,
       {
-        descripcion: '',
-        relacionadoCon: '',
-        lugar: '',
-        actoCondicion: '',
-        evidencia: '',
-        altoMedioBajo: '', // Cambiado a cadena vacía para opciones de select
-        accionImplementar: '',
-        accionImplementada: '',
-        responsable: '',
-        fechaLimite: '',
-        fechaEjecutada: '',
-        evidenciaLevantamiento: '',
-        estado: '',
+        descripcion: "",
+        relacionadoCon: "",
+        lugar: "",
+        actoCondicion: "",
+        evidencia: "",
+        altoMedioBajo: "",
+        accionImplementar: "",
+        accionImplementada: "",
+        responsable: "",
+        fechaLimite: "",
+        fechaEjecutada: "",
+        evidenciaLevantamiento: "",
+        estado: "",
       },
     ]);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Employer Data:', employerData);
-    console.log('Inspection Data:', inspectionData);
-    console.log('Inspection Results:', inspectionResults);
-  };
-
-  const downloadPDF = () => {
-    console.log('Download PDF functionality not implemented yet.');
+    console.log("Employer Data:", employerData);
+    console.log("Inspection Data:", inspectionData);
+    console.log("Inspection Results:", inspectionResults);
   };
 
   const printForm = () => {
-    console.log('Print functionality not implemented yet.');
+    window.print();
   };
 
   return (
@@ -100,7 +96,9 @@ export const InspectionForm = () => {
       <h2 className="section-title">1. Datos del Empleador Principal</h2>
       <form className="inspection-form" onSubmit={handleSubmit}>
         <div className="form-group">
-          <label className="form-label" htmlFor="centroTrabajo">Centro de Trabajo/Proyecto/Contrato:</label>
+          <label className="form-label" htmlFor="centroTrabajo">
+            Centro de Trabajo/Proyecto/Contrato:
+          </label>
           <input
             className="form-input"
             type="text"
@@ -111,7 +109,9 @@ export const InspectionForm = () => {
           />
         </div>
         <div className="form-group">
-          <label className="form-label" htmlFor="razonSocial">Razón Social o Denominación:</label>
+          <label className="form-label" htmlFor="razonSocial">
+            Razón Social o Denominación:
+          </label>
           <input
             className="form-input"
             type="text"
@@ -122,7 +122,9 @@ export const InspectionForm = () => {
           />
         </div>
         <div className="form-group">
-          <label className="form-label" htmlFor="ruc">DNI:</label>
+          <label className="form-label" htmlFor="ruc">
+            DNI:
+          </label>
           <input
             className="form-input"
             type="text"
@@ -133,7 +135,9 @@ export const InspectionForm = () => {
           />
         </div>
         <div className="form-group">
-          <label className="form-label" htmlFor="domicilio">DOMICILIO:</label>
+          <label className="form-label" htmlFor="domicilio">
+            DOMICILIO:
+          </label>
           <input
             className="form-input"
             type="text"
@@ -144,7 +148,9 @@ export const InspectionForm = () => {
           />
         </div>
         <div className="form-group">
-          <label className="form-label" htmlFor="tipoActividad">Tipo de Actividad Económica:</label>
+          <label className="form-label" htmlFor="tipoActividad">
+            Tipo de Actividad Económica:
+          </label>
           <input
             className="form-input"
             type="text"
@@ -170,7 +176,9 @@ export const InspectionForm = () => {
 
         <h2 className="section-title">2. Datos de la Inspección</h2>
         <div className="form-group">
-          <label className="form-label" htmlFor="empresaInspeccionada">Empresa Inspeccionada:</label>
+          <label className="form-label" htmlFor="empresaInspeccionada">
+            Empresa Inspeccionada:
+          </label>
           <input
             className="form-input"
             type="text"
@@ -181,7 +189,9 @@ export const InspectionForm = () => {
           />
         </div>
         <div className="form-group">
-          <label className="form-label" htmlFor="fecha">Fecha:</label>
+          <label className="form-label" htmlFor="fecha">
+            Fecha:
+          </label>
           <input
             className="form-input"
             type="date"
@@ -192,7 +202,9 @@ export const InspectionForm = () => {
           />
         </div>
         <div className="form-group">
-          <label className="form-label" htmlFor="hora">Hora:</label>
+          <label className="form-label" htmlFor="hora">
+            Hora:
+          </label>
           <input
             className="form-input"
             type="time"
@@ -203,7 +215,9 @@ export const InspectionForm = () => {
           />
         </div>
         <div className="form-group">
-          <label className="form-label" htmlFor="tipoInspeccion">Tipo de la Inspección:</label>
+          <label className="form-label" htmlFor="tipoInspeccion">
+            Tipo de Inspección:
+          </label>
           <input
             className="form-input"
             type="text"
@@ -215,7 +229,7 @@ export const InspectionForm = () => {
         </div>
         <div className="form-group">
           <label className="form-label" htmlFor="inspeccionadoPor">
-            Inspeccionado por. (Nombre y cargo):
+            Inspeccionado Por:
           </label>
           <input
             className="form-input"
@@ -227,7 +241,9 @@ export const InspectionForm = () => {
           />
         </div>
         <div className="form-group">
-          <label className="form-label" htmlFor="firmaInspeccion">Firma:</label>
+          <label className="form-label" htmlFor="firmaInspeccion">
+            Firma de Inspección:
+          </label>
           <input
             className="form-input"
             type="text"
@@ -238,7 +254,9 @@ export const InspectionForm = () => {
           />
         </div>
         <div className="form-group">
-          <label className="form-label" htmlFor="responsableArea">Responsable del área:</label>
+          <label className="form-label" htmlFor="responsableArea">
+            Responsable del Área:
+          </label>
           <input
             className="form-input"
             type="text"
@@ -249,7 +267,9 @@ export const InspectionForm = () => {
           />
         </div>
         <div className="form-group">
-          <label className="form-label" htmlFor="firmaResponsable">Firma:</label>
+          <label className="form-label" htmlFor="firmaResponsable">
+            Firma Responsable:
+          </label>
           <input
             className="form-input"
             type="text"
@@ -260,180 +280,230 @@ export const InspectionForm = () => {
           />
         </div>
 
-        <h2 className="section-title">Resultados de la Inspección</h2>
-        <table className="results-table">
-          <thead>
-            <tr>
-              <th className="table-header">N°</th>
-              <th className="table-header">Descripción de Acto/condición Sub-Estándar</th>
-              <th className="table-header">Relacionado con:</th>
-              <th className="table-header">Lugar</th>
-              <th className="table-header">Acto/Condición</th>
-              <th className="table-header">Evidencia de la observación (Opcional)</th>
-              <th className="table-header">Alto/Medio/Bajo</th>
-              <th className="table-header">Acción a implementar (Propuesta)</th>
-              <th className="table-header">Acción implementada</th>
-              <th className="table-header">Responsable</th>
-              <th className="table-header">Fecha Límite</th>
-              <th className="table-header">Fecha Ejecutada</th>
-              <th className="table-header">Evidencia de Levantamiento</th>
-              <th className="table-header">Estado (Abierto/Cerrado)</th>
-            </tr>
-          </thead>
-          <tbody>
-            {inspectionResults.map((result, index) => (
-              <tr key={index}>
-                <td className="table-data">{index + 1}</td>
-                <td className="table-data">
-                  <input
-                    className="table-input"
-                    type="text"
-                    value={result.descripcion}
-                    onChange={(e) =>
-                      handleResultChange(index, 'descripcion', e.target.value)
-                    }
-                  />
-                </td>
-                <td className="table-data">
-                  <input
-                    className="table-input"
-                    type="text"
-                    value={result.relacionadoCon}
-                    onChange={(e) =>
-                      handleResultChange(index, 'relacionadoCon', e.target.value)
-                    }
-                  />
-                </td>
-                <td className="table-data">
-                  <input
-                    className="table-input"
-                    type="text"
-                    value={result.lugar}
-                    onChange={(e) =>
-                      handleResultChange(index, 'lugar', e.target.value)
-                    }
-                  />
-                </td>
-                <td className="table-data">
-                  <input
-                    className="table-input"
-                    type="text"
-                    value={result.actoCondicion}
-                    onChange={(e) =>
-                      handleResultChange(index, 'actoCondicion', e.target.value)
-                    }
-                  />
-                </td>
-                <td className="table-data">
-                  <input
-                    className="file-input"
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => handleFileChange(index, e)}
-                  />
-                  {result.evidencia && (
-                    <img
-                      className="evidence-image"
-                      src={result.evidencia}
-                      alt={`Evidencia ${index + 1}`}
-                    />
-                  )}
-                </td>
-                <td className="table-data">
-                  <select
-                    className="table-select"
-                    value={result.altoMedioBajo}
-                    onChange={(e) =>
-                      handleResultChange(index, 'altoMedioBajo', e.target.value)
-                    }
-                  >
-                    <option value="">Seleccione nivel</option>
-                    <option value="Alto">Alto</option>
-                    <option value="Medio">Medio</option>
-                    <option value="Bajo">Bajo</option>
-                  </select>
-                </td>
-                <td className="table-data">
-                  <input
-                    className="table-input"
-                    type="text"
-                    value={result.accionImplementar}
-                    onChange={(e) =>
-                      handleResultChange(index, 'accionImplementar', e.target.value)
-                    }
-                  />
-                </td>
-                <td className="table-data">
-                  <input
-                    className="table-input"
-                    type="text"
-                    value={result.accionImplementada}
-                    onChange={(e) =>
-                      handleResultChange(index, 'accionImplementada', e.target.value)
-                    }
-                  />
-                </td>
-                <td className="table-data">
-                  <input
-                    className="table-input"
-                    type="text"
-                    value={result.responsable}
-                    onChange={(e) =>
-                      handleResultChange(index, 'responsable', e.target.value)
-                    }
-                  />
-                </td>
-                <td className="table-data">
-                  <input
-                    className="table-input"
-                    type="date"
-                    value={result.fechaLimite}
-                    onChange={(e) =>
-                      handleResultChange(index, 'fechaLimite', e.target.value)
-                    }
-                  />
-                </td>
-                <td className="table-data">
-                  <input
-                    className="table-input"
-                    type="date"
-                    value={result.fechaEjecutada}
-                    onChange={(e) =>
-                      handleResultChange(index, 'fechaEjecutada', e.target.value)
-                    }
-                  />
-                </td>
-                <td className="table-data">
-                  <input
-                    className="table-input"
-                    type="text"
-                    value={result.evidenciaLevantamiento}
-                    onChange={(e) =>
-                      handleResultChange(index, 'evidenciaLevantamiento', e.target.value)
-                    }
-                  />
-                </td>
-                <td className="table-data">
-                  <input
-                    className="table-input"
-                    type="text"
-                    value={result.estado}
-                    onChange={(e) =>
-                      handleResultChange(index, 'estado', e.target.value)
-                    }
-                  />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <h2 className="section-title">3. Resultados de la Inspección</h2>
+        {inspectionResults.map((result, index) => (
+          <div key={index} className="result-group">
+            <h3 className="result-title">Resultado {index + 1}</h3>
+            <div className="form-group">
+              <label className="form-label" htmlFor={`descripcion-${index}`}>
+                Descripción del Hecho, Acto o Condición Subestandar:
+              </label>
+              <input
+                className="form-input"
+                type="text"
+                id={`descripcion-${index}`}
+                name="descripcion"
+                value={result.descripcion}
+                onChange={(e) =>
+                  handleResultChange(index, "descripcion", e.target.value)
+                }
+              />
+            </div>
+            <div className="form-group">
+              <label className="form-label" htmlFor={`relacionadoCon-${index}`}>
+                Relacionado con:
+              </label>
+              <input
+                className="form-input"
+                type="text"
+                id={`relacionadoCon-${index}`}
+                name="relacionadoCon"
+                value={result.relacionadoCon}
+                onChange={(e) =>
+                  handleResultChange(index, "relacionadoCon", e.target.value)
+                }
+              />
+            </div>
+            <div className="form-group">
+              <label className="form-label" htmlFor={`lugar-${index}`}>
+                Lugar:
+              </label>
+              <input
+                className="form-input"
+                type="text"
+                id={`lugar-${index}`}
+                name="lugar"
+                value={result.lugar}
+                onChange={(e) =>
+                  handleResultChange(index, "lugar", e.target.value)
+                }
+              />
+            </div>
+            <div className="form-group">
+              <label className="form-label" htmlFor={`actoCondicion-${index}`}>
+                Acto o Condición Subestándar:
+              </label>
+              <input
+                className="form-input"
+                type="text"
+                id={`actoCondicion-${index}`}
+                name="actoCondicion"
+                value={result.actoCondicion}
+                onChange={(e) =>
+                  handleResultChange(index, "actoCondicion", e.target.value)
+                }
+              />
+            </div>
+            <div className="form-group">
+              <label className="form-label" htmlFor={`evidencia-${index}`}>
+                Evidencia:
+              </label>
+              <input
+                className="form-input"
+                type="file"
+                id={`evidencia-${index}`}
+                name="evidencia"
+                onChange={(e) => handleFileChange(index, e)}
+              />
+              {result.evidencia && (
+                <img src={result.evidencia} alt={`Evidencia ${index + 1}`} />
+              )}
+            </div>
+            <div className="form-group">
+              <label className="form-label" htmlFor={`altoMedioBajo-${index}`}>
+                Prioridad (Alto, Medio, Bajo):
+              </label>
+              <input
+                className="form-input"
+                type="text"
+                id={`altoMedioBajo-${index}`}
+                name="altoMedioBajo"
+                value={result.altoMedioBajo}
+                onChange={(e) =>
+                  handleResultChange(index, "altoMedioBajo", e.target.value)
+                }
+              />
+            </div>
+            <div className="form-group">
+              <label
+                className="form-label"
+                htmlFor={`accionImplementar-${index}`}
+              >
+                Acción a Implementar:
+              </label>
+              <input
+                className="form-input"
+                type="text"
+                id={`accionImplementar-${index}`}
+                name="accionImplementar"
+                value={result.accionImplementar}
+                onChange={(e) =>
+                  handleResultChange(index, "accionImplementar", e.target.value)
+                }
+              />
+            </div>
+            <div className="form-group">
+              <label
+                className="form-label"
+                htmlFor={`accionImplementada-${index}`}
+              >
+                Acción Implementada:
+              </label>
+              <input
+                className="form-input"
+                type="text"
+                id={`accionImplementada-${index}`}
+                name="accionImplementada"
+                value={result.accionImplementada}
+                onChange={(e) =>
+                  handleResultChange(
+                    index,
+                    "accionImplementada",
+                    e.target.value
+                  )
+                }
+              />
+            </div>
+            <div className="form-group">
+              <label className="form-label" htmlFor={`responsable-${index}`}>
+                Responsable:
+              </label>
+              <input
+                className="form-input"
+                type="text"
+                id={`responsable-${index}`}
+                name="responsable"
+                value={result.responsable}
+                onChange={(e) =>
+                  handleResultChange(index, "responsable", e.target.value)
+                }
+              />
+            </div>
+            <div className="form-group">
+              <label className="form-label" htmlFor={`fechaLimite-${index}`}>
+                Fecha Límite:
+              </label>
+              <input
+                className="form-input"
+                type="date"
+                id={`fechaLimite-${index}`}
+                name="fechaLimite"
+                value={result.fechaLimite}
+                onChange={(e) =>
+                  handleResultChange(index, "fechaLimite", e.target.value)
+                }
+              />
+            </div>
+            <div className="form-group">
+              <label className="form-label" htmlFor={`fechaEjecutada-${index}`}>
+                Fecha Ejecutada:
+              </label>
+              <input
+                className="form-input"
+                type="date"
+                id={`fechaEjecutada-${index}`}
+                name="fechaEjecutada"
+                value={result.fechaEjecutada}
+                onChange={(e) =>
+                  handleResultChange(index, "fechaEjecutada", e.target.value)
+                }
+              />
+            </div>
+            <div className="form-group">
+              <label
+                className="form-label"
+                htmlFor={`evidenciaLevantamiento-${index}`}
+              >
+                Evidencia de Levantamiento:
+              </label>
+              <input
+                className="form-input"
+                type="file"
+                id={`evidenciaLevantamiento-${index}`}
+                name="evidenciaLevantamiento"
+                onChange={(e) => handleFileChange(index, e)}
+              />
+              {result.evidenciaLevantamiento && (
+                <img
+                  src={result.evidenciaLevantamiento}
+                  alt={`Evidencia de Levantamiento ${index + 1}`}
+                />
+              )}
+            </div>
+            <div className="form-group">
+              <label className="form-label" htmlFor={`estado-${index}`}>
+                Estado:
+              </label>
+              <input
+                className="form-input"
+                type="text"
+                id={`estado-${index}`}
+                name="estado"
+                value={result.estado}
+                onChange={(e) =>
+                  handleResultChange(index, "estado", e.target.value)
+                }
+              />
+            </div>
+          </div>
+        ))}
+
         <div className="button-group">
           <button type="button" className="form-button" onClick={addResult}>
             Añadir Resultado
           </button>
-          <button type="submit" className="form-button">Enviar</button>
-          <button type="button" className="form-button" onClick={downloadPDF}>
-            Descargar PDF
+          <button type="submit" className="form-button">
+            Enviar
           </button>
           <button type="button" className="form-button" onClick={printForm}>
             Imprimir
