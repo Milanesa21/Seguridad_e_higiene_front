@@ -6,6 +6,7 @@ import { Registroempleados } from "../page/registroempleados.jsx";
 import { Registroempresa } from "../page/registroempresa.jsx";
 import { Chat } from "../page/Jorgito.jsx";
 import { InspectionForm } from "../components/Inspecciones/InspeccionFormat.jsx"
+import { Panel } from "../components/Panel de seguridad/Panel.jsx";
 
 export const routes = [
   {
@@ -42,4 +43,8 @@ export const routes = [
     path: "Jorgito",
     element: <Chat />,
   },
+  {
+    path: "Panel",
+    element: <Panel />,
+  }
 ];

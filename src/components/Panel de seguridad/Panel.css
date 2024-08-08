@@ -1,0 +1,66 @@
+/* Asegúrate de que el contenedor principal ocupe toda la altura de la ventana */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra horizontalmente */
+    justify-content: center; /* Centra verticalmente */
+    min-height: 100vh; /* Asegura que el contenedor ocupe al menos la altura de la ventana */
+    padding: 20px; /* Opcional, agrega espacio alrededor del contenedor */
+}
+
+/* Contenedor de la cuadrícula */
+.parent {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 8px;
+    width: 80%; /* Ajusta el ancho según sea necesario */
+    max-width: 1200px; /* Ajusta el ancho máximo según sea necesario */
+}
+
+/* Clases base para los divs */
+.content-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* Clases específicas para cada div */
+.div1-box {
+    grid-column: span 2 / span 2;
+    grid-row: span 3 / span 3;
+    grid-column-start: 1;
+    grid-row-start: 2;
+    background-color: #FFDDC1; /* Light Coral */
+}
+
+.div2-box {
+    grid-column: span 2 / span 2;
+    grid-row: span 3 / span 3;
+    grid-column-start: 3;
+    grid-row-start: 2;
+    background-color: #FFABAB; /* Light Pink */
+}
+
+.div3-box {
+    grid-column-start: 4;
+    grid-row-start: 5;
+    background-color: #FFC3A0; /* Light Peach */
+}
+
+.div4-box {
+    grid-column: span 3 / span 3;
+    grid-column-start: 1;
+    grid-row-start: 5;
+    background-color: #B9FBC0; /* Light Green */
+}
+
+.div5-box {
+    grid-column: span 4 / span 4;
+    grid-column-start: 1;
+    grid-row-start: 1;
+    background-color: #A2C2E2; /* Light Blue */
+}
