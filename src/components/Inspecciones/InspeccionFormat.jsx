@@ -94,14 +94,15 @@ export const InspectionForm = () => {
   };
 
   return (
-    <div className="container">
-      <h1>REGISTRO DE INSPECCIONES</h1>
+    <div className="form-container">
+      <h1 className="form-title">REGISTRO DE INSPECCIONES</h1>
 
-      <h2>1. Datos del Empleador Principal</h2>
-      <form onSubmit={handleSubmit}>
+      <h2 className="section-title">1. Datos del Empleador Principal</h2>
+      <form className="inspection-form" onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="centroTrabajo">Centro de Trabajo/Proyecto/Contrato:</label>
+          <label className="form-label" htmlFor="centroTrabajo">Centro de Trabajo/Proyecto/Contrato:</label>
           <input
+            className="form-input"
             type="text"
             id="centroTrabajo"
             name="centroTrabajo"
@@ -110,8 +111,9 @@ export const InspectionForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="razonSocial">Razón Social o Denominación:</label>
+          <label className="form-label" htmlFor="razonSocial">Razón Social o Denominación:</label>
           <input
+            className="form-input"
             type="text"
             id="razonSocial"
             name="razonSocial"
@@ -120,8 +122,9 @@ export const InspectionForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="ruc">DNI:</label>
+          <label className="form-label" htmlFor="ruc">DNI:</label>
           <input
+            className="form-input"
             type="text"
             id="ruc"
             name="ruc"
@@ -130,8 +133,9 @@ export const InspectionForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="domicilio">DOMICILIO:</label>
+          <label className="form-label" htmlFor="domicilio">DOMICILIO:</label>
           <input
+            className="form-input"
             type="text"
             id="domicilio"
             name="domicilio"
@@ -140,8 +144,9 @@ export const InspectionForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="tipoActividad">Tipo de Actividad Económica:</label>
+          <label className="form-label" htmlFor="tipoActividad">Tipo de Actividad Económica:</label>
           <input
+            className="form-input"
             type="text"
             id="tipoActividad"
             name="tipoActividad"
@@ -150,10 +155,11 @@ export const InspectionForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="numTrabajadores">
+          <label className="form-label" htmlFor="numTrabajadores">
             N° de Trabajadores en el Centro Laboral:
           </label>
           <input
+            className="form-input"
             type="text"
             id="numTrabajadores"
             name="numTrabajadores"
@@ -162,10 +168,11 @@ export const InspectionForm = () => {
           />
         </div>
 
-        <h2>2. Datos de la Inspección</h2>
+        <h2 className="section-title">2. Datos de la Inspección</h2>
         <div className="form-group">
-          <label htmlFor="empresaInspeccionada">Empresa Inspeccionada:</label>
+          <label className="form-label" htmlFor="empresaInspeccionada">Empresa Inspeccionada:</label>
           <input
+            className="form-input"
             type="text"
             id="empresaInspeccionada"
             name="empresaInspeccionada"
@@ -174,8 +181,9 @@ export const InspectionForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="fecha">Fecha:</label>
+          <label className="form-label" htmlFor="fecha">Fecha:</label>
           <input
+            className="form-input"
             type="date"
             id="fecha"
             name="fecha"
@@ -184,8 +192,9 @@ export const InspectionForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="hora">Hora:</label>
+          <label className="form-label" htmlFor="hora">Hora:</label>
           <input
+            className="form-input"
             type="time"
             id="hora"
             name="hora"
@@ -194,8 +203,9 @@ export const InspectionForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="tipoInspeccion">Tipo de la Inspección:</label>
+          <label className="form-label" htmlFor="tipoInspeccion">Tipo de la Inspección:</label>
           <input
+            className="form-input"
             type="text"
             id="tipoInspeccion"
             name="tipoInspeccion"
@@ -204,10 +214,11 @@ export const InspectionForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="inspeccionadoPor">
+          <label className="form-label" htmlFor="inspeccionadoPor">
             Inspeccionado por. (Nombre y cargo):
           </label>
           <input
+            className="form-input"
             type="text"
             id="inspeccionadoPor"
             name="inspeccionadoPor"
@@ -216,8 +227,9 @@ export const InspectionForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="firmaInspeccion">Firma:</label>
+          <label className="form-label" htmlFor="firmaInspeccion">Firma:</label>
           <input
+            className="form-input"
             type="text"
             id="firmaInspeccion"
             name="firmaInspeccion"
@@ -226,8 +238,9 @@ export const InspectionForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="responsableArea">Responsable del área:</label>
+          <label className="form-label" htmlFor="responsableArea">Responsable del área:</label>
           <input
+            className="form-input"
             type="text"
             id="responsableArea"
             name="responsableArea"
@@ -236,8 +249,9 @@ export const InspectionForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="firmaResponsable">Firma:</label>
+          <label className="form-label" htmlFor="firmaResponsable">Firma:</label>
           <input
+            className="form-input"
             type="text"
             id="firmaResponsable"
             name="firmaResponsable"
@@ -246,32 +260,33 @@ export const InspectionForm = () => {
           />
         </div>
 
-        <h2>Resultados de la Inspección</h2>
+        <h2 className="section-title">Resultados de la Inspección</h2>
         <table className="results-table">
           <thead>
             <tr>
-              <th>N°</th>
-              <th>Descripción de Acto/condición Sub-Estándar</th>
-              <th>Relacionado con:</th>
-              <th>Lugar</th>
-              <th>Acto/Condición</th>
-              <th>Evidencia de la observación (Opcional)</th>
-              <th>Alto/Medio/Bajo</th>
-              <th>Acción a implementar (Propuesta)</th>
-              <th>Acción implementada</th>
-              <th>Responsable</th>
-              <th>Fecha Límite</th>
-              <th>Fecha Ejecutada</th>
-              <th>Evidencia de Levantamiento</th>
-              <th>Estado (Abierto/Cerrado)</th>
+              <th className="table-header">N°</th>
+              <th className="table-header">Descripción de Acto/condición Sub-Estándar</th>
+              <th className="table-header">Relacionado con:</th>
+              <th className="table-header">Lugar</th>
+              <th className="table-header">Acto/Condición</th>
+              <th className="table-header">Evidencia de la observación (Opcional)</th>
+              <th className="table-header">Alto/Medio/Bajo</th>
+              <th className="table-header">Acción a implementar (Propuesta)</th>
+              <th className="table-header">Acción implementada</th>
+              <th className="table-header">Responsable</th>
+              <th className="table-header">Fecha Límite</th>
+              <th className="table-header">Fecha Ejecutada</th>
+              <th className="table-header">Evidencia de Levantamiento</th>
+              <th className="table-header">Estado (Abierto/Cerrado)</th>
             </tr>
           </thead>
           <tbody>
             {inspectionResults.map((result, index) => (
               <tr key={index}>
-                <td>{index + 1}</td>
-                <td>
+                <td className="table-data">{index + 1}</td>
+                <td className="table-data">
                   <input
+                    className="table-input"
                     type="text"
                     value={result.descripcion}
                     onChange={(e) =>
@@ -279,8 +294,9 @@ export const InspectionForm = () => {
                     }
                   />
                 </td>
-                <td>
+                <td className="table-data">
                   <input
+                    className="table-input"
                     type="text"
                     value={result.relacionadoCon}
                     onChange={(e) =>
@@ -288,8 +304,9 @@ export const InspectionForm = () => {
                     }
                   />
                 </td>
-                <td>
+                <td className="table-data">
                   <input
+                    className="table-input"
                     type="text"
                     value={result.lugar}
                     onChange={(e) =>
@@ -297,8 +314,9 @@ export const InspectionForm = () => {
                     }
                   />
                 </td>
-                <td>
+                <td className="table-data">
                   <input
+                    className="table-input"
                     type="text"
                     value={result.actoCondicion}
                     onChange={(e) =>
@@ -306,22 +324,24 @@ export const InspectionForm = () => {
                     }
                   />
                 </td>
-                <td>
+                <td className="table-data">
                   <input
+                    className="file-input"
                     type="file"
                     accept="image/*"
                     onChange={(e) => handleFileChange(index, e)}
                   />
                   {result.evidencia && (
                     <img
+                      className="evidence-image"
                       src={result.evidencia}
                       alt={`Evidencia ${index + 1}`}
-                      style={{ width: '100px', height: 'auto' }}
                     />
                   )}
                 </td>
-                <td>
+                <td className="table-data">
                   <select
+                    className="table-select"
                     value={result.altoMedioBajo}
                     onChange={(e) =>
                       handleResultChange(index, 'altoMedioBajo', e.target.value)
@@ -333,8 +353,9 @@ export const InspectionForm = () => {
                     <option value="Bajo">Bajo</option>
                   </select>
                 </td>
-                <td>
+                <td className="table-data">
                   <input
+                    className="table-input"
                     type="text"
                     value={result.accionImplementar}
                     onChange={(e) =>
@@ -342,8 +363,9 @@ export const InspectionForm = () => {
                     }
                   />
                 </td>
-                <td>
+                <td className="table-data">
                   <input
+                    className="table-input"
                     type="text"
                     value={result.accionImplementada}
                     onChange={(e) =>
@@ -351,8 +373,9 @@ export const InspectionForm = () => {
                     }
                   />
                 </td>
-                <td>
+                <td className="table-data">
                   <input
+                    className="table-input"
                     type="text"
                     value={result.responsable}
                     onChange={(e) =>
@@ -360,8 +383,9 @@ export const InspectionForm = () => {
                     }
                   />
                 </td>
-                <td>
+                <td className="table-data">
                   <input
+                    className="table-input"
                     type="date"
                     value={result.fechaLimite}
                     onChange={(e) =>
@@ -369,8 +393,9 @@ export const InspectionForm = () => {
                     }
                   />
                 </td>
-                <td>
+                <td className="table-data">
                   <input
+                    className="table-input"
                     type="date"
                     value={result.fechaEjecutada}
                     onChange={(e) =>
@@ -378,8 +403,9 @@ export const InspectionForm = () => {
                     }
                   />
                 </td>
-                <td>
+                <td className="table-data">
                   <input
+                    className="table-input"
                     type="text"
                     value={result.evidenciaLevantamiento}
                     onChange={(e) =>
@@ -387,8 +413,9 @@ export const InspectionForm = () => {
                     }
                   />
                 </td>
-                <td>
+                <td className="table-data">
                   <input
+                    className="table-input"
                     type="text"
                     value={result.estado}
                     onChange={(e) =>
@@ -400,16 +427,18 @@ export const InspectionForm = () => {
             ))}
           </tbody>
         </table>
-        <button type="button" onClick={addResult}>
-          Añadir Resultado
-        </button>
-        <button type="submit">Enviar</button>
-        <button type="button" onClick={downloadPDF}>
-          Descargar PDF
-        </button>
-        <button type="button" onClick={printForm}>
-          Imprimir
-        </button>
+        <div className="button-group">
+          <button type="button" className="form-button" onClick={addResult}>
+            Añadir Resultado
+          </button>
+          <button type="submit" className="form-button">Enviar</button>
+          <button type="button" className="form-button" onClick={downloadPDF}>
+            Descargar PDF
+          </button>
+          <button type="button" className="form-button" onClick={printForm}>
+            Imprimir
+          </button>
+        </div>
       </form>
     </div>
   );

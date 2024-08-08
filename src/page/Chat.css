@@ -6,7 +6,7 @@
 
 .messages-container {
   flex: 1;
-  overflow-y: scroll;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   padding: 10px;
@@ -40,6 +40,8 @@
   flex: 1;
   margin-right: 10px;
   padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .send-button {
@@ -51,9 +53,18 @@
   cursor: pointer;
 }
 
+.send-button:disabled {
+  background-color: #7f8c8d;
+  cursor: not-allowed;
+}
+
 .loading-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 5px;
+}
+
+.loading-container p {
+  margin: 0;
 }

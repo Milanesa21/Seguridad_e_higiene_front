@@ -43,7 +43,7 @@ export const Chat = () => {
   const [loading, setLoading] = useState(false);
   const [conversationHistory, setConversationHistory] = useState([]);
   const [disableInput, setDisableInput] = useState(false);
-  const [initialPromptSent, setInitialPromptSent] = useState(false); // Nuevo estado
+  const [initialPromptSent, setInitialPromptSent] = useState(false);
 
   const handleChange = (e) => {
     setInputText(e.target.value);
@@ -56,13 +56,12 @@ export const Chat = () => {
     setMessages([...messages, newMessage]);
     setLoading(true);
     setInputText('');
-    setDisableInput(true); // Desactivar el campo de entrada y el botón de enviar
+    setDisableInput(true);
 
     const loadingMessage = { type: 'answer', text: 'loading' };
     setMessages(prevMessages => [...prevMessages, loadingMessage]);
 
     try {
-      // Construir el prompt completo incluyendo initialPrompt solo si no se ha enviado
       let fullPrompt = inputText;
       if (!initialPromptSent) {
         fullPrompt = initialPrompt + "\n" + inputText;
@@ -95,7 +94,6 @@ export const Chat = () => {
         });
       }
 
-      // Agregar mensaje de la IA al historial de conversación y como mensaje
       setConversationHistory(prevHistory => [...prevHistory, inputText, text]);
       setMessages(prevMessages => [
         ...prevMessages,
@@ -110,7 +108,7 @@ export const Chat = () => {
       });
     } finally {
       setLoading(false);
-      setDisableInput(false); // Habilitar el campo de entrada y el botón de enviar
+      setDisableInput(false);
     }
   };
 
@@ -159,7 +157,7 @@ export const Chat = () => {
           onChange={handleChange} 
           placeholder="Hazme tu pregunta" 
           className="input-field"
-          disabled={disableInput} // Deshabilitar el campo de entrada mientras se carga la respuesta
+          disabled={disableInput}
         />
         <button type="submit" className="send-button" disabled={disableInput}>Enviar</button>
       </form>
