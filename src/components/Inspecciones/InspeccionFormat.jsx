@@ -78,6 +78,19 @@ export const InspectionForm = () => {
     ]);
   };
 
+  const getColor = (nivel) => {
+    switch (nivel) {
+      case 'alto':
+        return 'red';
+      case 'medio':
+        return 'yellow';
+      case 'bajo':
+        return 'green';
+      default:
+        return 'white'; // Color por defecto si no se reconoce el nivel
+    }
+  };  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Employer Data:", employerData);
@@ -363,16 +376,25 @@ export const InspectionForm = () => {
               <label className="form-label" htmlFor={`altoMedioBajo-${index}`}>
                 Prioridad (Alto, Medio, Bajo):
               </label>
-              <input
+              <select
                 className="form-input"
-                type="text"
                 id={`altoMedioBajo-${index}`}
                 name="altoMedioBajo"
                 value={result.altoMedioBajo}
                 onChange={(e) =>
                   handleResultChange(index, "altoMedioBajo", e.target.value)
                 }
-              />
+              >
+                <option value="bajo">Bajo</option>
+                <option value="medio">Medio</option>
+                <option value="alto">Alto</option>
+              </select>
+              <div
+                className="indicador"
+                style={{ backgroundColor: getColor(result.altoMedioBajo) }}
+              >
+                {result.altoMedioBajo.charAt(0).toUpperCase() + result.altoMedioBajo.slice(1)}
+              </div>
             </div>
             <div className="form-group">
               <label

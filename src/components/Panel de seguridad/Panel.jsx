@@ -1,19 +1,46 @@
-import React from 'react';
-import { Navbar } from '../Navbar';
-import './Panel.css'; // Asegúrate de que el archivo CSS esté en la misma carpeta o ajusta la ruta según sea necesario.
+import React, { useState, useEffect } from 'react';
 
 export const Panel = () => {
-  return (
-    <div>
-        <Navbar />
-      <div className="container">
-      <div className="parent">
-        <div className="div1 content-box div1-box">Content 1</div>
-        <div className="div2 content-box div2-box">Content 2</div>
-        <div className="div3 content-box div3-box">Content 3</div>
-        <div className="div4 content-box div4-box">Content 4</div>
-      </div>
-      </div>
-    </div>
-  );
+    const [ws, setWs] = useState(null);
+    const [messages, setMessages] = useState([]);
+    const [input, setInput] = useState('');
+
+    useEffect(() => {
+        const socket = new WebSocket('ws://localhost:8000/ws');
+        setWs(socket);
+
+        socket.onmessage = (event) => {
+            setMessages(prevMessages => [...prevMessages, event.data]);
+        };
+
+        return () => socket.close();
+    }, []);
+
+    const sendMessage = (event) => {
+        event.preventDefault();
+        if (ws) {
+            ws.send(input);
+            setInput('');
+        }
+    };
+
+    return (
+        <div>
+            <h1>WebSocket Panel</h1>
+            <form onSubmit={sendMessage}>
+                <input 
+                    type="text" 
+                    value={input} 
+                    onChange={(e) => setInput(e.target.value)} 
+                    autoComplete="off"
+                />
+                <button type="submit">Send</button>
+            </form>
+            <ul>
+                {messages.map((msg, index) => (
+                    <li key={index}>{msg}</li>
+                ))}
+            </ul>
+        </div>
+    );
 };
