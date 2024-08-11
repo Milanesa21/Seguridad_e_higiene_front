@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../../public/css/img.css";
 import "../../public/css/boton.css";
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
 export const Inicio = () => {
-  // Función para abrir una ventana de imagen con una URL específica
-  const abrirVentanaImagen = (urlImagen) => {
-    window.open(urlImagen, "_blank", "width=400,height=400");
+  const [open, setOpen] = useState(false);
+  const [notification, setNotification] = useState("");
+
+  useEffect(() => {
+    // Leer el mensaje de localStorage
+    const message = localStorage.getItem('loginSuccess');
+    if (message) {
+      setNotification(message);
+      setOpen(true);
+      localStorage.removeItem('loginSuccess'); // Limpiar el mensaje después de mostrarlo
+    }
+  }, []);
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -26,13 +40,18 @@ export const Inicio = () => {
               </p>
             </div>
           </div>
-          {/* Contenedor de la imagen */}
-
           <div className="InicioLogo">
             <img className="imagenCortada" src="./img/logo.jpg" alt="" />
           </div>
         </div>
       </section>
+
+      {/* Notificación de éxito */}
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">
+          {notification}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };

@@ -3,11 +3,15 @@ import "../../public/css/img.css";
 import "../../public/css/boton.css";
 import "../../public/css/inputtext.css";
 import { AuthContext } from "../context/AuthProvider";
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from '@mui/material/Stack';
 
 export const DenunciasyEmergencias = () => {
   const emergencyRef = useRef(null);
   const denunciaRef = useRef(null);
   const [denunciaMessage, setDenunciaMessage] = useState("");
+  const [notification, setNotification] = useState({ open: false, severity: '', message: '' });
 
   const { user } = useContext(AuthContext);
 
@@ -27,15 +31,15 @@ export const DenunciasyEmergencias = () => {
       });
 
       if (response.ok) {
-        alert("Mensaje enviado con éxito");
+        setNotification({ open: true, severity: 'success', message: 'Mensaje enviado correctamente' });
       } else {
         const data = await response.json();
         console.log("Error al enviar el mensaje:", data.detail);
-        alert(`Error: ${data.detail}`);
+        setNotification({ open: true, severity: 'error', message: 'Error al enviar mensaje' });
       }
     } catch (error) {
       console.log("Error al enviar el mensaje:", error);
-      alert("Error al enviar el mensaje");
+      setNotification({ open: true, severity: 'error', message: 'Error al enviar mensaje' });
     }
   };
 
@@ -47,8 +51,12 @@ export const DenunciasyEmergencias = () => {
     if (denunciaMessage.trim() !== "") {
       await handleSendMessage(denunciaMessage);
     } else {
-      alert("No puedes enviar una denuncia vacía");
+      setNotification({ open: true, severity: 'error', message: 'No puedes enviar una denuncia vacía' });
     }
+  };
+
+  const handleCloseNotification = () => {
+    setNotification({ ...notification, open: false });
   };
 
   return (
@@ -84,6 +92,17 @@ export const DenunciasyEmergencias = () => {
           </div>
         </div>
       </section>
+
+      {notification.open && (
+        <Stack sx={{ width: '100%' }} spacing={2}>
+          <Alert severity={notification.severity} onClose={handleCloseNotification}>
+            <AlertTitle>{notification.severity.charAt(0).toUpperCase() + notification.severity.slice(1)}</AlertTitle>
+            {notification.message}
+          </Alert>
+        </Stack>
+      )}
     </div>
   );
 };
+
+export default DenunciasyEmergencias;

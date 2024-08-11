@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { DataGrid } from '@mui/x-data-grid';
+import { Box, TextField, Button } from '@mui/material';
 
 export const Panel = () => {
     const [ws, setWs] = useState(null);
@@ -29,13 +31,9 @@ export const Panel = () => {
             }
         };
 
-        // Inicializa la carga de mensajes
         fetchMessages();
 
-        // Configura el polling para cada 5 segundos
         const intervalId = setInterval(fetchMessages, 5000);
-
-        // Limpia el intervalo al desmontar el componente
         return () => clearInterval(intervalId);
     }, []);
 
@@ -47,27 +45,31 @@ export const Panel = () => {
         }
     };
 
+    const columns = [
+        { field: 'timestamp', headerName: 'Fecha del mensaje', width: 200 },
+        { field: 'message', headerName: 'Mensaje de la denuncia', width: 600 }
+    ];
+
+    const rows = messages.map((msg, index) => ({
+        id: index, // Agregar un id único para cada fila
+        timestamp: new Date(msg.timestamp).toLocaleString(),
+        message: msg.message
+    }));
+
     return (
-        <div>
-            <h1>WebSocket Panel</h1>
-            <form onSubmit={sendAlert}>
-                <input 
-                    type="text" 
-                    value={input} 
-                    onChange={(e) => setInput(e.target.value)} 
-                    autoComplete="off"
-                    placeholder="Type alert message..."
-                />
-                <button type="submit">Send Alert</button>
-            </form>
-            <div>
-                <h2>Alerts and Messages</h2>
-                <ul>
-                    {messages.map((msg, index) => (
-                        <li key={index}>{msg.message}</li>
-                    ))}
-                </ul>
-            </div>
-        </div>
+        <Box p={2}>
+            <h1>Panel de denuncias y emergencias</h1>
+            <Box mb={2}>
+                <h2>Alertas de seguridad</h2>
+                <div style={{ height: 400, width: '100%' }}>
+                    <DataGrid
+                        rows={rows}
+                        columns={columns}
+                        pageSize={10}
+                        rowsPerPageOptions={[10]}
+                    />
+                </div>
+            </Box>
+        </Box>
     );
 };

@@ -3,11 +3,26 @@ import "../../public/css/img.css";
 import "../../public/css/Login.css";
 import "../../public/css/botonanimado.css";
 import NumericInput from "../components/Inputnumerico.jsx";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+import { styled } from '@mui/material/styles';
+
+// Styled Alert component
+const Alert = styled(MuiAlert)(({ theme }) => ({
+  '& .MuiAlert-icon': {
+    color: theme.palette.success.main,
+  },
+}));
 
 export const Registroempleados = () => {
   const [selectedPuesto, setSelectedPuesto] = useState("");
   const [numUsuarios, setNumUsuarios] = useState(1);
   const [pedro, setPedro] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [notification, setNotification] = useState({
+    message: "",
+    severity: "success",
+  });
   const audioRef = useRef(null);
 
   const handleChangePuesto = (e) => {
@@ -28,20 +43,42 @@ export const Registroempleados = () => {
       num_usuarios: numUsuarios,
     };
 
-    console.log("Datos enviados al backend: ", data);
     if (data.puesto_trabajo === "" || data.num_usuarios === 0) return;
-    await fetch("http://127.0.0.1:8000/Usuarios/createUsers", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Respuesta del backend: ", data);
-      })
-      .catch((error) => console.error("Error:", error));
+
+    try {
+      const response = await fetch("http://127.0.0.1:8000/Usuarios/createUsers", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setNotification({
+          message: "Empleados creados correctamente",
+          severity: "success",
+        });
+      } else {
+        setNotification({
+          message: "Error al crear empleados",
+          severity: "error",
+        });
+      }
+    } catch (error) {
+      setNotification({
+        message: "Error al crear empleados",
+        severity: "error",
+      });
+    }
+
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const music = () => {
@@ -71,13 +108,11 @@ export const Registroempleados = () => {
             </div>
 
             <h4 className="titulo-Login">Registro Empleados</h4>
-            {/* INPUT NUMERICO PARA LA CANTIDAD DE REGISTROS A REALIZAR */}
             <NumericInput
               numUsuarios={numUsuarios}
               handleChangeNumUsuarios={handleChangeNumUsuarios} // Pasando las propiedades
             />
             <div className="input-groupRE">
-              {/* INPUT EN FORMA DE LISTA PARA LA POSICION DE TRABAJO */}
               <select
                 id="puesto-select"
                 name="puesto_trabajo"
@@ -112,9 +147,7 @@ export const Registroempleados = () => {
               </label>
             </div>
 
-            {/* Ola */}
             <div className="button-container">
-              {/* BOTON DE REGISTRO DE EMPLEADO */}
               <button type="submit" className="animated-button">
                 <span>Registrar</span>
               </button>
@@ -123,6 +156,11 @@ export const Registroempleados = () => {
         </div>
       </div>
       <audio ref={audioRef} src="/img/Pedro.mp3" />
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity={notification.severity} sx={{ width: '100%' }}>
+          {notification.message}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };

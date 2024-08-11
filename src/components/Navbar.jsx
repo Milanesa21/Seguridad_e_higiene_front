@@ -77,6 +77,9 @@ export const Navbar = () => {
               <li>
                 <a href="/Inspeccion">Inspecciones de seguridad</a>
               </li>
+              <li>
+                <a href="/Panel">Panel de Seguridad</a>
+              </li>
             </ul>
           </li>
         </ul>
