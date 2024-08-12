@@ -1,6 +1,6 @@
 import React from "react";
 import { Navbar } from "../components/Navbar";
-import "/public/css/pages/Perfil.css";
+import "/public/css/pages/perfil.css";
 
 export const Perfil = () => {
   return (
