@@ -20,7 +20,7 @@ export const DenunciasyEmergencias = () => {
   const handleSendMessage = async (message) => {
     try {
       const response = await fetch(
-        "http://localhost:8000/Usuarios/alert/sendMessage",
+        "http://localhost:8000/Usuarios/alert/alert/sendMessage",
         {
           method: "POST",
           headers: {
