@@ -65,7 +65,7 @@ export const AuthProvider = ({ children }) => {
 
         const fetchUser = async () => {
             try {
-                const response = await fetch(`http://127.0.0.1:8000/Usuarios/${userId}`, {
+                const response = await fetch(`http://127.0.0.1:8000/Usuarios/user/id/${userId}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
