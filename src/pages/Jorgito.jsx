@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "/public/css/pages/Chat.css";
 import { hourglass } from "ldrs";
+import { Navbar } from "../components/Navbar";
 
 hourglass.register();
 
@@ -138,43 +139,46 @@ export const Chat = () => {
   };
 
   return (
-    <div className="chat-container">
-      <div className="messages-container">
-        {messages.map((message, index) => (
-          <div key={index} className={`message ${message.type}`}>
-            {message.text === "loading" ? (
-              <div className="loading-container">
-                <l-hourglass
-                  size="40"
-                  bg-opacity="0.1"
-                  speed="1.75"
-                  color="black"
-                ></l-hourglass>
-                <p>Jorgito está pensando...</p>
-              </div>
-            ) : (
-              <p>
-                {typeof message.text === "string"
-                  ? renderMessageText(message.text)
-                  : message.text}
-              </p>
-            )}
-          </div>
-        ))}
+    <div className="chat">
+      <Navbar />
+      <div className="chat-container">
+        <div className="messages-container">
+          {messages.map((message, index) => (
+            <div key={index} className={`message ${message.type}`}>
+              {message.text === "loading" ? (
+                <div className="loading-container">
+                  <l-hourglass
+                    size="40"
+                    bg-opacity="0.1"
+                    speed="1.75"
+                    color="black"
+                  ></l-hourglass>
+                  <p>Jorgito está pensando...</p>
+                </div>
+              ) : (
+                <p>
+                  {typeof message.text === "string"
+                    ? renderMessageText(message.text)
+                    : message.text}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+        <form onSubmit={handleSubmit} className="input-form">
+          <input
+            type="text"
+            value={inputText}
+            onChange={handleChange}
+            placeholder="Hazme tu pregunta"
+            className="input-field"
+            disabled={disableInput}
+          />
+          <button type="submit" className="send-button" disabled={disableInput}>
+            Enviar
+          </button>
+        </form>
       </div>
-      <form onSubmit={handleSubmit} className="input-form">
-        <input
-          type="text"
-          value={inputText}
-          onChange={handleChange}
-          placeholder="Hazme tu pregunta"
-          className="input-field"
-          disabled={disableInput}
-        />
-        <button type="submit" className="send-button" disabled={disableInput}>
-          Enviar
-        </button>
-      </form>
     </div>
   );
 };

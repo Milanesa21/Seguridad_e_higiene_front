@@ -1,7 +1,16 @@
+.chat {
+  display: flex;
+  justify-content: center;
+}
+
 .chat-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 95vh;
+  width: 90%;
+  padding-top: 10%;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
 .messages-container {
@@ -48,7 +57,7 @@
   padding: 5px 10px;
   border: none;
   border-radius: 5px;
-  background-color: #4cd137;
+  background-color: #007acc;
   color: white;
   cursor: pointer;
 }
