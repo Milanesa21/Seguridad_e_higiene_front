@@ -102,5 +102,5 @@ export const DenunciasyEmergencias = () => {
     </div>
   );
 };
-
-export default DenunciasyEmergencias;
+{/*aqui se exporta el componente\*/}
+export default DenunciasyEmergencias;      
