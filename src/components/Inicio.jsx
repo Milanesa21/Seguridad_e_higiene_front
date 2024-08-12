@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "../../public/css/img.css";
-import "../../public/css/boton.css";
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 export const Inicio = () => {
   const [open, setOpen] = useState(false);
@@ -10,11 +8,11 @@ export const Inicio = () => {
 
   useEffect(() => {
     // Leer el mensaje de localStorage
-    const message = localStorage.getItem('loginSuccess');
+    const message = localStorage.getItem("loginSuccess");
     if (message) {
       setNotification(message);
       setOpen(true);
-      localStorage.removeItem('loginSuccess'); // Limpiar el mensaje después de mostrarlo
+      localStorage.removeItem("loginSuccess"); // Limpiar el mensaje después de mostrarlo
     }
   }, []);
 

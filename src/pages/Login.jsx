@@ -1,11 +1,7 @@
 import React, { useRef, useState, useContext } from "react";
-import "../../public/css/img.css";
-import "../../public/css/Login.css";
-import "../../public/css/botonanimado.css";
 import { AuthContext } from "../context/AuthProvider";
-import { Navigate } from "react-router-dom";
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 export const Login = () => {
   const [pedro, setPedro] = React.useState(true);
@@ -58,12 +54,12 @@ export const Login = () => {
 
       if (data) {
         login(data);
-        localStorage.setItem('token', data);
-        localStorage.setItem('loginSuccess', 'Logueado correctamente');
+        localStorage.setItem("token", data);
+        localStorage.setItem("loginSuccess", "Logueado correctamente");
         window.location.href = "/";
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
       setAlertType("error");
       setAlertMessage("Ha ocurrido un error");
       setOpen(true);
@@ -141,13 +137,12 @@ export const Login = () => {
                 </div>
               </div>
 
-
               <div className="button-container">
                 <button type="submit" className="animated-button">
                   <span>Login</span>
                 </button>
               </div>
-              </form>
+            </form>
           </div>
         </div>
 

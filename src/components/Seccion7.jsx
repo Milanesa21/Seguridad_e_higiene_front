@@ -1,6 +1,5 @@
 import React from "react";
-import "../../public/css/img.css";
-import "../../public/css/boton.css";
+import "/public/css/components/boton.css";
 
 export const Seccion7 = () => {
   // Función para abrir una ventana de imagen con una URL específica

@@ -1,5 +1,5 @@
 import React from "react";
-import "../../public/css/registroempleados.css";
+import "/public/css/pages/registroempleados.css";
 
 function NumericInput({ numUsuarios, handleChangeNumUsuarios }) {
   // Función para manejar la entrada de teclas y permitir solo números

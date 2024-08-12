@@ -1,12 +1,13 @@
 import App from "../App.jsx";
-import { Login } from "../page/Login.jsx";
-import { PasswordChange } from "../page/PasswordChange.jsx";
+import { Login } from "../pages/Login.jsx";
+import { PasswordChange } from "../pages/PasswordChange.jsx";
 import { ProtectRoutes } from "./ProtectRoutes.jsx";
-import { Registroempleados } from "../page/registroempleados.jsx";
-import { Registroempresa } from "../page/registroempresa.jsx";
-import { Chat } from "../page/Jorgito.jsx";
-import { InspectionForm } from "../components/Inspecciones/InspeccionFormat.jsx"
+import { Registroempleados } from "../pages/registroempleados.jsx";
+import { Registroempresa } from "../pages/registroempresa.jsx";
+import { Chat } from "../pages/Jorgito.jsx";
+import { InspectionForm } from "../components/Inspecciones/InspeccionFormat.jsx";
 import { Panel } from "../components/Panel de seguridad/Panel.jsx";
+import { Perfil } from "../pages/Perfil.jsx";
 
 export const routes = [
   {
@@ -20,8 +21,8 @@ export const routes = [
       {
         path: "/login",
         element: <Login />,
-      }
-    ]
+      },
+    ],
   },
   {
     path: "/PasswordChange",
@@ -46,5 +47,9 @@ export const routes = [
   {
     path: "Panel",
     element: <Panel />,
-  }
+  },
+  {
+    path: "Perfil",
+    element: <Perfil />,
+  },
 ];

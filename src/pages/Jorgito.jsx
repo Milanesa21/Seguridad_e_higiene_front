@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import './Chat.css';
-import { hourglass } from 'ldrs';
+import React, { useState } from "react";
+import "/public/css/pages/Chat.css";
+import { hourglass } from "ldrs";
 
 hourglass.register();
 
@@ -38,7 +38,7 @@ Adaptabilidad:
 `;
 
 export const Chat = () => {
-  const [inputText, setInputText] = useState('');
+  const [inputText, setInputText] = useState("");
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [conversationHistory, setConversationHistory] = useState([]);
@@ -52,14 +52,14 @@ export const Chat = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const newMessage = { type: 'question', text: inputText };
+    const newMessage = { type: "question", text: inputText };
     setMessages([...messages, newMessage]);
     setLoading(true);
-    setInputText('');
+    setInputText("");
     setDisableInput(true);
 
-    const loadingMessage = { type: 'answer', text: 'loading' };
-    setMessages(prevMessages => [...prevMessages, loadingMessage]);
+    const loadingMessage = { type: "answer", text: "loading" };
+    setMessages((prevMessages) => [...prevMessages, loadingMessage]);
 
     try {
       let fullPrompt = inputText;
@@ -70,40 +70,50 @@ export const Chat = () => {
         fullPrompt = conversationHistory.join("\n") + "\n" + inputText;
       }
 
-      const response = await fetch('http://localhost:8000/jorgito/query/', {
-        method: 'POST',
+      const response = await fetch("http://localhost:8000/jorgito/query/", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ input_text: fullPrompt }),
       });
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
-      let text = '';
+      let text = "";
 
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
 
         text += decoder.decode(value, { stream: true });
-        setMessages(prevMessages => {
+        setMessages((prevMessages) => {
           const updatedMessages = [...prevMessages];
-          updatedMessages[updatedMessages.length - 1] = { type: 'answer', text: text };
+          updatedMessages[updatedMessages.length - 1] = {
+            type: "answer",
+            text: text,
+          };
           return updatedMessages;
         });
       }
 
-      setConversationHistory(prevHistory => [...prevHistory, inputText, text]);
-      setMessages(prevMessages => [
+      setConversationHistory((prevHistory) => [
+        ...prevHistory,
+        inputText,
+        text,
+      ]);
+      setMessages((prevMessages) => [
         ...prevMessages,
-        { type: 'answer', text: '¿Necesitas que te ayude con algo más?' }
+        { type: "answer", text: "¿Necesitas que te ayude con algo más?" },
       ]);
     } catch (error) {
       console.error("Error fetching response:", error);
-      setMessages(prevMessages => {
+      setMessages((prevMessages) => {
         const updatedMessages = [...prevMessages];
-        updatedMessages[updatedMessages.length - 1] = { type: 'answer', text: 'Error fetching response' };
+        updatedMessages[updatedMessages.length - 1] = {
+          type: "answer",
+          text: "Error fetching response",
+        };
         return updatedMessages;
       });
     } finally {
@@ -115,10 +125,10 @@ export const Chat = () => {
   const renderMessageText = (text) => {
     return text.split(/\*\*(.*?)\*\*/).map((part, index) => {
       if (index % 2 === 0) {
-        return part.split('\n').map((line, i) => (
+        return part.split("\n").map((line, i) => (
           <React.Fragment key={i}>
             {line}
-            <br/>
+            <br />
           </React.Fragment>
         ));
       } else {
@@ -132,7 +142,7 @@ export const Chat = () => {
       <div className="messages-container">
         {messages.map((message, index) => (
           <div key={index} className={`message ${message.type}`}>
-            {message.text === 'loading' ? (
+            {message.text === "loading" ? (
               <div className="loading-container">
                 <l-hourglass
                   size="40"
@@ -144,22 +154,26 @@ export const Chat = () => {
               </div>
             ) : (
               <p>
-                {typeof message.text === 'string' ? renderMessageText(message.text) : message.text}
+                {typeof message.text === "string"
+                  ? renderMessageText(message.text)
+                  : message.text}
               </p>
             )}
           </div>
         ))}
       </div>
       <form onSubmit={handleSubmit} className="input-form">
-        <input 
-          type="text" 
-          value={inputText} 
-          onChange={handleChange} 
-          placeholder="Hazme tu pregunta" 
+        <input
+          type="text"
+          value={inputText}
+          onChange={handleChange}
+          placeholder="Hazme tu pregunta"
           className="input-field"
           disabled={disableInput}
         />
-        <button type="submit" className="send-button" disabled={disableInput}>Enviar</button>
+        <button type="submit" className="send-button" disabled={disableInput}>
+          Enviar
+        </button>
       </form>
     </div>
   );

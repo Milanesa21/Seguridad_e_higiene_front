@@ -1,21 +1,9 @@
 import React, { useRef, useState } from "react";
-import "../../public/css/img.css";
-import "../../public/css/Login.css";
-import "../../public/css/botonanimado.css";
 
-export const Registroempresa = () => {
-  const [pedro, setPedro] = React.useState(true);
+export const PasswordChange = () => {
   const [isChecked, setIsChecked] = useState(true);
   const [passwordType, setPasswordType] = useState("password"); // Agregar estado para el tipo de campo de contraseña
   const audioRef = useRef(null);
-
-  const music = () => {
-    if (pedro) {
-      audioRef.current.play();
-    } else {
-      audioRef.current.pause();
-    }
-  };
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
@@ -28,95 +16,39 @@ export const Registroempresa = () => {
       <div className="ContenedorLogin">
         <div className="contenedordelcontenedor">
           <div className="ContenedorFormulario">
-            <div className="ContenedorLogo">
-              <div className={pedro ? "LogoForm" : "Pedro"}>
-                <img
-                  src={pedro ? "/img/logo.jpg" : "/img/Pedro.gif"}
-                  alt=""
-                  onDoubleClick={() => {
-                    setPedro(!pedro);
-                    music();
-                  }}
-                />
-              </div>
-            </div>
-
-            <h4 className="titulo-Login">Bienvenido</h4>
-
+            <h4 className="titulo-Login">Cambio de Contraseña</h4>
             <form action="submit" method="post">
-              {/* INPUT DE NOMBRE DE EMPRESA */}
               <div className="input-group">
-                <input
-                  type="text"
-                  name="text"
-                  className="input"
-                  id="inputField"
-                  required
-                />
-                <label className="label" htmlFor="inputField">
-                  Nombre Empresa
-                </label>
-                <br />
-                <br />
-                {/* INPUT DE NOMBRE DEl DUEÑO */}
-                <input
-                  type="text"
-                  name="text"
-                  className="input3"
-                  id="inputFieldOwner"
-                  required
-                />
-                <label className="label3" htmlFor="inputFieldOwner">
-                  Nombre Dueño
-                </label>
-                <br />
-                <br />
-                {/* INPUT DEl CORREO */}
-                <input
-                  type="text"
-                  name="text"
-                  className="input4"
-                  id="inputFieldEmail"
-                  required
-                />
-                <label className="label4" htmlFor="inputFieldEmail">
-                  Correo
-                </label>
-                <br />
-                <br />
-                {/* INPUT DEL NUMERO DE TELEFONO */}
-                <input
-                  type="text"
-                  name="text"
-                  className="input5"
-                  id="inputFieldPhone"
-                  required
-                />
-                <label className="label5" htmlFor="inputFieldPhone">
-                  Telefono
-                </label>
-                <br />
-                <br />
-                {/* INPUT DE LA CONTRASEÑA */}
+                {/* INPUT DE NUEVA CONTRASEÑA */}
                 <input
                   type={passwordType} // Usar el tipo de campo de contraseña dinámico
-                  name="password"
+                  name="new_password"
                   className="input1"
                   id="inputFieldPassword"
                   required
                 />
                 <label className="label1" htmlFor="inputFieldPassword">
-                  Password
+                  Nueva contraseña
                 </label>
-                {/* BOTON DE VISIBILIDAD PARA CONTRASEÑA */}
-                <div className="containera">
-                  <input
-                    type="checkbox"
-                    checked={isChecked}
-                    onChange={handleCheckboxChange}
-                  />
+
+                <br />
+                <br />
+                {/* INPUT PARA CONFIRMACION DE CONTRASEÑA */}
+                <input
+                  type={passwordType} // Usar el tipo de campo de contraseña dinámico
+                  name="confirm_password"
+                  className="input"
+                  id="inputFieldConfirmPassword"
+                  required
+                />
+                <label className="label" htmlFor="inputFieldConfirmPassword">
+                  Confirmar contraseña
+                </label>
+                {/* BOTON PARA LA VISIBILIDAD DE CONTRASEÑA */}
+                <div className="containera1" onClick={handleCheckboxChange}>
+                  <input type="checkbox" defaultChecked={isChecked} />
                   <svg
-                    className="eye"
+                    className="eye1"
                     xmlns="http://www.w3.org/2000/svg"
                     height="1em"
                     viewBox="0 0 576 512"
@@ -125,7 +57,7 @@ export const Registroempresa = () => {
                     <path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"></path>
                   </svg>
                   <svg
-                    className="eye-slash"
+                    className="eye-slash1"
                     xmlns="http://www.w3.org/2000/svg"
                     height="1em"
                     viewBox="0 0 640 512"
@@ -135,17 +67,16 @@ export const Registroempresa = () => {
                   </svg>
                 </div>
               </div>
-              {/* BOTON DE REGISTRO */}
+              {/* BOTON PARA CONFIRMACION DE LA CONTRASEÑA */}
               <div className="button-container">
                 <button type="submit" className="animated-button">
-                  <span>Login</span>
+                  <span>Confirmar</span>
                 </button>
               </div>
             </form>
           </div>
         </div>
       </div>
-      <audio ref={audioRef} src="/img/Pedro.mp3" />
     </div>
   );
 };

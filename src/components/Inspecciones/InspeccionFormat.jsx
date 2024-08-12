@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../Inspecciones/Inspeccion.css";
+import "/public/css/components/inspecciones/Inspeccion.css";
 
 export const InspectionForm = () => {
   const [employerData, setEmployerData] = useState({
@@ -80,16 +80,16 @@ export const InspectionForm = () => {
 
   const getColor = (nivel) => {
     switch (nivel) {
-      case 'alto':
-        return 'red';
-      case 'medio':
-        return 'yellow';
-      case 'bajo':
-        return 'green';
+      case "alto":
+        return "red";
+      case "medio":
+        return "yellow";
+      case "bajo":
+        return "green";
       default:
-        return 'white'; // Color por defecto si no se reconoce el nivel
+        return "white"; // Color por defecto si no se reconoce el nivel
     }
-  };  
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -393,7 +393,8 @@ export const InspectionForm = () => {
                 className="indicador"
                 style={{ backgroundColor: getColor(result.altoMedioBajo) }}
               >
-                {result.altoMedioBajo.charAt(0).toUpperCase() + result.altoMedioBajo.slice(1)}
+                {result.altoMedioBajo.charAt(0).toUpperCase() +
+                  result.altoMedioBajo.slice(1)}
               </div>
             </div>
             <div className="form-group">

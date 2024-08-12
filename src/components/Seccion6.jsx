@@ -1,6 +1,4 @@
 import React from "react";
-import "../../public/css/img.css";
-import "../../public/css/boton.css";
 
 export const Seccion6 = () => {
   const abrirVentanaImagen = (urlImagen) => {

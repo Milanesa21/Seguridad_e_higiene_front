@@ -1,8 +1,7 @@
-
 import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import { CerrarSesion } from "./CerrarSesion";
-import "/public/css/nav.css";
+import "/public/css/components/nav.css";
 
 export const Navbar = () => {
   const { state } = useContext(AuthContext);
@@ -79,6 +78,9 @@ export const Navbar = () => {
               </li>
               <li>
                 <a href="/Panel">Panel de Seguridad</a>
+              </li>
+              <li>
+                <a href="/Perfil">Perfil</a>
               </li>
             </ul>
           </li>

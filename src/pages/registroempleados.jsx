@@ -1,15 +1,12 @@
 import React, { useState, useRef } from "react";
-import "../../public/css/img.css";
-import "../../public/css/Login.css";
-import "../../public/css/botonanimado.css";
 import NumericInput from "../components/Inputnumerico.jsx";
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
-import { styled } from '@mui/material/styles';
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+import { styled } from "@mui/material/styles";
 
 // Styled Alert component
 const Alert = styled(MuiAlert)(({ theme }) => ({
-  '& .MuiAlert-icon': {
+  "& .MuiAlert-icon": {
     color: theme.palette.success.main,
   },
 }));
@@ -46,13 +43,16 @@ export const Registroempleados = () => {
     if (data.puesto_trabajo === "" || data.num_usuarios === 0) return;
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/Usuarios/createUsers", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "http://127.0.0.1:8000/Usuarios/createUsers",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       const result = await response.json();
 
@@ -157,7 +157,11 @@ export const Registroempleados = () => {
       </div>
       <audio ref={audioRef} src="/img/Pedro.mp3" />
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity={notification.severity} sx={{ width: '100%' }}>
+        <Alert
+          onClose={handleClose}
+          severity={notification.severity}
+          sx={{ width: "100%" }}
+        >
           {notification.message}
         </Alert>
       </Snackbar>
