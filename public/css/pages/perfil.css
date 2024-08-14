@@ -9,8 +9,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   margin-top: 50px;
+  margin-bottom: 20px;
 }
 
 .divinfospyp {
@@ -18,7 +18,6 @@
   flex-direction: row;
   justify-content: space-between;
   width: 80%;
-
   border-radius: 20px;
 }
 
@@ -26,13 +25,22 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 0px 28px 0px 28px;
-  padding: 0px 0px 0px 140px;
+  margin-left: 10%;
+  margin-right: 10%;
+  justify-content: center;
 }
 
-.contenedorperfil h1 {
-  margin-left: 20px;
-  margin-right: 187px;
+.ContenedorLogoPfp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 60px;
+  padding: 12px 70px;
+  border: 2px solid rgb(126, 165, 175);
+  background-color: rgb(66, 123, 255, 0.2);
+  box-shadow: 5px 4px 4px gray;
+  border-radius: 20px;
+  max-height: 330px;
 }
 
 .Divinfopersonal {
@@ -42,15 +50,22 @@
   box-shadow: 5px 4px 4px gray;
   width: 48%;
   padding: 20px;
+  height: 325px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.Divinfopersonal li {
+.Divinfopersonal li,
+.Divinfolaboral li {
   display: flex;
   justify-content: flex-start;
+  flex-direction: row;
   margin-bottom: 10px;
 }
 
-.Divinfopersonal strong {
+.Divinfopersonal strong,
+.Divinfolaboral strong {
   font-size: 23px;
   margin-right: 10px;
 }
@@ -137,4 +152,24 @@ strong {
 .editable-field,
 .view-mode {
   font-size: 20px; /* Asegúrate de que el tamaño de la fuente sea el mismo en ambos modos */
+}
+
+.view-mode {
+  display: flex;
+  align-items: center;
+  margin-top: 3.5px;
+}
+
+.divrespo li {
+  display: flex;
+  flex-direction: column;
+}
+
+#ULrespo {
+  list-style-type: circle;
+  margin-left: 20px;
+}
+
+#LIrespo {
+  display: list-item;
 }

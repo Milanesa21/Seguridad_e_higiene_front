@@ -13,8 +13,8 @@ export const Perfil = () => {
 
   // Estado para manejar los datos
   const [formData, setFormData] = useState({
-    name: "Carlos López",
-    email: "carlos.lopez@industria.com",
+    name: "joaquin phoenix",
+    email: "joaquinphoenix@industria.com",
     phone: "+54 11 1234 5678",
   });
 
@@ -61,12 +61,13 @@ export const Perfil = () => {
       <div className="divperfil">
         <h1>Perfil</h1>
         <div className="contenedorperfil">
-          <div className="ContenedorLogo">
+          <div className="ContenedorLogoPfp">
             <div className="LogoForm">
               <img src="/public/img/sddefault.jpg" alt="" />
             </div>
+            <h1>joaquin phoenix</h1>
           </div>
-          <h1>Carlos López</h1>
+
           <div className="Divinfopersonal">
             <h6>Información Personal</h6>
             <ul>
@@ -142,10 +143,12 @@ export const Perfil = () => {
                 )}
               </li>
               <li>
-                <strong>Departamento:</strong> Mantenimiento
+                <strong>Departamento:</strong>{" "}
+                <span className="view-mode">Mantenimiento</span>
               </li>
               <li>
-                <strong>Cargo:</strong> Supervisor de Mantenimiento
+                <strong>Cargo:</strong>{" "}
+                <span className="view-mode">Supervisor de Mantenimiento</span>
               </li>
             </ul>
           </div>
@@ -157,36 +160,54 @@ export const Perfil = () => {
             <h6>Información Laboral</h6>
             <ul>
               <li>
-                <strong>Supervisor Directo:</strong> Juan García, Gerente de
-                Mantenimiento
+                <strong>Supervisor Directo:</strong>{" "}
+                <span className="view-mode">
+                  Juan García, Gerente de Mantenimiento
+                </span>
               </li>
               <li>
-                <strong>Horario de Trabajo:</strong> Lunes a Viernes, 7:00 -
-                15:00
+                <strong>Horario de Trabajo:</strong>{" "}
+                <span className="view-mode">Lunes a Viernes, 7:00 - 15:00</span>
               </li>
               <li>
-                <strong>Rol:</strong> Usuario
+                <strong>Rol:</strong> <span className="view-mode">Usuario</span>
               </li>
               <li>
-                <strong>permisos:</strong> Usuario
+                <strong>permisos:</strong>{" "}
+                <span className="view-mode">Usuario</span>
               </li>
               <li>
-                <strong>Ubicación Física:</strong> Planta 2, Edificio B, Oficina
-                5.
+                <strong>Ubicación Física:</strong>{" "}
+                <span className="view-mode">
+                  Planta 2, Edificio B, Oficina 5.
+                </span>
               </li>
               <li>
-                <strong>Fecha de Creación:</strong> 01/01/2021
+                <strong>Fecha de Creación:</strong>
+                <span className="view-mode"> 01/01/2021</span>
               </li>
-              <li>
-                <strong>Principales Responsabilidades:</strong>
-                <ul>
-                  <li>Supervisión de equipos de mantenimiento.</li>
-                  <li>
-                    Coordinación de reparaciones preventivas y correctivas.
-                  </li>
-                  <li>Gestión de inventarios de repuestos.</li>
-                </ul>
-              </li>
+              <div className="divrespo">
+                <li>
+                  <strong>Principales Responsabilidades:</strong>
+                  <ul id="ULrespo">
+                    <li id="LIrespo">
+                      <span className="view-mode">
+                        Supervisión de equipos de mantenimiento.
+                      </span>
+                    </li>
+                    <li id="LIrespo">
+                      <span className="view-mode">
+                        Coordinación de reparaciones preventivas y correctivas.
+                      </span>
+                    </li>
+                    <li id="LIrespo">
+                      <span className="view-mode">
+                        Gestión de inventarios de repuestos.
+                      </span>
+                    </li>
+                  </ul>
+                </li>
+              </div>
             </ul>
           </div>
         </div>
