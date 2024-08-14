@@ -8,6 +8,7 @@ import { Chat } from "../pages/Jorgito.jsx";
 import { InspectionForm } from "../components/Inspecciones/InspeccionFormat.jsx";
 import { Panel } from "../components/Panel de seguridad/Panel.jsx";
 import { Perfil } from "../pages/Perfil.jsx";
+import { PanelPermisos } from "../components/Panel de seguridad/PanelCambioPermisos.jsx";
 
 export const routes = [
   {
@@ -51,5 +52,9 @@ export const routes = [
   {
     path: "Perfil",
     element: <Perfil />,
+  },
+  {
+    path: 'PanelPermisos',
+    element: <PanelPermisos />,
   },
 ];

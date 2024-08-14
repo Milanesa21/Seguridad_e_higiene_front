@@ -9,54 +9,35 @@ export const DenunciasyEmergencias = () => {
   const emergencyRef = useRef(null);
   const denunciaRef = useRef(null);
   const [denunciaMessage, setDenunciaMessage] = useState("");
-  const [notification, setNotification] = useState({
-    open: false,
-    severity: "",
-    message: "",
-  });
+  const [notification, setNotification] = useState({ open: false, severity: '', message: '' });
 
   const { user } = useContext(AuthContext);
 
   const handleSendMessage = async (message) => {
     try {
-      const response = await fetch(
-        "http://localhost:8000/Usuarios/alert/sendMessage",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            user_id: user.id,
-            full_name: user.full_name,
-            puesto_trabajo: user.puesto_trabajo,
-            message: message,
-          }),
-        }
-      );
+      const response = await fetch("http://localhost:8000/Usuarios/alert/sendMessage", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: user.id,
+          full_name: user.full_name,
+          puesto_trabajo: user.puesto_trabajo,
+          message: message,
+        }),
+      });
 
       if (response.ok) {
-        setNotification({
-          open: true,
-          severity: "success",
-          message: "Mensaje enviado correctamente",
-        });
+        setNotification({ open: true, severity: 'success', message: 'Mensaje enviado correctamente' });
       } else {
         const data = await response.json();
         console.log("Error al enviar el mensaje:", data.detail);
-        setNotification({
-          open: true,
-          severity: "error",
-          message: "Error al enviar mensaje",
-        });
+        setNotification({ open: true, severity: 'error', message: 'Error al enviar mensaje' });
       }
     } catch (error) {
       console.log("Error al enviar el mensaje:", error);
-      setNotification({
-        open: true,
-        severity: "error",
-        message: "Error al enviar mensaje",
-      });
+      setNotification({ open: true, severity: 'error', message: 'Error al enviar mensaje' });
     }
   };
 
@@ -68,11 +49,7 @@ export const DenunciasyEmergencias = () => {
     if (denunciaMessage.trim() !== "") {
       await handleSendMessage(denunciaMessage);
     } else {
-      setNotification({
-        open: true,
-        severity: "error",
-        message: "No puedes enviar una denuncia vacía",
-      });
+      setNotification({ open: true, severity: 'error', message: 'No puedes enviar una denuncia vacía' });
     }
   };
 
@@ -89,17 +66,13 @@ export const DenunciasyEmergencias = () => {
             {/* BOTON DE EMERGENCIA */}
             <div className="buttonwrapper">
               <h2>Boton de Emergencias</h2>
-              <button
-                className="buttonEmergencia"
-                onClick={handleEmergencyClick}
-                ref={emergencyRef}
-              >
+              <button className="buttonEmergencia" onClick={handleEmergencyClick} ref={emergencyRef}>
                 <p className="text">¡EMERGENCIA!</p>
               </button>
             </div>
           </div>
           <div className="linea-divisoria"></div>
-
+          
           <div className="inputwrapper">
             <h2>Realice su Denuncia de seguridad</h2>
             <textarea
@@ -111,11 +84,7 @@ export const DenunciasyEmergencias = () => {
               required
             ></textarea>
             {/* BOTON DE DENUNCIA */}
-            <button
-              className="button"
-              onClick={handleDenunciaClick}
-              ref={denunciaRef}
-            >
+            <button className="button" onClick={handleDenunciaClick} ref={denunciaRef}>
               <p className="text">Denuncia</p>
             </button>
           </div>
@@ -123,15 +92,9 @@ export const DenunciasyEmergencias = () => {
       </section>
 
       {notification.open && (
-        <Stack sx={{ width: "100%" }} spacing={2}>
-          <Alert
-            severity={notification.severity}
-            onClose={handleCloseNotification}
-          >
-            <AlertTitle>
-              {notification.severity.charAt(0).toUpperCase() +
-                notification.severity.slice(1)}
-            </AlertTitle>
+        <Stack sx={{ width: '100%' }} spacing={2}>
+          <Alert severity={notification.severity} onClose={handleCloseNotification}>
+            <AlertTitle>{notification.severity.charAt(0).toUpperCase() + notification.severity.slice(1)}</AlertTitle>
             {notification.message}
           </Alert>
         </Stack>
@@ -139,5 +102,5 @@ export const DenunciasyEmergencias = () => {
     </div>
   );
 };
-
-export default DenunciasyEmergencias;
+{/*aqui se exporta el componente\*/}
+export default DenunciasyEmergencias;      

@@ -1,7 +1,8 @@
 import React, { useRef, useState, useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
-import Snackbar from "@mui/material/Snackbar";
-import Alert from "@mui/material/Alert";
+import { useNavigate } from "react-router-dom";
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
 export const Login = () => {
   const [pedro, setPedro] = React.useState(true);
@@ -17,6 +18,8 @@ export const Login = () => {
   const [alertMessage, setAlertMessage] = useState("");
 
   const { login } = useContext(AuthContext);
+
+ const navigate = useNavigate();
 
   const music = () => {
     if (pedro) {
@@ -50,14 +53,27 @@ export const Login = () => {
         },
         body: JSON.stringify(user),
       });
-      const data = await response.json();
 
-      if (data) {
-        login(data);
-        localStorage.setItem("token", data);
-        localStorage.setItem("loginSuccess", "Logueado correctamente");
-        window.location.href = "/";
+      if (!response.ok) {
+        throw new Error("Error en la petición");
       }
+
+      if (response.status === 200){
+        const data = await response.json();
+        if (data) {
+          login(data);
+          localStorage.setItem('token', data);
+          localStorage.setItem('loginSuccess', 'Logueado correctamente');
+          setAlertType("success");
+          setAlertMessage("Logueado correctamente");
+          setOpen(true);
+          setTimeout(() => {
+            navigate("/");
+          }, 2000);  // Esperar 2 segundos antes de redirigir
+        }
+  
+      }
+      
     } catch (error) {
       console.error("Error:", error);
       setAlertType("error");
@@ -76,7 +92,7 @@ export const Login = () => {
         <div className="contenedordelcontenedor">
           <div className="ContenedorFormulario">
             <h4 className="titulo-Login">Bienvenido</h4>
-            <form onSubmit={handleSubmit} onChange={handleChange}>
+            <form onChange={handleChange}>
               <div className="input-group">
                 <input
                   type="text"
@@ -124,8 +140,9 @@ export const Login = () => {
                 </div>
               </div>
 
-              <div className="button-container">
-                <button type="submit" className="animated-button">
+
+              <div className="button-container" onClick={handleSubmit}>
+                <button type="button" className="animated-button">
                   <span>Login</span>
                 </button>
               </div>

@@ -3,6 +3,7 @@ import NumericInput from "../components/Inputnumerico.jsx";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { styled } from "@mui/material/styles";
+import { Link } from "react-router-dom";
 
 // Styled Alert component
 const Alert = styled(MuiAlert)(({ theme }) => ({
@@ -138,6 +139,9 @@ export const Registroempleados = () => {
               <button type="submit" className="animated-button">
                 <span>Registrar</span>
               </button>
+              <Link to={'/'} style={{ textDecoration: 'none', color: 'black', margin: 15 }}>
+                Volver al menú
+              </Link>
             </div>
           </form>
         </div>
