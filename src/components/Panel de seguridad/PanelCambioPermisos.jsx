@@ -6,19 +6,17 @@ export const PanelPermisos = () => {
     const [users, setUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
 
+    // Función para obtener usuarios
     const fetchUsers = async () => {
         try {
             const response = await fetch('http://127.0.0.1:8000/Usuarios/user/All');
             if (response.ok) {
                 const data = await response.json();
-                console.log('Usuarios', data);
-    
-                // Asegúrate de que `data` es un array
                 if (Array.isArray(data)) {
                     setUsers(data);
                 } else {
                     console.error('Datos de usuarios no son un array', data);
-                    setUsers([]); // Puedes establecerlo como un array vacío para evitar errores
+                    setUsers([]);
                 }
             } else {
                 console.error('Failed to fetch users');
@@ -27,12 +25,13 @@ export const PanelPermisos = () => {
             console.error('Error fetching users:', error);
         }
     };
+
+    // Función para obtener permisos
     const fetchPermissions = async () => {
         try {
             const response = await fetch('http://127.0.0.1:8000/permiso/role/getPermissions');
             if (response.ok) {
                 const data = await response.json();
-                console.log('Permisos', data);
                 setPermissions(data);
             } else {
                 console.error('Failed to fetch permissions');
@@ -42,15 +41,37 @@ export const PanelPermisos = () => {
         }
     };
 
+    // Fetch initial data
     useEffect(() => {
         fetchPermissions();
         fetchUsers();
     }, []);
 
-    const handleClick = (user) => {
-        setSelectedUser(user);
+    // Función para obtener un usuario por ID
+    const fetchUserById = async (id) => {
+        try {
+            const response = await fetch(`http://127.0.0.1:8000/Usuarios/user/id/${id}`);
+            if (response.ok) {
+                const data = await response.json();
+                if (data.Usuario) {
+                    setSelectedUser(data.Usuario);
+                } else {
+                    console.error('User not found');
+                }
+            } else {
+                console.error('Failed to fetch user');
+            }
+        } catch (error) {
+            console.error('Error fetching user:', error);
+        }
     };
 
+    // Función para manejar clic en un usuario
+    const handleClick = (user) => {
+        fetchUserById(user.id);
+    };
+
+    // Función para manejar la adición de un permiso
     const handlePermissionAdd = async (permission, user) => {
         try {
             const response = await fetch('http://127.0.0.1:8000/permiso/role/addPermission', {
@@ -60,25 +81,21 @@ export const PanelPermisos = () => {
                 },
                 body: JSON.stringify({ id_user: user.id, id_permiso: permission.id }),
             });
+            console.log('Add permission response:', response); // Log de la respuesta completa
             if (response.ok) {
                 const data = await response.json();
-                console.log(data);
-                // Actualiza el estado del usuario seleccionado
-                setSelectedUser(prevState => ({
-                    ...prevState,
-                    rol: {
-                        ...prevState.rol,
-                        permisos: [...prevState.rol.permisos, permission.nombre_permiso],
-                    },
-                }));
+                console.log('Add permission data:', data); // Log de los datos recibidos
+                fetchUserById(user.id); // Actualiza los permisos del usuario
             } else {
-                console.error("Error adding permission:", await response.json());
+                const error = await response.json();
+                console.error("Error adding permission:", error);
             }
         } catch (error) {
             console.error("Network error:", error);
         }
     };
 
+    // Función para manejar la eliminación de un permiso
     const handlePermissionRemove = async (permission, user) => {
         try {
             const response = await fetch('http://127.0.0.1:8000/permiso/role/removePermission', {
@@ -88,26 +105,24 @@ export const PanelPermisos = () => {
                 },
                 body: JSON.stringify({ id_user: user.id, id_permiso: permission.id }),
             });
+            console.log('Remove permission response:', response); // Log de la respuesta completa
             if (response.ok) {
                 const data = await response.json();
-                console.log(data);
-                // Actualiza el estado del usuario seleccionado
-                setSelectedUser(prevState => ({
-                    ...prevState,
-                    rol: {
-                        ...prevState.rol,
-                        permisos: prevState.rol.permisos.filter(p => p !== permission.nombre_permiso),
-                    },
-                }));
+                console.log('Remove permission data:', data); // Log de los datos recibidos
+                fetchUserById(user.id); // Actualiza los permisos del usuario
             } else {
-                console.error("Error removing permission:", await response.json());
+                const error = await response.json();
+                console.error("Error removing permission:", error);
             }
         } catch (error) {
             console.error("Network error:", error);
         }
     };
 
+    // Función para manejar el cambio de estado del checkbox
     const handleCheckboxChange = (permission, user) => {
+        if (!selectedUser) return;
+
         const userHasPermission = selectedUser.rol.permisos.includes(permission.nombre_permiso);
         if (userHasPermission) {
             handlePermissionRemove(permission, user);
@@ -120,7 +135,6 @@ export const PanelPermisos = () => {
         <div>
             {users.length === 0 ? <p>Cargando usuarios...</p> : <UsuariosPermisos users={users} onUserClick={handleClick} />}
             
-
             {selectedUser && (
                 <div>
                     <h2>Permisos de {selectedUser.full_name}</h2>
@@ -134,6 +148,7 @@ export const PanelPermisos = () => {
                         </thead>
                         <tbody>
                             {permissions.map((permission, index) => {
+                                if (!selectedUser.rol) return null; // Asegúrate de que `selectedUser.rol` exista
                                 const userHasPermission = selectedUser.rol.permisos.includes(permission.nombre_permiso);
                                 return (
                                     <tr key={index}>

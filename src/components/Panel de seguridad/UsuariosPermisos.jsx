@@ -30,4 +30,4 @@ export const UsuariosPermisos = ({ users, onUserClick }) => {
             </table>
         </div>
     );
-}
+};
