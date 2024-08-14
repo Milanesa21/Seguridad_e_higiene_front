@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "/public/css/pages/Chat.css";
 import { hourglass } from "ldrs";
 import { Navbar } from "../components/Navbar";
+import Loader from "../components/Loader/Loader.jsx";
 
 hourglass.register();
 
@@ -147,12 +148,7 @@ export const Chat = () => {
             <div key={index} className={`message ${message.type}`}>
               {message.text === "loading" ? (
                 <div className="loading-container">
-                  <l-hourglass
-                    size="40"
-                    bg-opacity="0.1"
-                    speed="1.75"
-                    color="black"
-                  ></l-hourglass>
+                  <Loader />
                   <p>Jorgito está pensando...</p>
                 </div>
               ) : (

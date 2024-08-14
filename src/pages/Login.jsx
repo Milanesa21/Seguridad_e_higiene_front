@@ -75,19 +75,6 @@ export const Login = () => {
       <div className="ContenedorLogin">
         <div className="contenedordelcontenedor">
           <div className="ContenedorFormulario">
-            <div className="ContenedorLogo">
-              <div className={pedro ? "LogoForm" : "Pedro"}>
-                <img
-                  src={pedro ? "/img/logo.jpg" : "/img/Pedro.gif"}
-                  alt=""
-                  onDoubleClick={() => {
-                    setPedro(!pedro);
-                    music();
-                  }}
-                />
-              </div>
-            </div>
-
             <h4 className="titulo-Login">Bienvenido</h4>
             <form onSubmit={handleSubmit} onChange={handleChange}>
               <div className="input-group">

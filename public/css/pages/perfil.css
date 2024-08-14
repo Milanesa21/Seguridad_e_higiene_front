@@ -1,4 +1,140 @@
 .divperfil {
   display: flex;
+  flex-direction: column;
+  padding-top: 3%;
+}
+
+.divinfo {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+
+  margin-top: 50px;
+}
+
+.divinfospyp {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 80%;
+
+  border-radius: 20px;
+}
+
+.contenedorperfil {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0px 28px 0px 28px;
+  padding: 0px 0px 0px 140px;
+}
+
+.contenedorperfil h1 {
+  margin-left: 20px;
+  margin-right: 187px;
+}
+
+.Divinfopersonal {
+  border: 2px solid rgb(126, 165, 175);
+  border-radius: 20px;
+  background-color: rgb(66, 123, 255, 0.2);
+  box-shadow: 5px 4px 4px gray;
+  width: 48%;
+  padding: 20px;
+}
+
+.Divinfopersonal li {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+.Divinfopersonal strong {
+  font-size: 23px;
+  margin-right: 10px;
+}
+
+.Lapizdelorto {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.Divinfopersonal h6,
+.Divinfolaboral h6 {
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+
+.Divinfolaboral {
+  border: 2px solid rgb(126, 165, 175);
+  border-radius: 20px;
+  background-color: rgb(66, 123, 255, 0.2);
+  box-shadow: 5px 4px 4px gray;
+  width: 100%;
+  padding: 20px;
+}
+
+.divperfil {
+  text-align: center;
+}
+
+.Divinfopersonal ul,
+.divinfospyp ul {
+  list-style: none;
+  padding: 0;
+}
+
+.editable-input {
+  border: 1px solid #ccc;
+  padding: 5px;
+  margin-left: 10px;
+  border-radius: 4px;
+}
+
+.edit-icon {
+  margin-left: 10px;
+  color: #007bff;
+  cursor: pointer;
+}
+
+.edit-icon:hover {
+  color: #0056b3;
+}
+
+h3 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+strong {
+  color: #292929;
+}
+
+.editable-field {
+  display: flex;
+  align-items: center;
+}
+
+.editable-field input {
+  border: 1px solid #ccc;
+  padding: 4px;
+  margin-right: 8px;
+}
+
+.editable-field svg {
+  cursor: pointer;
+  margin-left: 4px;
+  font-size: 18px;
+}
+
+.editable-field svg:hover {
+  color: #007bff; /* Cambia el color al pasar el ratón */
+}
+
+.editable-field,
+.view-mode {
+  font-size: 20px; /* Asegúrate de que el tamaño de la fuente sea el mismo en ambos modos */
 }

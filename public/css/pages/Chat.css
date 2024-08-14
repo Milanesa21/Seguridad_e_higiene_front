@@ -30,12 +30,12 @@
 
 .question {
   align-self: flex-start;
-  background-color: #c7ecee;
+  background-color: rgb(62, 122, 204, 0.5);
 }
 
 .answer {
   align-self: flex-end;
-  background-color: #dff9fb;
+  background-color: rgb(62, 122, 204, 0.5);
 }
 
 .input-form {

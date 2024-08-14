@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "/public/css/components/inspecciones/Inspeccion.css";
+import { Navbar } from "../Navbar";
 
 export const InspectionForm = () => {
   const [employerData, setEmployerData] = useState({
@@ -104,6 +105,7 @@ export const InspectionForm = () => {
 
   return (
     <div>
+      <Navbar />
       <div className="form-container">
         <h1 className="form-title">REGISTRO DE INSPECCIONES</h1>
 

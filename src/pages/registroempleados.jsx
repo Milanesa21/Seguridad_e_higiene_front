@@ -94,19 +94,6 @@ export const Registroempleados = () => {
       <div className="ContenedorLogin">
         <div className="contenedordelcontenedor">
           <form onSubmit={handleSubmit} className="ContenedorFormulario">
-            <div className="ContenedorLogo">
-              <div className={pedro ? "LogoForm" : "Pedro"}>
-                <img
-                  src={pedro ? "/img/logo.jpg" : "/img/Pedro.gif"}
-                  alt=""
-                  onDoubleClick={() => {
-                    setPedro(!pedro);
-                    music();
-                  }}
-                />
-              </div>
-            </div>
-
             <h4 className="titulo-Login">Registro Empleados</h4>
             <NumericInput
               numUsuarios={numUsuarios}

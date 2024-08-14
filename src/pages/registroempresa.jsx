@@ -25,22 +25,9 @@ export const Registroempresa = () => {
 
   return (
     <div className="prueba">
-      <div className="ContenedorLogin">
+      <div className="ContenedorLoginre">
         <div className="contenedordelcontenedor">
           <div className="ContenedorFormulario">
-            <div className="ContenedorLogo">
-              <div className={pedro ? "LogoForm" : "Pedro"}>
-                <img
-                  src={pedro ? "/img/logo.jpg" : "/img/Pedro.gif"}
-                  alt=""
-                  onDoubleClick={() => {
-                    setPedro(!pedro);
-                    music();
-                  }}
-                />
-              </div>
-            </div>
-
             <h4 className="titulo-Login">Bienvenido</h4>
 
             <form action="submit" method="post">

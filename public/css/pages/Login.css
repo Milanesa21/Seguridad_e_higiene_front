@@ -177,14 +177,21 @@
 }
 
 .ContenedorLogin {
-  margin-top: 4%;
-
+  margin-top: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
+.ContenedorLoginre {
+  margin-top: 4.5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .ContenedorFormulario {
-  background-color: #004173;
+  background-color: rgb(30, 65, 115);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -203,8 +210,8 @@
 }
 
 .LogoForm {
-  width: 110px;
-  height: 110px;
+  width: 200px;
+  height: 200px;
   margin-top: 10px;
   margin-bottom: 10px;
   border: 2px solid #001b30;
@@ -214,7 +221,7 @@
 .LogoForm > img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: fill;
   object-position: 0px;
 }
 
@@ -225,6 +232,7 @@
   margin-bottom: 20px;
   margin-right: 30px;
   margin-left: 30px;
+  margin-top: 30px;
 }
 
 .Pedro {
@@ -256,7 +264,7 @@
   font-size: var(--size);
   user-select: none;
   fill: var(--color);
-  transform: translate(40%, -29px);
+  transform: translate(40%, -27.5px);
 }
 
 .containera .eye {
