@@ -6,6 +6,18 @@
   font-family: "Poppins", sans-serif;
 }
 
+.LogoNAV {
+  width: 20%;
+  height: 20%;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  width: 20%;
+}
+
 .pseccion {
   color: #f2f2f2;
   font-size: 20px;
@@ -23,7 +35,6 @@ nav {
 nav .wrapper {
   position: relative;
   max-width: 1300px;
-  padding: 0px 30px;
   height: 70px;
   line-height: 70px;
   margin: auto;

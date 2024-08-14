@@ -3,16 +3,20 @@ import ReactDOM from "react-dom/client";
 import "normalize.css";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { routes } from "./routes/Routes.jsx";
+import { LoadingProvider } from "./context/LoadingContext.jsx"; // Nuevo
 import { AuthProvider } from "./context/AuthProvider.jsx";
+import { RoutesComponent } from "./routes/Routes.jsx"; // Ahora importamos RoutesComponent
 
-
-const router = createBrowserRouter(routes);
+const router = createBrowserRouter([
+  { path: "/*", element: <RoutesComponent /> },
+]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
+    <LoadingProvider>
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
+    </LoadingProvider>
   </React.StrictMode>
 );
