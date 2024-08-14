@@ -1,3 +1,4 @@
+import React from "react";
 import { Navbar } from "./components/Navbar.jsx";
 import { Footer } from "./components/Footer.jsx";
 import { DenunciasyEmergencias } from "./components/DenunciasyEmergencias.jsx";
@@ -9,10 +10,12 @@ import { Seccion6 } from "./components/Seccion6.jsx";
 import { Seccion7 } from "./components/Seccion7.jsx";
 import "normalize.css";
 import "./App.css";
+import LoadingScreen from "./components/Loader/LoadingScreen.jsx"; // Nuevo
 
 function App() {
   return (
     <>
+      <LoadingScreen /> {/* Añadir aquí */}
       <Navbar />
       <br />
       <br />

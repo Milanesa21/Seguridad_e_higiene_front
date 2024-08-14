@@ -177,14 +177,14 @@
 }
 
 .ContenedorLogin {
-  margin-top: 10%;
+  padding-top: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .ContenedorLoginre {
-  margin-top: 4.5%;
+  padding-top: 5.5%;
   display: flex;
   justify-content: center;
   align-items: center;

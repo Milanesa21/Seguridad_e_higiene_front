@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import { CerrarSesion } from "./CerrarSesion";
 import "/public/css/components/nav.css";
+import logo from "/public/Logoo.webp";
 
 export const Navbar = () => {
   const { state } = useContext(AuthContext);
@@ -16,7 +17,8 @@ export const Navbar = () => {
     <nav>
       <div className="wrapper">
         <div className="logo">
-          <a href="#">Centinela</a>
+          <img className="LogoNAV" src={logo} alt="" />
+          <a href="/">Centinela</a>
         </div>
         <input type="radio" name="slider" id="menu-btn" />
         <input type="radio" name="slider" id="close-btn" />
@@ -24,20 +26,23 @@ export const Navbar = () => {
           <label htmlFor="close-btn" className="btn close-btn">
             <i className="fas fa-times"></i>
           </label>
-          <p className="pseccion">Secciones</p>
+
           <li>
-            <a onClick={() => scrollToSection("inicio")}>1ra</a>
+            <a onClick={() => scrollToSection("Denuncias")}>
+              Denuncias y Emergencias
+            </a>
           </li>
           <li>
-            <a onClick={() => scrollToSection("Denuncias")}>2da</a>
+            <a onClick={() => scrollToSection("Seccion3")}>
+              Graficos seguridad A
+            </a>
           </li>
           <li>
-            <a onClick={() => scrollToSection("Seccion3")}>3ra</a>
+            <a onClick={() => scrollToSection("Seccion4")}>
+              Graficos seguridad B
+            </a>
           </li>
-          <li>
-            <a onClick={() => scrollToSection("Seccion4")}>4ta</a>
-          </li>
-          <li>
+          {/* <li>
             <a onClick={() => scrollToSection("Seccion5")}>5ta</a>
           </li>
           <li>
@@ -45,7 +50,7 @@ export const Navbar = () => {
           </li>
           <li>
             <a onClick={() => scrollToSection("Seccion7")}>7ma</a>
-          </li>
+          </li> */}
           <li>
             <a href="#" className="desktop-item">
               Otras Opciones

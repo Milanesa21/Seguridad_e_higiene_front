@@ -1,21 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Loader from "./Loader.jsx";
 import "/public/css/components/loaders/LoadingScreen.css";
+import { useLoading } from "../../context/LoadingContext.jsx"; // Nuevo
 
 const LoadingScreen = () => {
-  const [isVisible, setIsVisible] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(false);
-    }, 3000); // Duración de la pantalla de carga en milisegundos
-
-    return () => clearTimeout(timer);
-  }, []);
+  const { isLoading } = useLoading();
 
   return (
     <>
-      {isVisible && (
+      {isLoading && (
         <div className="loading-screen">
           <Loader />
         </div>
