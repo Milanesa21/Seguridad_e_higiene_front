@@ -3,6 +3,7 @@ import "/public/css/pages/Chat.css";
 import { hourglass } from "ldrs";
 import { Navbar } from "../components/Navbar";
 import Loader from "../components/Loader/Loader.jsx";
+import { EmergencyModal } from "../components/EmergencyModal.jsx";
 
 hourglass.register();
 
@@ -134,6 +135,7 @@ export const Chat = () => {
             Enviar
           </button>
         </form>
+        <EmergencyModal />
       </div>
     </div>
   );

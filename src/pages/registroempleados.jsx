@@ -94,6 +94,7 @@ export const Registroempleados = () => {
   return (
     <>
       <Navbar />
+      <EmergencyModal />
       <div className="prueba">
         <div className="ContenedorLogin">
           <div className="contenedordelcontenedor">

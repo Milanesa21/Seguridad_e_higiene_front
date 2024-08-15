@@ -4,6 +4,8 @@ import { Box, Button, Modal, Typography } from "@mui/material";
 import { useWebSocket } from "../../context/WebSocketContext";
 import { useNotification } from "../../context/NotificationContext";
 import { Navbar } from "../Navbar";
+import { EmergencyModal } from "../EmergencyModal";
+
 
 const style = {
   position: 'absolute',
@@ -23,7 +25,6 @@ export const Panel = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [open, setOpen] = useState(false);
-  const [emergencyOpen, setEmergencyOpen] = useState(false); // Agrega este estado para el modal de emergencia
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -42,25 +43,6 @@ export const Panel = () => {
     return () => clearInterval(intervalId);
   }, []);
 
-  useEffect(() => {
-    if (!ws) return;
-
-    const handleMessage = (event) => {
-      const data = JSON.parse(event.data);
-      console.log("Received message:", data);  // Verifica el contenido del mensaje recibido
-      if (data.type === 'emergency') {
-        console.log("Emergency alert received");
-        setEmergencyOpen(true);
-      }
-    };
-
-    ws.addEventListener('message', handleMessage);
-
-    return () => {
-      ws.removeEventListener('message', handleMessage);
-    };
-  }, [ws]);
-
   const sendAlert = (event) => {
     event.preventDefault();
     if (ws) {
@@ -78,8 +60,6 @@ export const Panel = () => {
       handleClose();
     }
   };
-
-  const handleEmergencyClose = () => setEmergencyOpen(false);
 
   const columns = [
     { field: "timestamp", headerName: "Fecha del mensaje", width: 200 },
@@ -134,24 +114,7 @@ export const Panel = () => {
             </Button>
           </Box>
         </Modal>
-        <Modal
-          open={emergencyOpen}
-          onClose={handleEmergencyClose}
-          aria-labelledby="emergency-notification-title"
-          aria-describedby="emergency-notification-description"
-        >
-          <Box sx={style}>
-            <Typography id="emergency-notification-title" variant="h6" component="h2">
-              ¡Emergencia!
-            </Typography>
-            <Typography id="emergency-notification-description" sx={{ mt: 2 }}>
-              Se ha recibido una alerta de emergencia. Por favor, tome las medidas necesarias.
-            </Typography>
-            <Button variant="contained" onClick={handleEmergencyClose} sx={{ mt: 2 }}>
-              Entendido
-            </Button>
-          </Box>
-        </Modal>
+        <EmergencyModal />
       </Box>
     </div>
   );

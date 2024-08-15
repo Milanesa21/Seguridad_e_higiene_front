@@ -80,6 +80,7 @@ export const Registroempresa = () => {
   return (
     <>
       <Navbar />
+      <EmergencyModal />
       <div className="prueba">
         <div className="ContenedorLoginre">
           <div className="contenedordelcontenedor">

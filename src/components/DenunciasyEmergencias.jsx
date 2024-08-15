@@ -4,6 +4,7 @@ import { AuthContext } from "../context/AuthProvider";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import Stack from "@mui/material/Stack";
+import { EmergencyModal } from "./EmergencyModal";
 
 export const DenunciasyEmergencias = () => {
   const emergencyRef = useRef(null);
@@ -99,6 +100,7 @@ export const DenunciasyEmergencias = () => {
           </Alert>
         </Stack>
       )}
+      <EmergencyModal />
     </div>
   );
 };
