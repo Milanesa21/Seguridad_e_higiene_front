@@ -3,6 +3,7 @@ import { AuthContext } from "../context/AuthProvider";
 import { CerrarSesion } from "./CerrarSesion";
 import "/public/css/components/nav.css";
 import logo from "/public/Logoo.webp";
+import profile from "/public/img/sddefault.jpg";
 
 export const Navbar = () => {
   const { state } = useContext(AuthContext);
@@ -84,15 +85,20 @@ export const Navbar = () => {
               <li>
                 <a href="/Panel">Panel de Seguridad</a>
               </li>
-              <li>
-                <a href="/Perfil">Perfil</a>
-              </li>
             </ul>
           </li>
         </ul>
+
         <label htmlFor="menu-btn" className="btn menu-btn">
           <i className="fas fa-bars"></i>
         </label>
+      </div>
+      <div className="divpfpnav">
+        <span className="pseccion">Joaquin Phoenix</span>
+        <a href="/perfil">
+          {" "}
+          <img className="LogoPFPNavbar" src={profile} alt="" />
+        </a>
       </div>
     </nav>
   );

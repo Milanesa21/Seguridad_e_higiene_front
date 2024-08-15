@@ -19,8 +19,6 @@ export const Login = () => {
 
   const { login } = useContext(AuthContext);
 
-  console.log("Pedro:", pedro);
-
   const navigate = useNavigate();
 
   const music = () => {
