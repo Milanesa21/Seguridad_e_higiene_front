@@ -69,7 +69,7 @@ export const Login = () => {
           setOpen(true);
           setTimeout(() => {
             navigate("/");
-          }, 2000); // Esperar 2 segundos antes de redirigir
+          }); // 
         }
       }
     } catch (error) {
