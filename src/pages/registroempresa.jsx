@@ -6,7 +6,7 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { styled } from "@mui/material/styles";
 import { Navbar } from "../components/Navbar";
-
+import { EmergencyModal } from "../components/EmergencyModal";
 // Styled Alert component
 const Alert = styled(MuiAlert)(({ theme }) => ({
   "& .MuiAlert-icon": {
@@ -80,7 +80,6 @@ export const Registroempresa = () => {
   return (
     <>
       <Navbar />
-      <EmergencyModal />
       <div className="prueba">
         <div className="ContenedorLoginre">
           <div className="contenedordelcontenedor">
@@ -200,6 +199,7 @@ export const Registroempresa = () => {
             {notification.message}
           </Alert>
         </Snackbar>
+        <EmergencyModal />
       </div>
     </>
   );

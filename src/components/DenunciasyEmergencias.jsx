@@ -100,7 +100,6 @@ export const DenunciasyEmergencias = () => {
           </Alert>
         </Stack>
       )}
-      <EmergencyModal />
     </div>
   );
 };

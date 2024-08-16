@@ -207,6 +207,7 @@ export const Perfil = () => {
                         Gestión de inventarios de repuestos.
                       </span>
                     </li>
+                    <EmergencyModal/>
                   </ul>
                 </li>
               </div>

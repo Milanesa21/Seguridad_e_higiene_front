@@ -9,6 +9,7 @@ import { WebSocketProvider } from "./context/WebSocketContext";
 import { NotificationProvider } from "./context/NotificationContext";
 import { RoutesComponent } from "./routes/Routes.jsx";
 
+
 const router = createBrowserRouter([
   { path: "/*", element: <RoutesComponent /> },
 ]);
