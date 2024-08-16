@@ -18,7 +18,6 @@ export const Login = () => {
   const [alertMessage, setAlertMessage] = useState("");
 
   const { login } = useContext(AuthContext);
-
   const navigate = useNavigate();
 
   const music = () => {
@@ -67,9 +66,11 @@ export const Login = () => {
           setAlertType("success");
           setAlertMessage("Logueado correctamente");
           setOpen(true);
-          setTimeout(() => {
+          if (user.full_name.includes("Usuario N")) {
+            navigate("/cambioDatos");
+          } else {
             navigate("/");
-          }); // 
+          }
         }
       }
     } catch (error) {
@@ -83,6 +84,7 @@ export const Login = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
 
   return (
     <div className="prueba">

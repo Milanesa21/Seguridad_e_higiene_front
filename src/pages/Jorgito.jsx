@@ -20,6 +20,10 @@ export const Chat = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!inputText.trim()) {
+      return;
+    }
 
     const newMessage = { type: "question", text: inputText };
     setMessages([...messages, newMessage]);
@@ -27,7 +31,7 @@ export const Chat = () => {
     setInputText("");
     setDisableInput(true);
 
-    const loadingMessage = { type: "answer", text: "loading" };
+    const loadingMessage = { type: "answer", text: "" };
     setMessages((prevMessages) => [...prevMessages, loadingMessage]);
 
     try {
@@ -54,7 +58,7 @@ export const Chat = () => {
           const updatedMessages = [...prevMessages];
           updatedMessages[updatedMessages.length - 1] = {
             type: "answer",
-            text: text,
+            text: text,  // Se actualiza el mensaje con el texto recibido
           };
           return updatedMessages;
         });
@@ -107,7 +111,7 @@ export const Chat = () => {
         <div className="messages-container">
           {messages.map((message, index) => (
             <div key={index} className={`message ${message.type}`}>
-              {message.text === "loading" ? (
+              {loading && message.text === "" ? (
                 <div className="loading-container">
                   <Loader />
                   <p>Jorgito está pensando...</p>
@@ -131,7 +135,11 @@ export const Chat = () => {
             className="input-field"
             disabled={disableInput}
           />
-          <button type="submit" className="send-button" disabled={disableInput}>
+          <button
+            type="submit"
+            className="send-button"
+            disabled={disableInput || !inputText.trim()}
+          >
             Enviar
           </button>
         </form>

@@ -1,5 +1,5 @@
 import App from "../App.jsx";
-
+import { CambioDatos } from "../pages/cambioDatos.jsx";
 import { PasswordChange } from "../pages/PasswordChange.jsx";
 import { ProtectRoutes } from "./ProtectRoutes.jsx";
 import { Registroempleados } from "../pages/registroempleados.jsx";
@@ -9,7 +9,7 @@ import { InspectionForm } from "../components/Inspecciones/InspeccionFormat.jsx"
 import { Panel } from "../components/Panel de seguridad/Panel.jsx";
 import { Perfil } from "../pages/Perfil.jsx";
 import { PanelPermisos } from "../components/Panel de seguridad/PanelCambioPermisos.jsx";
-import { useLoading } from "../context/LoadingContext.jsx"; // Nuevo
+import { useLoading } from "../context/LoadingContext.jsx";
 import React, { useEffect } from "react";
 import { Route, Routes as RouterRoutes, useLocation } from "react-router-dom";
 import { Login } from "../pages/Login.jsx";
@@ -34,6 +34,10 @@ export const routes = [
   {
     path: "/PasswordChange",
     element: <PasswordChange />,
+  },
+  {
+    path: "/CambioDatos",
+    element: <CambioDatos/>,
   },
   {
     path: "Registroempleados",
