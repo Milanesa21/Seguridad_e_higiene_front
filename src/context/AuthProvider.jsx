@@ -21,6 +21,8 @@ export const AuthProvider = ({ children }) => {
       if (!token) {
         dispatch({ type: types.LOGOUT });
         localStorage.removeItem("token");
+        setUserId("");
+        setUser({});
         return;
       }
 
@@ -82,6 +84,7 @@ export const AuthProvider = ({ children }) => {
           const data = await response.json();
           if (data && data.Usuario) {
             setUser(data.Usuario);
+            console.log("User fetched:", data.Usuario);
           }
         }
       } catch (error) {
