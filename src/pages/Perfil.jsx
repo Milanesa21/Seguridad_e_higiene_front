@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Navbar } from "../components/Navbar";
 import { FaPencilAlt, FaCheck, FaTimes } from "react-icons/fa";
 import "/public/css/pages/perfil.css";
+import { EmergencyModal } from "../components/EmergencyModal";
 
 export const Perfil = () => {
   // Estado para manejar la edición
@@ -55,6 +56,7 @@ export const Perfil = () => {
   return (
     <div>
       <Navbar />
+      <EmergencyModal />
       <br />
       <br />
       <br />
@@ -205,6 +207,7 @@ export const Perfil = () => {
                         Gestión de inventarios de repuestos.
                       </span>
                     </li>
+                    <EmergencyModal/>
                   </ul>
                 </li>
               </div>

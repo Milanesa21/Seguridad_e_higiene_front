@@ -3,10 +3,10 @@ import NumericInput from "../components/Inputnumerico.jsx";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { styled } from "@mui/material/styles";
-import { Link } from "react-router-dom";
 import { Navbar } from "../components/Navbar.jsx";
+import { EmergencyModal } from "../components/EmergencyModal.jsx";
 
-// Styled Alert component
+
 const Alert = styled(MuiAlert)(({ theme }) => ({
   "& .MuiAlert-icon": {
     color: theme.palette.success.main,
@@ -94,6 +94,7 @@ export const Registroempleados = () => {
   return (
     <>
       <Navbar />
+      <EmergencyModal />
       <div className="prueba">
         <div className="ContenedorLogin">
           <div className="contenedordelcontenedor">
@@ -126,8 +127,8 @@ export const Registroempleados = () => {
                   <option className="Options" value="Agropecuaria">
                     Agropecuaria
                   </option>
-                  <option className="Options" value="Metalurgia">
-                    Metalurgia
+                  <option className="Options" value="Admin">
+                    Administrador
                   </option>
                   <option className="Options" value="Area de seguridad">
                     Area de seguridad

@@ -3,41 +3,9 @@ import "/public/css/pages/Chat.css";
 import { hourglass } from "ldrs";
 import { Navbar } from "../components/Navbar";
 import Loader from "../components/Loader/Loader.jsx";
+import { EmergencyModal } from "../components/EmergencyModal.jsx";
 
 hourglass.register();
-
-const initialPrompt = `
-Eres un asistente amigable y servicial llamado Jorgito el Ingeniero. 
-Se supone que tu comportamiento se debe basar en un asistente de mentorías para el ámbito industrial. 
-Tu misión es proporcionar información precisa y útil sobre trabajos industriales, seguridad e higiene, y ayudar en la toma de decisiones durante inspecciones de seguridad. 
-Por favor, proporciona respuestas útiles y detalladas, procura que sean lo más técnicas y entendibles posibles. 
-Trata de no ser redundante y de ser lo más claro posible.
-
-Áreas de Conocimiento:
-
-1. Trabajos Industriales:
-- Proporciona descripciones detalladas de diferentes roles y puestos en la industria, especialmente en los sectores de Construcción, Foresto Industria, Frigorífica, Química y Alimentos. 
-- Ofrece consejos sobre las habilidades necesarias y las mejores prácticas en la gestión de proyectos y optimización de la producción.
-
-2. Seguridad e Higiene:
-- Brinda recomendaciones y pautas para mantener un entorno de trabajo seguro y saludable. 
-- Ayuda a identificar y evaluar riesgos en el lugar de trabajo, proponiendo medidas preventivas y correctivas. 
-- Proporciona información sobre normativas y regulaciones en seguridad e higiene laboral.
-
-3. Inspecciones de Seguridad:
-- Guía en la realización de inspecciones de seguridad, destacando puntos críticos. 
-- Ofrece análisis y sugerencias para mejorar las condiciones de seguridad. 
-- Ayuda a documentar hallazgos y a desarrollar planes de acción basados en las inspecciones.
-
-Interacción con los Usuarios:
-- Responde a preguntas específicas de manera clara y detallada. 
-- Ofrece asesoramiento personalizado según las situaciones particulares que presenten los usuarios. 
-- Proporciona referencias a regulaciones, mejores prácticas y fuentes confiables de información cuando sea necesario.
-
-Adaptabilidad:
-- Ajusta tus respuestas según el contexto y las necesidades específicas del usuario. 
-- Mantén siempre un enfoque proactivo y orientado a la solución de problemas.
-`;
 
 export const Chat = () => {
   const [inputText, setInputText] = useState("");
@@ -45,7 +13,6 @@ export const Chat = () => {
   const [loading, setLoading] = useState(false);
   const [conversationHistory, setConversationHistory] = useState([]);
   const [disableInput, setDisableInput] = useState(false);
-  const [initialPromptSent, setInitialPromptSent] = useState(false);
 
   const handleChange = (e) => {
     setInputText(e.target.value);
@@ -53,6 +20,10 @@ export const Chat = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!inputText.trim()) {
+      return;
+    }
 
     const newMessage = { type: "question", text: inputText };
     setMessages([...messages, newMessage]);
@@ -60,17 +31,11 @@ export const Chat = () => {
     setInputText("");
     setDisableInput(true);
 
-    const loadingMessage = { type: "answer", text: "loading" };
+    const loadingMessage = { type: "answer", text: "" };
     setMessages((prevMessages) => [...prevMessages, loadingMessage]);
 
     try {
-      let fullPrompt = inputText;
-      if (!initialPromptSent) {
-        fullPrompt = initialPrompt + "\n" + inputText;
-        setInitialPromptSent(true);
-      } else {
-        fullPrompt = conversationHistory.join("\n") + "\n" + inputText;
-      }
+      const fullPrompt = conversationHistory.join("\n") + "\n" + inputText;
 
       const response = await fetch("http://localhost:8000/jorgito/query/", {
         method: "POST",
@@ -93,7 +58,7 @@ export const Chat = () => {
           const updatedMessages = [...prevMessages];
           updatedMessages[updatedMessages.length - 1] = {
             type: "answer",
-            text: text,
+            text: text,  // Se actualiza el mensaje con el texto recibido
           };
           return updatedMessages;
         });
@@ -146,7 +111,7 @@ export const Chat = () => {
         <div className="messages-container">
           {messages.map((message, index) => (
             <div key={index} className={`message ${message.type}`}>
-              {message.text === "loading" ? (
+              {loading && message.text === "" ? (
                 <div className="loading-container">
                   <Loader />
                   <p>Jorgito está pensando...</p>
@@ -170,10 +135,15 @@ export const Chat = () => {
             className="input-field"
             disabled={disableInput}
           />
-          <button type="submit" className="send-button" disabled={disableInput}>
+          <button
+            type="submit"
+            className="send-button"
+            disabled={disableInput || !inputText.trim()}
+          >
             Enviar
           </button>
         </form>
+        <EmergencyModal />
       </div>
     </div>
   );

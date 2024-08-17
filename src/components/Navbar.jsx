@@ -85,6 +85,9 @@ export const Navbar = () => {
               <li>
                 <a href="/Panel">Panel de Seguridad</a>
               </li>
+              <li>
+                <a href="/PanelPermisos">Panel de Permisos</a>
+              </li>
             </ul>
           </li>
         </ul>

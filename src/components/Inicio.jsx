@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import { EmergencyModal } from "./EmergencyModal"; 
 
 export const Inicio = () => {
   const [open, setOpen] = useState(false);
@@ -12,7 +13,7 @@ export const Inicio = () => {
     if (message) {
       setNotification(message);
       setOpen(true);
-      localStorage.removeItem("loginSuccess"); // Limpiar el mensaje después de mostrarlo
+      localStorage.removeItem("loginSuccess"); 
     }
   }, []);
 
@@ -50,6 +51,8 @@ export const Inicio = () => {
           {notification}
         </Alert>
       </Snackbar>
+
+      <EmergencyModal />
     </div>
   );
 };
