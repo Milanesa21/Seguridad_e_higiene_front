@@ -6,7 +6,7 @@ import logo from "/public/Logoo.webp";
 import profile from "/public/img/sddefault.jpg";
 
 export const Navbar = () => {
-  const { state } = useContext(AuthContext);
+  const { state, user } = useContext(AuthContext);
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
     if (section) {
@@ -70,24 +70,36 @@ export const Navbar = () => {
                   <a href="/Login">Inicio de sesion</a>
                 </li>
               )}
-              <li>
-                <a href="/Registroempleados">Registro empleados</a>
-              </li>
-              <li>
-                <a href="/Registroempresa">Registro empresa</a>
-              </li>
+              {user?.rol?.nombre === 'super_admin' || user?.rol?.nombre === 'admin' ? (
+                <li>
+                  <a href="/Registroempleados">Registro empleados</a>
+                </li>
+              ): (
+                null
+              )}
+              {user?.rol?.nombre === 'super_admin' && (
+                  <li>
+                    <a href="/Registroempresa">Registro empresa</a>
+                </li>
+              )}
               <li>
                 <a href="/Jorgito">Asistente virtual</a>
               </li>
+              {user?.rol?.nombre === 'segurity' || user?.rol?.nombre === 'super_admin' || user?.rol?.nombre === 'admin' ? (
               <li>
                 <a href="/Inspeccion">Inspecciones de seguridad</a>
               </li>
-              <li>
-                <a href="/Panel">Panel de Seguridad</a>
-              </li>
-              <li>
-                <a href="/PanelPermisos">Panel de Permisos</a>
-              </li>
+              ) : null}
+              {user?.rol?.nombre === 'super_admin' || user?.rol?.nombre === 'admin' || user?.rol?.nombre === 'segurity' ? (
+                <li>
+                  <a href="/Panel">Panel de Seguridad</a>
+                </li>
+              ) : null}
+              {user?.rol?.nombre === 'super_admin' || user?.rol?.nombre === 'admin' ? (
+                <li>
+                  <a href="/PanelPermisos">Panel de Permisos</a>
+                </li>
+              ): null}
             </ul>
           </li>
         </ul>
@@ -96,13 +108,15 @@ export const Navbar = () => {
           <i className="fas fa-bars"></i>
         </label>
       </div>
-      <div className="divpfpnav">
-        <span className="pseccion">Joaquin Phoenix</span>
-        <a href="/perfil">
-          {" "}
-          <img className="LogoPFPNavbar" src={profile} alt="" />
-        </a>
-      </div>
+      {state?.logged ? (
+    <div className="divpfpnav">
+      <span className="pseccion">{user.full_name || 'Bruce wayne'}</span>
+      <a href="/perfil">
+        <img className="LogoPFPNavbar" src={profile} alt="" />
+      </a>
+    </div>
+      ): null}
+
     </nav>
   );
 };

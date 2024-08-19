@@ -3,8 +3,13 @@ import { Navbar } from "../components/Navbar";
 import { FaPencilAlt, FaCheck, FaTimes } from "react-icons/fa";
 import "/public/css/pages/perfil.css";
 import { EmergencyModal } from "../components/EmergencyModal";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "../context/AuthProvider";
 
 export const Perfil = () => {
+
+  const {user, state} = useContext(AuthContext);
+
   // Estado para manejar la edición
   const [isEditing, setIsEditing] = useState({
     name: false,
@@ -18,6 +23,15 @@ export const Perfil = () => {
     email: "joaquinphoenix@industria.com",
     phone: "+54 11 1234 5678",
   });
+
+  useEffect(() => {
+  if (state.logged) {
+    setFormData({
+      name: user.full_name || 'Bruce Wayne',
+      email: user.email || 'Codificado',
+    })
+  };
+}, [user]);
 
   // Manejar el cambio en los campos de entrada
   const handleChange = (e) => {
@@ -67,7 +81,7 @@ export const Perfil = () => {
             <div className="LogoForm">
               <img src="/public/img/sddefault.jpg" alt="" />
             </div>
-            <h1>joaquin phoenix</h1>
+            <h1>{user?.full_name || 'Bruce Wayne'}</h1>
           </div>
 
           <div className="Divinfopersonal">
@@ -172,7 +186,7 @@ export const Perfil = () => {
                 <span className="view-mode">Lunes a Viernes, 7:00 - 15:00</span>
               </li>
               <li>
-                <strong>Rol:</strong> <span className="view-mode">Usuario</span>
+                <strong>Rol:</strong> <span className="view-mode">{user?.rol?.nombre}</span>
               </li>
               <li>
                 <strong>permisos:</strong>{" "}
