@@ -6,7 +6,6 @@ import { styled } from "@mui/material/styles";
 import { Navbar } from "../components/Navbar.jsx";
 import { EmergencyModal } from "../components/EmergencyModal.jsx";
 
-
 const Alert = styled(MuiAlert)(({ theme }) => ({
   "& .MuiAlert-icon": {
     color: theme.palette.success.main,

@@ -37,7 +37,7 @@ export const routes = [
   },
   {
     path: "/CambioDatos",
-    element: <CambioDatos/>,
+    element: <CambioDatos />,
   },
   {
     path: "Registroempleados",
