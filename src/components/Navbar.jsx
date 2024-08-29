@@ -83,8 +83,14 @@ export const Navbar = () => {
                 </li>
               )}
               <li>
-                <a href="/Jorgito">Asistente virtual</a>
-              </li>
+              <a
+                href="https://jorgito-76bcf3.zapier.app"
+                target="_blank"
+                className="nav-link px-2"
+              >
+                Asistente virtual
+              </a>
+            </li>
               {user?.rol?.nombre === 'segurity' || user?.rol?.nombre === 'super_admin' || user?.rol?.nombre === 'admin' ? (
               <li>
                 <a href="/Inspeccion">Inspecciones de seguridad</a>

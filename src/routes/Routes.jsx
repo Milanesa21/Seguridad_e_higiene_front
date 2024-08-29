@@ -13,6 +13,8 @@ import { useLoading } from "../context/LoadingContext.jsx";
 import React, { useEffect } from "react";
 import { Route, Routes as RouterRoutes, useLocation } from "react-router-dom";
 import { Login } from "../pages/Login.jsx";
+import { AmbienteEvaluation } from "../pages/IaAmbientes.jsx";
+import { UniformeEvaluation } from "../pages/IaUniformes.jsx";
 
 export const routes = [
   {
@@ -66,6 +68,14 @@ export const routes = [
   {
     path: "PanelPermisos",
     element: <PanelPermisos />,
+  },
+  {
+    path: "IaAmbientes",
+    element: <AmbienteEvaluation />,
+  },
+  {
+    path: "IaUniformes",
+    element: <UniformeEvaluation />,
   },
 ];
 

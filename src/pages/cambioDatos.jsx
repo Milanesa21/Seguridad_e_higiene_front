@@ -1,6 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 export const CambioDatos = () => {
   const [newData, setNewData] = useState({
@@ -8,9 +10,11 @@ export const CambioDatos = () => {
     email: "",
     password: "",
   });
+  const [open, setOpen] = useState(false);
+  const [alertType, setAlertType] = useState("success");
+  const [alertMessage, setAlertMessage] = useState("");
 
-  const {user} = useContext(AuthContext)
-
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -23,7 +27,6 @@ export const CambioDatos = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Aquí debes hacer las peticiones fetch para cambiar nombre, email y contraseña
       const response = await fetch("http://127.0.0.1:8000/Usuarios/user/updateData", {
         method: "PATCH",
         headers: {
@@ -37,22 +40,35 @@ export const CambioDatos = () => {
         }),
       });
 
-      if (!response.ok) {
-        throw new Error("Error en la petición");
-      }
-
-      const result = await response.json();
-      console.log(result);
-
-      if (result.message === "User data successfully updated") {
-        // Redirigir a la ruta principal si la actualización fue exitosa
-        navigate("/");
+      if (response.ok) {
+        if (response.status === 200) {
+          const result = await response.json();
+          if (result.message === "User data successfully updated") {
+            setAlertType("success");
+            setAlertMessage("Datos actualizados correctamente");
+            setOpen(true);
+            setTimeout(() => navigate("/"), 2000); // Redirige después de 2 segundos
+          } else {
+            setAlertType("error");
+            setAlertMessage("Error al actualizar los datos del usuario");
+            setOpen(true);
+          }
+        }
       } else {
-        console.error("Error al actualizar los datos del usuario");
+        setAlertType("error");
+        setAlertMessage("Error en la petición: " + response.status);
+        setOpen(true);
       }
     } catch (error) {
       console.error("Error:", error);
+      setAlertType("error");
+      setAlertMessage("Ha ocurrido un error");
+      setOpen(true);
     }
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -66,6 +82,7 @@ export const CambioDatos = () => {
             name="name"
             id="name"
             value={newData.name}
+            onChange={handleChange}
             required
           />
         </div>
@@ -76,6 +93,7 @@ export const CambioDatos = () => {
             name="email"
             id="email"
             value={newData.email}
+            onChange={handleChange}
             required
           />
         </div>
@@ -86,11 +104,19 @@ export const CambioDatos = () => {
             name="password"
             id="password"
             value={newData.password}
+            onChange={handleChange}
             required
           />
         </div>
         <button type="submit">Actualizar Datos</button>
       </form>
+
+      {/* Notificación de éxito o error */}
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity={alertType}>
+          {alertMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
