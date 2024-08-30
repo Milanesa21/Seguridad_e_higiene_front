@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "/public/css/components/inspecciones/Inspeccion.css";
 import { Navbar } from "../Navbar";
+import { EmergencyModal } from "../EmergencyModal";
 
 export const InspectionForm = () => {
   const [employerData, setEmployerData] = useState({
