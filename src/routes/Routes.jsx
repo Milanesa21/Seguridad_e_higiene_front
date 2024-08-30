@@ -15,6 +15,7 @@ import { Route, Routes as RouterRoutes, useLocation } from "react-router-dom";
 import { Login } from "../pages/Login.jsx";
 import { AmbienteEvaluation } from "../pages/IaAmbientes.jsx";
 import { UniformeEvaluation } from "../pages/IaUniformes.jsx";
+import { ChecklistForm } from "../components/Inspecciones/InspeccionChecklist.jsx";
 
 export const routes = [
   {
@@ -48,6 +49,10 @@ export const routes = [
   {
     path: "/Inspeccion",
     element: <InspectionForm />,
+  },
+  {
+    path: "/InspeccionChecklist",
+    element: <ChecklistForm />,
   },
   {
     path: "Registroempresa",

@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "@bitnoi.se/react-scheduler": "^0.2.0",
-    "@emotion/react": "^11.13.0",
+    "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
-    "@mui/material": "^5.16.7",
+    "@mui/material": "^6.0.1",
     "@mui/x-data-grid": "^7.12.1",
     "axios": "^1.7.2",
     "jspdf": "^2.5.1",
