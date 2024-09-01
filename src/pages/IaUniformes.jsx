@@ -3,6 +3,8 @@ import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { EmergencyModal } from '../components/EmergencyModal';
 
+
+
 export const UniformeEvaluation = () => {
   const [image, setImage] = useState(null);
   const [result, setResult] = useState('');

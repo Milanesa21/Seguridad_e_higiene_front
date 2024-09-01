@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { EmergencyModal } from '../components/EmergencyModal';
+import styles from "../../public/css/pages/AmbienteEvaluation.module.css";
 
 export const AmbienteEvaluation = () => {
   const [image, setImage] = useState(null);
@@ -50,22 +51,22 @@ export const AmbienteEvaluation = () => {
   };
 
   return (
-    <div className="d-flex flex-column min-vh-100">
+    <div className={styles.container}>
       <Navbar />
-      <div className="container mt-5 flex-grow-1">
+      <div className={`${styles.mainContent} container`}>
         <div className="row justify-content-center">
           <div className="col-md-8 text-center">
-            <h1 className="mb-4">Evaluar Ambiente</h1>
+            <h1 className={styles.heading}>Evaluar Ambiente</h1>
             <input 
               type="file" 
               accept="image/*" 
               onChange={handleImageChange} 
-              className="form-control mb-3" 
+              className={`form-control ${styles.fileInput}`} 
             />
 
             {loading && (
               <div className="mb-3">
-                <div className="spinner-border text-primary" role="status">
+                <div className={`spinner-border text-primary ${styles.spinner}`} role="status">
                   <span className="sr-only">Loading...</span>
                 </div>
               </div>
@@ -77,18 +78,16 @@ export const AmbienteEvaluation = () => {
                 <img 
                   src={imagePreview} 
                   alt="Selected" 
+                  className={`img-thumbnail ${styles.imagePreview}`} 
                   style={{ 
-                    maxWidth: '300px', 
-                    maxHeight: '300px', 
                     border: result === 'Falla de seguridad' ? '5px solid red' : '5px solid #dee2e6' 
                   }} 
-                  className="img-thumbnail"
                 />
               </div>
             )}
 
             {result && (
-              <div className={`alert ${result === 'Falla de seguridad' ? 'alert-danger' : 'alert-info'} mt-3`}>
+              <div className={`alert ${result === 'Falla de seguridad' ? styles.alertDanger : styles.alertInfo} mt-3`}>
                 <p>{result}</p>
               </div>
             )}
