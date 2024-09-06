@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import "/public/css/components/inspecciones/Inspeccion.css";
+import html2pdf from 'html2pdf.js';
 import { Navbar } from "../Navbar";
 import { EmergencyModal } from "../EmergencyModal";
 
 export const InspectionForm = () => {
+  const [fileData, setFileData] = useState(null);
+
+
   const [employerData, setEmployerData] = useState({
     centroTrabajo: "",
     razonSocial: "",
@@ -93,16 +97,60 @@ export const InspectionForm = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    try {
+      const element = document.querySelector(".form-container");
+      const opt = {
+        margin: 1,
+        filename: 'inspeccion-formulario.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+      };
+      const pdfBlob = await html2pdf().from(element).set(opt).outputPdf("blob");
+      const file = new File([pdfBlob], "inspeccion-formulario.pdf", { type: "application/pdf" });
+      
+      // Crear FormData
+      const formData = new FormData();
+      formData.append('file', file);
+  
+      const response = await fetch('http://localhost:8000/file/upload/', {
+        method: 'POST',
+        body: formData,
+      });
+  
+      if (!response.ok) {
+        throw new Error("Error en la petición");
+      }
+  
+      if (response.status === 200) {
+        const data = await response.json();
+        if (data) {
+          setFileData(data);
+        }
+      }
+    } catch (error) {
+      console.log("Error al enviar el formulario:", error);
+    }
+  
     console.log("Employer Data:", employerData);
     console.log("Inspection Data:", inspectionData);
     console.log("Inspection Results:", inspectionResults);
   };
-
+  
   const printForm = () => {
-    window.print();
+    const element = document.querySelector(".form-container");
+  
+    const originalContent = document.body.innerHTML; // Guardar el contenido original de la página
+    document.body.innerHTML = element.outerHTML; // Reemplazar el contenido de la página solo con el formulario
+    
+    window.print(); // Abrir el diálogo de impresión
+    
+    document.body.innerHTML = originalContent; // Restaurar el contenido original de la página después de imprimir
   };
+  
 
   return (
     <div>

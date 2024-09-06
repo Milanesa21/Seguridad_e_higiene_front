@@ -1,14 +1,8 @@
-import React, { useRef, useState, useContext } from "react";
+import React, { useContext, useState } from "react";
 import "/public/css/components/inputtext.css";
 import { AuthContext } from "../context/AuthProvider";
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
-import Stack from "@mui/material/Stack";
-import { EmergencyModal } from "./EmergencyModal";
 
-export const DenunciasyEmergencias = () => {
-  const emergencyRef = useRef(null);
-  const denunciaRef = useRef(null);
+export const DenunciasyEmergencias = ({ onEmergency }) => {
   const [denunciaMessage, setDenunciaMessage] = useState("");
   const [notification, setNotification] = useState({ open: false, severity: '', message: '' });
 
@@ -16,7 +10,7 @@ export const DenunciasyEmergencias = () => {
 
   const handleSendMessage = async (message) => {
     try {
-      const response = await fetch("http://localhost:8000/Usuarios/alert/sendMessage", {
+      const response = await fetch("http://localhost:8000/SendAlertMessage", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -58,6 +52,11 @@ export const DenunciasyEmergencias = () => {
     setNotification({ ...notification, open: false });
   };
 
+  const handleClick = () => {
+    onEmergency();
+    handleEmergencyClick();
+  };
+
   return (
     <div className="SECCION">
       <section id="Denuncias">
@@ -67,17 +66,19 @@ export const DenunciasyEmergencias = () => {
             {/* BOTON DE EMERGENCIA */}
             <div className="buttonwrapper">
               <h2>Boton de Emergencias</h2>
-              <button className="buttonEmergencia" onClick={handleEmergencyClick} ref={emergencyRef}>
+              <button
+                className="buttonEmergencia"
+                onClick={handleClick} // Reinicia el contador al hacer clic
+              >
                 <p className="text">¡EMERGENCIA!</p>
               </button>
             </div>
           </div>
           <div className="linea-divisoria"></div>
-          
+
           <div className="inputwrapper">
             <h2>Realice su Denuncia de seguridad</h2>
             <textarea
-              ref={denunciaRef}
               spellCheck="false"
               placeholder="Type something here..."
               value={denunciaMessage}
@@ -85,7 +86,7 @@ export const DenunciasyEmergencias = () => {
               required
             ></textarea>
             {/* BOTON DE DENUNCIA */}
-            <button className="button" onClick={handleDenunciaClick} ref={denunciaRef}>
+            <button className="button" onClick={handleDenunciaClick}>
               <p className="text">Denuncia</p>
             </button>
           </div>
@@ -93,15 +94,14 @@ export const DenunciasyEmergencias = () => {
       </section>
 
       {notification.open && (
-        <Stack sx={{ width: '100%' }} spacing={2}>
-          <Alert severity={notification.severity} onClose={handleCloseNotification}>
-            <AlertTitle>{notification.severity.charAt(0).toUpperCase() + notification.severity.slice(1)}</AlertTitle>
-            {notification.message}
-          </Alert>
-        </Stack>
+        <div className={`notification ${notification.severity}`}>
+          <button onClick={handleCloseNotification} className="close-btn">X</button>
+          <h4>{notification.severity.charAt(0).toUpperCase() + notification.severity.slice(1)}</h4>
+          <p>{notification.message}</p>
+        </div>
       )}
     </div>
   );
 };
-{/*aqui se exporta el componente\*/}
-export default DenunciasyEmergencias;      
+
+export default DenunciasyEmergencias;

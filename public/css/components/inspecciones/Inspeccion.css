@@ -113,3 +113,13 @@
     display: none;
   }
 }
+
+@media print {
+  .section-title {
+    page-break-before: always; /* Cada sección comenzará en una nueva página */
+  }
+  
+  .form-button {
+    display: none; /* Oculta los botones al imprimir */
+  }
+}
