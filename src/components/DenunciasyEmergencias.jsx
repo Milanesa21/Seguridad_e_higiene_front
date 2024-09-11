@@ -16,7 +16,7 @@ export const DenunciasyEmergencias = () => {
 
   const handleSendMessage = async (message) => {
     try {
-      const response = await fetch("http://localhost:8000/Usuarios/alert/sendMessage", {
+      const response = await fetch("http://localhost:8000/Usuarios/SendAlertMessage", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
