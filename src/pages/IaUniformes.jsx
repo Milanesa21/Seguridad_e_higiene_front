@@ -3,6 +3,8 @@ import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { EmergencyModal } from '../components/EmergencyModal';
 
+
+
 export const UniformeEvaluation = () => {
   const [result, setResult] = useState('');
   const [loading, setLoading] = useState(false);

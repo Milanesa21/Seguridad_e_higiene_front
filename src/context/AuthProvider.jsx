@@ -108,6 +108,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("token");
     dispatch({ type: types.LOGOUT });
   };
+  console.log(user)
 
   return (
     <AuthContext.Provider

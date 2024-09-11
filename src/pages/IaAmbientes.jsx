@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { EmergencyModal } from '../components/EmergencyModal';
+import styles from "../../public/css/pages/AmbienteEvaluation.module.css";
 
 export const AmbienteEvaluation = () => {
   const [result, setResult] = useState('');
@@ -71,9 +72,9 @@ export const AmbienteEvaluation = () => {
   }, []);
 
   return (
-    <div className="d-flex flex-column min-vh-100">
+    <div className={styles.container}>
       <Navbar />
-      <div className="container mt-5 flex-grow-1">
+      <div className={`${styles.mainContent} container`}>
         <div className="row justify-content-center">
           <div className="col-md-8 text-center">
             <h1 className="mb-4">Evaluar Ambiente</h1>
@@ -86,14 +87,14 @@ export const AmbienteEvaluation = () => {
 
             {loading && (
               <div className="mb-3">
-                <div className="spinner-border text-primary" role="status">
+                <div className={`spinner-border text-primary ${styles.spinner}`} role="status">
                   <span className="sr-only">Loading...</span>
                 </div>
               </div>
             )}
 
             {result && (
-              <div className={`alert ${result === 'Falla de seguridad' ? 'alert-danger' : 'alert-info'} mt-3`}>
+              <div className={`alert ${result === 'Falla de seguridad' ? styles.alertDanger : styles.alertInfo} mt-3`}>
                 <p>{result}</p>
               </div>
             )}

@@ -107,7 +107,7 @@ export const InspectionForm = () => {
   return (
     <div>
       <Navbar />
-      <EmergencyModal />
+
       <div className="form-container">
         <h1 className="form-title">REGISTRO DE INSPECCIONES</h1>
 
