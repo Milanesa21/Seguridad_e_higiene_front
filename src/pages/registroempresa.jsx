@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import "/public/css/components/img.css";
 import "/public/css/pages/Login.css";
 import "/public/css/components/botonanimado.css";
@@ -13,6 +13,9 @@ const Alert = styled(MuiAlert)(({ theme }) => ({
     color: theme.palette.success.main,
   },
 }));
+import { AuthContext } from "../context/AuthProvider";
+
+
 
 export const Registroempresa = () => {
   const [pedro, setPedro] = React.useState(true);
@@ -23,7 +26,16 @@ export const Registroempresa = () => {
     severity: "success",
   });
   const [open, setOpen] = useState(false);
+  const [empresaData, setEmpresaData] = useState({
+    nombre_empresa: "",
+    nombre_jefe: "",
+    correo_jefe: "",
+    numero_jefe: "",
+    password: "",
+    id_superuser:''
+  })
   const audioRef = useRef(null);
+  const { userId } = useContext(AuthContext);
 
   const music = () => {
     if (pedro) {
@@ -33,6 +45,17 @@ export const Registroempresa = () => {
     }
   };
 
+
+  useEffect(() => {
+    if (userId) {
+      setEmpresaData((prevData) => ({
+        ...prevData,
+        id_superuser: userId,
+      }));
+    }
+  }, [userId]);
+  console.log(userId);
+
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
     setPasswordType(passwordType === "password" ? "text" : "password");
@@ -40,8 +63,6 @@ export const Registroempresa = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData);
 
     try {
       const response = await fetch("http://127.0.0.1:8000/empresas/registrar_empresa", {
@@ -49,7 +70,7 @@ export const Registroempresa = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(empresaData),
       });
       
 
@@ -77,6 +98,14 @@ export const Registroempresa = () => {
     setOpen(false);
   };
 
+  const handleChange = (e) => {
+    setEmpresaData({
+      ...empresaData,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  console.log(empresaData)
   return (
     <>
       <Navbar />
@@ -86,7 +115,7 @@ export const Registroempresa = () => {
             <div className="ContenedorFormulario">
               <h4 className="titulo-Login">Bienvenido</h4>
 
-              <form onSubmit={handleSubmit}>
+<form onSubmit={handleSubmit} onChange={handleChange}>
   {/* INPUT DE NOMBRE DE EMPRESA */}
   <div className="input-group">
     <input

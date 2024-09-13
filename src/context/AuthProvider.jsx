@@ -13,6 +13,7 @@ export const AuthProvider = ({ children }) => {
     logged: false,
     token: null,
   };
+  console.log(userId);
 
   const [state, dispatch] = useReducer(AuthReducer, initialState);
 
@@ -117,6 +118,7 @@ export const AuthProvider = ({ children }) => {
         logout,
         state,
         user,
+        userId
       }}
     >
       {children}

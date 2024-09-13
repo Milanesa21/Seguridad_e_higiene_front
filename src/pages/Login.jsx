@@ -3,6 +3,7 @@ import { AuthContext } from "../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import { EmpresaLoader } from "../components/EmpresaLoader.jsx";
 
 export const Login = () => {
   const [pedro, setPedro] = React.useState(true);
@@ -11,7 +12,9 @@ export const Login = () => {
   const audioRef = useRef(null);
   const [user, setUser] = useState({
     full_name: "",
+    puesto_trabajo: "",
     password: "",
+    id_empresa: "",
   });
   const [open, setOpen] = useState(false);
   const [alertType, setAlertType] = useState("success");
@@ -28,12 +31,15 @@ export const Login = () => {
     }
   };
 
+  console.log(user);
+
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
     setPasswordType(passwordType === "password" ? "text" : "password");
   };
 
   const handleChange = (e) => {
+    console.log(e.target.name, e.target.value); // Depuración
     setUser({
       ...user,
       [e.target.name]: e.target.value,
@@ -85,6 +91,12 @@ export const Login = () => {
     setOpen(false);
   };
 
+  const setEmpresaSeleccionada = (empresaId) => {
+    setUser({
+      ...user,
+      id_empresa: empresaId,
+    });
+  }
 
   return (
     <div className="prueba">
@@ -92,19 +104,19 @@ export const Login = () => {
         <div className="contenedordelcontenedor">
           <div className="ContenedorFormulario">
             <h4 className="titulo-Login">Bienvenido</h4>
-            <form onChange={handleChange}>
+            <form onSubmit={handleSubmit}>
               <div className="input-group">
                 <input
                   type="text"
                   name="full_name"
                   className="input"
                   id="inputField"
+                  onChange={handleChange}
                   required
                 />
                 <label className="label" htmlFor="inputField">
                   Username
                 </label>
-
                 <br />
                 <br />
                 <input
@@ -112,6 +124,7 @@ export const Login = () => {
                   name="password"
                   className="input1"
                   id="inputFieldPassword"
+                  onChange={handleChange}
                   required
                 />
                 <label className="label1" htmlFor="inputFieldPassword">
@@ -139,17 +152,32 @@ export const Login = () => {
                   </svg>
                 </div>
               </div>
-
-              <div className="button-container" onClick={handleSubmit}>
-                <button type="button" className="animated-button">
+              <div className="input-group">
+                <select
+                  name="puesto_trabajo"
+                  onChange={handleChange}
+                  className="input"
+                  id="puestoTrabajoSelect"
+                  required
+                >
+                  <option value="" disabled>Selecciona el Puesto de Trabajo</option>
+                  <option value="Super Admin">Super Admin</option>
+                  <option value="Administrador">Administrador</option>
+                  <option value="Usuario">Usuario</option>
+                </select>
+                <label className="label" htmlFor="puestoTrabajoSelect">
+                  Puesto de Trabajo
+                </label>
+              </div>
+              <EmpresaLoader setEmpresaSeleccionada={setEmpresaSeleccionada} />
+              <div className="button-container">
+                <button type="submit" className="animated-button">
                   <span>Login</span>
                 </button>
               </div>
             </form>
           </div>
         </div>
-
-        {/* Notificación de éxito o error */}
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
           <Alert onClose={handleClose} severity={alertType}>
             {alertMessage}
