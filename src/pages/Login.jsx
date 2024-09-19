@@ -39,7 +39,7 @@ export const Login = () => {
   };
 
   const handleChange = (e) => {
-    console.log(e.target.name, e.target.value); // Depuración
+    console.log(e.target.name, e.target.value); 
     setUser({
       ...user,
       [e.target.name]: e.target.value,
@@ -161,7 +161,7 @@ export const Login = () => {
                   required
                 >
                   <option value="" disabled>Selecciona el Puesto de Trabajo</option>
-                  <option value="Super Admin">Super Admin</option>
+                  <option value="SuperAdmin">Super Admin</option>
                   <option value="Administrador">Administrador</option>
                   <option value="Usuario">Usuario</option>
                 </select>
