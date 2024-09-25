@@ -11,3 +11,12 @@ export const getImages = async () => {
     throw error;
   }
 };
+
+export const deleteImage = async (public_id) => {
+  try {
+    await axios.delete(`${API_URL}/file/${public_id}`);
+  } catch (error) {
+    console.error('Error deleting image:', error);
+    throw error;
+  }
+};
