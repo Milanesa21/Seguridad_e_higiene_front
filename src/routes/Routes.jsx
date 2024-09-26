@@ -10,7 +10,7 @@ import { Panel } from "../components/Panel de seguridad/Panel.jsx";
 import { Perfil } from "../pages/Perfil.jsx";
 import { PanelPermisos } from "../components/Panel de seguridad/PanelCambioPermisos.jsx";
 import { useLoading } from "../context/LoadingContext.jsx";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Route, Routes as RouterRoutes, useLocation } from "react-router-dom";
 import { Login } from "../pages/Login.jsx";
 import { AmbienteEvaluation } from "../pages/IaAmbientes.jsx";

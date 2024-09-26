@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import NumericInput from "../components/Inputnumerico.jsx";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
@@ -15,7 +15,6 @@ const Alert = styled(MuiAlert)(({ theme }) => ({
 export const Registroempleados = () => {
   const [selectedPuesto, setSelectedPuesto] = useState("");
   const [numUsuarios, setNumUsuarios] = useState(1);
-  const [pedro, setPedro] = useState(true);
   const [open, setOpen] = useState(false);
   const [notification, setNotification] = useState({
     message: "",
@@ -55,8 +54,6 @@ export const Registroempleados = () => {
         }
       );
 
-      const result = await response.json();
-
       if (response.ok) {
         setNotification({
           message: "Empleados creados correctamente",
@@ -82,13 +79,6 @@ export const Registroempleados = () => {
     setOpen(false);
   };
 
-  const music = () => {
-    if (pedro) {
-      audioRef.current.play();
-    } else {
-      audioRef.current.pause();
-    }
-  };
 
   return (
     <>

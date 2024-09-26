@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext } from "react";
+import { useRef, useState, useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import Snackbar from "@mui/material/Snackbar";
@@ -6,7 +6,6 @@ import Alert from "@mui/material/Alert";
 import { EmpresaLoader } from "../components/EmpresaLoader.jsx";
 
 export const Login = () => {
-  const [pedro, setPedro] = React.useState(true);
   const [isChecked, setIsChecked] = useState(true);
   const [passwordType, setPasswordType] = useState("password");
   const audioRef = useRef(null);
@@ -23,13 +22,6 @@ export const Login = () => {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const music = () => {
-    if (pedro) {
-      audioRef.current.play();
-    } else {
-      audioRef.current.pause();
-    }
-  };
 
   console.log(user);
 
