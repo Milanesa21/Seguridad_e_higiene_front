@@ -12,7 +12,6 @@ export const Navbar = () => {
   useEffect(() => {
     if (user) {
       const rol = localStorage.getItem("rol"); 
-      console.log("Banana");
       setErol(rol);
     } else {
       setErol(user?.rol?.nombre); 
@@ -84,7 +83,7 @@ export const Navbar = () => {
               )}
 
               <li>
-                <a href="https://jorgito-76bcf3.zapier.app" target="_blank" className="nav-link px-2">
+                <a href="/Jorgito" target="_blank" className="nav-link px-2">
                   Asistente virtual
                 </a>
               </li>

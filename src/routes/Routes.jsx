@@ -3,6 +3,7 @@ import { CambioDatos } from "../pages/cambioDatos.jsx";
 import { PasswordChange } from "../pages/PasswordChange.jsx";
 import { ProtectRoutes } from "./ProtectRoutes.jsx";
 import { Registroempleados } from "../pages/registroempleados.jsx";
+import { Chat } from "../pages/Jorgito.jsx";
 import { Registroempresa } from "../pages/registroempresa.jsx";
 import { InspectionForm } from "../components/Inspecciones/InspeccionFormat.jsx";
 import { Panel } from "../components/Panel de seguridad/Panel.jsx";
@@ -48,6 +49,10 @@ export const routes = [
     element: <InspectionForm />,
   },
   {
+    path: "Jorgito",
+    element: <Chat />,
+  },
+  {
     path: "/InspeccionChecklist",
     element: <ChecklistForm />,
   },
@@ -90,7 +95,7 @@ export const RoutesComponent = () => {
 
     const timeout = setTimeout(() => {
       setIsLoading(false);
-    }, 1000); // Ajusta el tiempo según prefieras
+    }, 1000); 
 
     return () => clearTimeout(timeout);
   }, [location, setIsLoading]);
