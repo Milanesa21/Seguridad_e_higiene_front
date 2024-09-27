@@ -98,10 +98,10 @@ export const AuthProvider = ({ children }) => {
 
   const login = (token, rol) => {
     localStorage.setItem("token", token);
-    localStorage.setItem("rol", rol); // Guardar el rol en localStorage
+    localStorage.setItem("rol", rol); 
     dispatch({
       type: types.LOGIN,
-      payload: { token, rol }, // Pasar el token y el rol al reducer
+      payload: { token, rol }, 
     });
   };
   

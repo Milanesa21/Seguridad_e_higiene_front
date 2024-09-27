@@ -11,10 +11,10 @@ export const Navbar = () => {
 
   useEffect(() => {
     if (user) {
-      const rol = localStorage.getItem("rol"); 
-      setErol(rol);
+      setErol(user?.rol?.nombre);
     } else {
-      setErol(user?.rol?.nombre); 
+      const rol = localStorage.getItem("rol"); 
+      setErol(rol); 
     }
   }, [user]);
 

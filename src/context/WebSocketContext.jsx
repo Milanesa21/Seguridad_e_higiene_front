@@ -12,9 +12,11 @@ export const WebSocketProvider = ({ children }) => {
       console.log('Usuario no autenticado o sin id_empresa');
       return;
     }
-
-    const socket = new WebSocket(`ws://localhost:8000/ws/${user.id_empresa}`);
-
+  
+    // Si el usuario no tiene id_empresa, usamos su id como id_empresa
+    const id_empresa = user.id_empresa || user.id;
+    const socket = new WebSocket(`ws://localhost:8000/ws/${id_empresa}`);
+  
     socket.onopen = () => console.log('WebSocket conectado');
     socket.onclose = () => {
       console.log('WebSocket desconectado');
@@ -24,9 +26,10 @@ export const WebSocketProvider = ({ children }) => {
     socket.onerror = (error) => {
       console.error('WebSocket error', error);
     };
-
+  
     setWs(socket);
   }, [user]);
+  
 
   useEffect(() => {
     connectWebSocket();
