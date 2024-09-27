@@ -3,7 +3,6 @@ import { AuthReducer } from "../context/authReducer";
 import { types } from "../types/types";
 
 export const AuthContext = createContext();
-// a
 export const AuthProvider = ({ children }) => {
   const token = localStorage.getItem("token") || null;
   const [userId, setUserId] = useState("");
@@ -97,13 +96,15 @@ export const AuthProvider = ({ children }) => {
     fetchUser();
   }, [userId]);
 
-  const login = (token) => {
+  const login = (token, rol) => {
     localStorage.setItem("token", token);
+    localStorage.setItem("rol", rol); // Guardar el rol en localStorage
     dispatch({
       type: types.LOGIN,
-      payload: { token },
+      payload: { token, rol }, // Pasar el token y el rol al reducer
     });
   };
+  
 
   const logout = () => {
     console.log("Logging out from provider");

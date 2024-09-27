@@ -4,12 +4,11 @@ import { useNavigate } from "react-router-dom";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { EmpresaLoader } from "../components/EmpresaLoader.jsx";
+import { Navbar } from "../components/Navbar.jsx";
 
 export const Login = () => {
-  const [pedro, setPedro] = React.useState(true);
   const [isChecked, setIsChecked] = useState(true);
   const [passwordType, setPasswordType] = useState("password");
-  const audioRef = useRef(null);
   const [user, setUser] = useState({
     full_name: "",
     puesto_trabajo: "",
@@ -22,14 +21,6 @@ export const Login = () => {
 
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
-
-  const music = () => {
-    if (pedro) {
-      audioRef.current.play();
-    } else {
-      audioRef.current.pause();
-    }
-  };
 
   console.log(user);
 
@@ -60,7 +51,7 @@ export const Login = () => {
       });
 
       if (!response.ok) {
-        throw new Error("Error en la petición");
+        throw new Error("Error en la  petición");
       }
 
       if (response.status === 200) {
@@ -100,6 +91,7 @@ export const Login = () => {
 
   return (
     <div className="prueba">
+      <Navbar />
       <div className="ContenedorLogin">
         <div className="contenedordelcontenedor">
           <div className="ContenedorFormulario">
@@ -162,8 +154,22 @@ export const Login = () => {
                 >
                   <option value="" disabled>Selecciona el Puesto de Trabajo</option>
                   <option value="SuperAdmin">Super Admin</option>
-                  <option value="Administrador">Administrador</option>
-                  <option value="Usuario">Usuario</option>
+                  <option value="admnin">Admnistrador</option>
+                  <option className="Options" value="Electricidad">
+                Electricidad
+              </option>
+              <option className="Options" value="Construccion">
+                Construcción
+              </option>
+              <option className="Options" value="Quimica">
+                Química
+              </option>
+              <option className="Options" value="Agropecuaria">
+                Agropecuaria
+              </option>
+              <option className="Options" value="Area de seguridad">
+                Área de seguridad
+                </option>
                 </select>
                 <label className="label" htmlFor="puestoTrabajoSelect">
                   Puesto de Trabajo
@@ -183,7 +189,6 @@ export const Login = () => {
             {alertMessage}
           </Alert>
         </Snackbar>
-        <audio ref={audioRef} src="/path/to/audio/file.mp3" />
       </div>
     </div>
   );
