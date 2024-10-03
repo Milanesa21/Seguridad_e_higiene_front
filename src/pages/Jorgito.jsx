@@ -18,15 +18,16 @@ export const Chat = () => {
     setInputText(e.target.value);
   };
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (!inputText.trim()) {
-      return;
+        return;
     }
 
     const newMessage = { type: "question", text: inputText };
-    setMessages([...messages, newMessage]);
+    setMessages((prevMessages) => [...prevMessages, newMessage]);
     setLoading(true);
     setInputText("");
     setDisableInput(true);
@@ -35,59 +36,65 @@ export const Chat = () => {
     setMessages((prevMessages) => [...prevMessages, loadingMessage]);
 
     try {
-      const fullPrompt = conversationHistory.join("\n") + "\n" + inputText;
+        const fullPrompt = conversationHistory.join("\n") + "\n" + inputText;
 
-      const response = await fetch("http://localhost:8000/jorgito/query/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ input_text: fullPrompt }),
-      });
-
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
-      let text = "";
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        text += decoder.decode(value, { stream: true });
-        setMessages((prevMessages) => {
-          const updatedMessages = [...prevMessages];
-          updatedMessages[updatedMessages.length - 1] = {
-            type: "answer",
-            text: text,  // Se actualiza el mensaje con el texto recibido
-          };
-          return updatedMessages;
+        const response = await fetch("http://localhost:8000/jorgito/query/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ input_text: fullPrompt }),
         });
-      }
 
-      setConversationHistory((prevHistory) => [
-        ...prevHistory,
-        inputText,
-        text,
-      ]);
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { type: "answer", text: "¿Necesitas que te ayude con algo más?" },
-      ]);
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let text = "";
+
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            // Decode el valor en caracteres
+            const chunk = decoder.decode(value, { stream: true });
+            for (const char of chunk) {
+                text += char;
+                setMessages((prevMessages) => {
+                    const updatedMessages = [...prevMessages];
+                    updatedMessages[updatedMessages.length - 1] = {
+                        type: "answer",
+                        text: text,  // Se actualiza el mensaje con el texto recibido
+                    };
+                    return updatedMessages;
+                });
+                await new Promise((resolve) => setTimeout(resolve, 50)); // Ajusta la velocidad del "typing"
+            }
+        }
+
+        setConversationHistory((prevHistory) => [
+            ...prevHistory,
+            inputText,
+            text,
+        ]);
+        setMessages((prevMessages) => [
+            ...prevMessages,
+            { type: "answer", text: "¿Necesitas que te ayude con algo más?" },
+        ]);
     } catch (error) {
-      console.error("Error fetching response:", error);
-      setMessages((prevMessages) => {
-        const updatedMessages = [...prevMessages];
-        updatedMessages[updatedMessages.length - 1] = {
-          type: "answer",
-          text: "Error fetching response",
-        };
-        return updatedMessages;
-      });
+        console.error("Error fetching response:", error);
+        setMessages((prevMessages) => {
+            const updatedMessages = [...prevMessages];
+            updatedMessages[updatedMessages.length - 1] = {
+                type: "answer",
+                text: "Error fetching response",
+            };
+            return updatedMessages;
+        });
     } finally {
-      setLoading(false);
-      setDisableInput(false);
+        setLoading(false);
+        setDisableInput(false);
     }
-  };
+};
+
 
   const renderMessageText = (text) => {
     return text.split(/\*\*(.*?)\*\*/).map((part, index) => {

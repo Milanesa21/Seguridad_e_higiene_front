@@ -1,32 +1,56 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
+import { AuthContext } from './AuthProvider';
 
 const WebSocketContext = createContext();
 
 export const WebSocketProvider = ({ children }) => {
   const [ws, setWs] = useState(null);
+  const { user } = useContext(AuthContext);
 
-  useEffect(() => {
-    const socket = new WebSocket('ws://localhost:8000/ws'); // Asegúrate de que la URL del WebSocket sea correcta
-
+  const connectWebSocket = useCallback(() => {
+    if (!user) {
+      console.log('Usuario no autenticado o sin id_empresa');
+      return;
+    }
+  
+    // Si el usuario no tiene id_empresa, usamos su id como id_empresa
+    const id_empresa = user.id_empresa || user.id;
+    const socket = new WebSocket(`ws://localhost:8000/ws/${id_empresa}`);
+  
     socket.onopen = () => console.log('WebSocket conectado');
-    socket.onclose = () => console.log('WebSocket desconectado');
+    socket.onclose = () => {
+      console.log('WebSocket desconectado');
+      // Intenta reconectar después de un tiempo
+      setTimeout(connectWebSocket, 3000);
+    };
     socket.onerror = (error) => {
       console.error('WebSocket error', error);
-      // Agrega más información de error si es necesario
-      if (error.message) {
-        console.error('WebSocket error message:', error.message);
-      }
     };
-
+  
     setWs(socket);
+  }, [user]);
+  
+
+  useEffect(() => {
+    connectWebSocket();
 
     return () => {
-      socket.close();
+      if (ws) {
+        ws.close();
+      }
     };
-  }, []);
+  }, [user, connectWebSocket]);
+
+  const sendMessage = useCallback((message) => {
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      ws.send(JSON.stringify(message));
+    } else {
+      console.error('WebSocket is not connected');
+    }
+  }, [ws]);
 
   return (
-    <WebSocketContext.Provider value={ws}>
+    <WebSocketContext.Provider value={{ ws, sendMessage }}>
       {children}
     </WebSocketContext.Provider>
   );

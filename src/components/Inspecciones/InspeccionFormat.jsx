@@ -158,8 +158,6 @@ export const InspectionForm = () => {
 
       <div className="form-container">
         <br />
-        <br />
-        <br />
 
         <h2 className="section-title">1. Datos del Empleador Principal</h2>
         <form className="inspection-form" onSubmit={handleSubmit}>

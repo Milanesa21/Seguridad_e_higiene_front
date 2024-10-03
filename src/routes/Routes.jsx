@@ -3,8 +3,8 @@ import { CambioDatos } from "../pages/cambioDatos.jsx";
 import { PasswordChange } from "../pages/PasswordChange.jsx";
 import { ProtectRoutes } from "./ProtectRoutes.jsx";
 import { Registroempleados } from "../pages/registroempleados.jsx";
-import { Registroempresa } from "../pages/registroempresa.jsx";
 import { Chat } from "../pages/Jorgito.jsx";
+import { Registroempresa } from "../pages/registroempresa.jsx";
 import { InspectionForm } from "../components/Inspecciones/InspeccionFormat.jsx";
 import { Panel } from "../components/Panel de seguridad/Panel.jsx";
 import { Perfil } from "../pages/Perfil.jsx";
@@ -12,10 +12,12 @@ import { PanelPermisos } from "../components/Panel de seguridad/PanelCambioPermi
 import { useLoading } from "../context/LoadingContext.jsx";
 import { useEffect } from "react";
 import { Route, Routes as RouterRoutes, useLocation } from "react-router-dom";
+import { LoginEmpresa } from "../pages/LoginEmpresa.jsx";
 import { Login } from "../pages/Login.jsx";
 import { AmbienteEvaluation } from "../pages/IaAmbientes.jsx";
 import { UniformeEvaluation } from "../pages/IaUniformes.jsx";
 import { ChecklistForm } from "../components/Inspecciones/InspeccionChecklist.jsx";
+import { ImageGallery } from "../components/Inspecciones/GaleriaImagenes.jsx";
 
 export const routes = [
   {
@@ -23,14 +25,10 @@ export const routes = [
     element: <App />,
   },
   {
-    // path: "/",
-    // element: <ProtectRoutes />,
-    // children: [
-    //   {
-    //     path: "/Login",
-    //     element: <Login />,
-    //   },
-    // ],
+    path: "/LoginEmpresa",
+    element: <LoginEmpresa />,
+  },
+  {
     path: "/Login",
     element: <Login />,
   },
@@ -51,16 +49,16 @@ export const routes = [
     element: <InspectionForm />,
   },
   {
+    path: "Jorgito",
+    element: <Chat />,
+  },
+  {
     path: "/InspeccionChecklist",
     element: <ChecklistForm />,
   },
   {
     path: "Registroempresa",
     element: <Registroempresa />,
-  },
-  {
-    path: "Jorgito",
-    element: <Chat />,
   },
   {
     path: "Panel",
@@ -82,6 +80,10 @@ export const routes = [
     path: "IaUniformes",
     element: <UniformeEvaluation />,
   },
+  {
+    path: "GaleriaInspecciones",
+    element: <ImageGallery />,
+  },
 ];
 
 export const RoutesComponent = () => {
@@ -93,7 +95,7 @@ export const RoutesComponent = () => {
 
     const timeout = setTimeout(() => {
       setIsLoading(false);
-    }, 1000); // Ajusta el tiempo según prefieras
+    }, 1000); 
 
     return () => clearTimeout(timeout);
   }, [location, setIsLoading]);

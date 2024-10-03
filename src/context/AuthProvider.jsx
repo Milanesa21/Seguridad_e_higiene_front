@@ -3,11 +3,11 @@ import { AuthReducer } from "../context/authReducer";
 import { types } from "../types/types";
 
 export const AuthContext = createContext();
-// a
 export const AuthProvider = ({ children }) => {
   const token = localStorage.getItem("token") || null;
   const [userId, setUserId] = useState("");
   const [user, setUser] = useState({});
+  console.log(user)
 
   const initialState = {
     logged: false,
@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
 
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/auth/validate/token",
+          "http://127.0.0.1:8000/auth/validate/token/usuario",
           {
             method: "POST",
             headers: {
@@ -96,13 +96,15 @@ export const AuthProvider = ({ children }) => {
     fetchUser();
   }, [userId]);
 
-  const login = (token) => {
+  const login = (token, rol) => {
     localStorage.setItem("token", token);
+    localStorage.setItem("rol", rol); 
     dispatch({
       type: types.LOGIN,
-      payload: { token },
+      payload: { token, rol }, 
     });
   };
+  
 
   const logout = () => {
     console.log("Logging out from provider");

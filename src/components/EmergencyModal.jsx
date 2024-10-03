@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Box, Button, Modal, Typography } from "@mui/material";
 import { useWebSocket } from "../context/WebSocketContext";
 import { useNotification } from "../context/NotificationContext";
-
 
 const style = {
   position: 'absolute',
@@ -17,27 +16,27 @@ const style = {
 };
 
 export const EmergencyModal = () => {
-  const ws = useWebSocket();
+  const { ws } = useWebSocket();
   const { showNotification } = useNotification();
   const [emergencyOpen, setEmergencyOpen] = useState(false);
 
+  const handleMessage = useCallback((event) => {
+    const data = JSON.parse(event.data);
+    if (data.type === 'emergency') {
+      setEmergencyOpen(true);
+      showNotification("Se ha recibido una alerta de emergencia");
+    }
+  }, [showNotification]);
+
   useEffect(() => {
-    if (!ws) return;
+    if (ws) {
+      ws.addEventListener('message', handleMessage);
 
-    const handleMessage = (event) => {
-      const data = JSON.parse(event.data);
-      if (data.type === 'emergency') {
-        setEmergencyOpen(true);
-        showNotification("Se ha recibido una alerta de emergencia");
-      }
-    };
-
-    ws.addEventListener('message', handleMessage);
-
-    return () => {
-      ws.removeEventListener('message', handleMessage);
-    };
-  }, [ws, showNotification]);
+      return () => {
+        ws.removeEventListener('message', handleMessage);
+      };
+    }
+  }, [ws, handleMessage]);
 
   const handleEmergencyClose = () => setEmergencyOpen(false);
 

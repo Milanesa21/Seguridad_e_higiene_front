@@ -1,19 +1,16 @@
-import { useRef, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-import { EmpresaLoader } from "../components/EmpresaLoader.jsx";
+import { Navbar } from "../components/Navbar.jsx";
 
 export const Login = () => {
   const [isChecked, setIsChecked] = useState(true);
   const [passwordType, setPasswordType] = useState("password");
-  const audioRef = useRef(null);
   const [user, setUser] = useState({
     full_name: "",
-    puesto_trabajo: "",
     password: "",
-    id_empresa: "",
   });
   const [open, setOpen] = useState(false);
   const [alertType, setAlertType] = useState("success");
@@ -21,7 +18,6 @@ export const Login = () => {
 
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
-
 
   console.log(user);
 
@@ -31,7 +27,7 @@ export const Login = () => {
   };
 
   const handleChange = (e) => {
-    console.log(e.target.name, e.target.value); // Depuración
+    console.log(e.target.name, e.target.value); 
     setUser({
       ...user,
       [e.target.name]: e.target.value,
@@ -52,7 +48,7 @@ export const Login = () => {
       });
 
       if (!response.ok) {
-        throw new Error("Error en la petición");
+        throw new Error("Error en la  petición");
       }
 
       if (response.status === 200) {
@@ -64,7 +60,7 @@ export const Login = () => {
           setAlertType("success");
           setAlertMessage("Logueado correctamente");
           setOpen(true);
-          if (user.full_name.includes("Usuario N")) {
+          if (user.full_name.includes("Usuario")) {
             navigate("/cambioDatos");
           } else {
             navigate("/");
@@ -83,15 +79,9 @@ export const Login = () => {
     setOpen(false);
   };
 
-  const setEmpresaSeleccionada = (empresaId) => {
-    setUser({
-      ...user,
-      id_empresa: empresaId,
-    });
-  }
-
   return (
     <div className="prueba">
+      <Navbar />
       <div className="ContenedorLogin">
         <div className="contenedordelcontenedor">
           <div className="ContenedorFormulario">
@@ -144,24 +134,6 @@ export const Login = () => {
                   </svg>
                 </div>
               </div>
-              <div className="input-group">
-                <select
-                  name="puesto_trabajo"
-                  onChange={handleChange}
-                  className="input"
-                  id="puestoTrabajoSelect"
-                  required
-                >
-                  <option value="" disabled>Selecciona el Puesto de Trabajo</option>
-                  <option value="Super Admin">Super Admin</option>
-                  <option value="Administrador">Administrador</option>
-                  <option value="Usuario">Usuario</option>
-                </select>
-                <label className="label" htmlFor="puestoTrabajoSelect">
-                  Puesto de Trabajo
-                </label>
-              </div>
-              <EmpresaLoader setEmpresaSeleccionada={setEmpresaSeleccionada} />
               <div className="button-container">
                 <button type="submit" className="animated-button">
                   <span>Login</span>
@@ -175,7 +147,6 @@ export const Login = () => {
             {alertMessage}
           </Alert>
         </Snackbar>
-        <audio ref={audioRef} src="/path/to/audio/file.mp3" />
       </div>
     </div>
   );
