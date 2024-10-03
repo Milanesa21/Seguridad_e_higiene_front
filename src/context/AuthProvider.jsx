@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
 
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/auth/validate/token",
+          "http://127.0.0.1:8000/auth/validate/token/usuario",
           {
             method: "POST",
             headers: {
