@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
 import { useAuth } from "../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import { UserService } from "../service/userService";
+
 export const useLogin = () => {
     const [isChecked, setIsChecked] = useState(true);
     const [passwordType, setPasswordType] = useState("password");
@@ -39,13 +41,7 @@ export const useLogin = () => {
       if (user.full_name === "" || user.password === "") return;
   
       try {
-        const response = await fetch("http://127.0.0.1:8000/Usuarios/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(user),
-        });
+        const response = await UserService.login(user);
   
         if (!response.ok) {
           throw new Error("Error en la petición");

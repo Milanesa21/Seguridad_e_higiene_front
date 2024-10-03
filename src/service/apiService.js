@@ -1,17 +1,19 @@
+import { AccessToken } from "./tokenService";
 export class ApiService {
     static async request(url, method = 'GET', body=null){ {
-        const response = await fetch(url, {
+        const authToken = AccessToken.getToken();
+        const options = {
             method,
             headers: {
                 "Content-Type": "application/json",
+                Authorization: `Bearer ${authToken}`,
             },
-            body: JSON.stringify(body),
-        });
-        if (!response.ok) {
-            throw new Error("Error en la petición");
+        };
+        if (body && method !== 'GET') {
+            options.body = JSON.stringify(body);
         }
-        return response.json();
+        const response = await fetch(url, options);
+        return response;
     }
-
 }
 }

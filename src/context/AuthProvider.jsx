@@ -1,6 +1,9 @@
-import { createContext, useReducer, useEffect, useState } from "react";
+import { createContext, useReducer, useEffect, useState, useContext } from "react";
 import { AuthReducer } from "../context/authReducer";
 import { types } from "../types/types";
+import { ValidateService } from "../service/validateService";
+import { AccessToken } from "../service/tokenService";
+import { UserService } from "../service/userService";
 
 export const AuthContext = createContext();
 // a
@@ -21,7 +24,7 @@ export const AuthProvider = ({ children }) => {
     const validateToken = async () => {
       if (!token) {
         dispatch({ type: types.LOGOUT });
-        localStorage.removeItem("token");
+        AccessToken.removeToken();
         setUserId("");
         setUser({});
         return;
@@ -33,20 +36,11 @@ export const AuthProvider = ({ children }) => {
       });
 
       try {
-        const response = await fetch(
-          "http://127.0.0.1:8000/auth/validate/token",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = ValidateService.validateToken();
 
         if (!response.ok) {
           dispatch({ type: types.LOGOUT });
-          localStorage.removeItem("token");
+          AccessToken.removeToken();
           return;
         }
 
@@ -57,7 +51,7 @@ export const AuthProvider = ({ children }) => {
       } catch (error) {
         console.error("Error validating token:", error);
         dispatch({ type: types.LOGOUT });
-        localStorage.removeItem("token");
+        AccessToken.removeToken();
       }
     };
 
@@ -71,15 +65,7 @@ export const AuthProvider = ({ children }) => {
 
     const fetchUser = async () => {
       try {
-        const response = await fetch(
-          `http://127.0.0.1:8000/Usuarios/user/id/${userId}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response = await UserService.getUserById(userId);
 
         if (response.ok) {
           const data = await response.json();
@@ -125,3 +111,5 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+export const useAuth = () => useContext(AuthContext);

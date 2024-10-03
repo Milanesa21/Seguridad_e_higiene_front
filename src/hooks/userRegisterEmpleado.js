@@ -28,7 +28,7 @@ export const useRegistroEmpleados = () => {
         puesto_trabajo: selectedPuesto,
         num_usuarios: numUsuarios,
       };
-  
+      console.log(data);
       if (data.puesto_trabajo === "" || data.num_usuarios === 0) return;
   
       try {

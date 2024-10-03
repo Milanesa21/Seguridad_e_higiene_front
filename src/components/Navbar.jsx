@@ -1,12 +1,11 @@
-import { useContext } from "react";
-import { AuthContext } from "../context/AuthProvider";
+import { useAuth } from "../context/AuthProvider";
 import { CerrarSesion } from "./CerrarSesion";
 import "/public/css/components/nav.css";
 import logo from "/public/Logoo.webp";
 import profile from "/public/img/sddefault.jpg";
 
 export const Navbar = () => {
-  const { state, user } = useContext(AuthContext);
+  const { state, user } = useAuth();
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
     if (section) {
