@@ -63,7 +63,7 @@ export const Login = () => {
           setAlertType("success");
           setAlertMessage("Logueado correctamente");
           setOpen(true);
-          if (user.full_name.includes("Usuario N")) {
+          if (user.full_name.includes("Usuario")) {
             navigate("/cambioDatos");
           } else {
             navigate("/");
