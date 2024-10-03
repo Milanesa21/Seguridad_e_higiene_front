@@ -11,9 +11,7 @@ export const Login = () => {
   const [passwordType, setPasswordType] = useState("password");
   const [user, setUser] = useState({
     full_name: "",
-    puesto_trabajo: "",
     password: "",
-    id_empresa: "",
   });
   const [open, setOpen] = useState(false);
   const [alertType, setAlertType] = useState("success");
@@ -82,13 +80,6 @@ export const Login = () => {
     setOpen(false);
   };
 
-  const setEmpresaSeleccionada = (empresaId) => {
-    setUser({
-      ...user,
-      id_empresa: empresaId,
-    });
-  }
-
   return (
     <div className="prueba">
       <Navbar />
@@ -144,38 +135,6 @@ export const Login = () => {
                   </svg>
                 </div>
               </div>
-              <div className="input-group">
-                <select
-                  name="puesto_trabajo"
-                  onChange={handleChange}
-                  className="input"
-                  id="puestoTrabajoSelect"
-                  required
-                >
-                  <option value="" disabled>Selecciona el Puesto de Trabajo</option>
-                  <option value="SuperAdmin">Super Admin</option>
-                  <option value="admnin">Admnistrador</option>
-                  <option className="Options" value="Electricidad">
-                Electricidad
-              </option>
-              <option className="Options" value="Construccion">
-                Construcción
-              </option>
-              <option className="Options" value="Quimica">
-                Química
-              </option>
-              <option className="Options" value="Agropecuaria">
-                Agropecuaria
-              </option>
-              <option className="Options" value="Area de seguridad">
-                Área de seguridad
-                </option>
-                </select>
-                <label className="label" htmlFor="puestoTrabajoSelect">
-                  Puesto de Trabajo
-                </label>
-              </div>
-              <EmpresaLoader setEmpresaSeleccionada={setEmpresaSeleccionada} />
               <div className="button-container">
                 <button type="submit" className="animated-button">
                   <span>Login</span>
