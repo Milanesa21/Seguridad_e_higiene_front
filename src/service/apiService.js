@@ -6,14 +6,22 @@ export class ApiService {
             method,
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${authToken}`,
+                ...(authToken && {Authorization: `Bearer ${authToken}`}),
             },
         };
         if (body && method !== 'GET') {
             options.body = JSON.stringify(body);
         }
-        const response = await fetch(url, options);
-        return response;
+        try {
+            const response = await fetch(url, options);
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status}`);
+            }
+            return response;
+        } catch (error) {
+            console.error("Error en la solicitud API:", error);
+            throw error;
+        }
     }
 }
 }

@@ -3,6 +3,9 @@ import { ApiService } from "./apiService";
 
 export class ValidateService{
     static async validateToken(){
-        return ApiService.request(`${VALIDATE_URL}token`, 'POST');
+        return ApiService.request(`${VALIDATE_URL}token/usuario`, 'POST');
+    }
+    static async validateTokenEmpresa(){
+        return ApiService.request(`${VALIDATE_URL}token/empresa`, 'POST')
     }
 }

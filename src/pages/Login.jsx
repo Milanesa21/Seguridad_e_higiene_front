@@ -2,22 +2,23 @@ import { useLogin } from "../hooks/userLogin.js";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { EmpresaLoader } from "../components/EmpresaLoader.jsx";
+import { Navbar } from "../components/Navbar.jsx";
 
 export const Login = () => {
-const {
-  handleChange,
-  handleSubmit, 
-  passwordType, 
-  handleCheckboxChange, 
-  isChecked, 
-  setEmpresaSeleccionada, 
-  audioRef, 
-  open, 
-  handleClose, 
-  alertType, 
-  alertMessage } = useLogin();
+  const {
+    isChecked,
+    passwordType,
+    open,
+    alertType,
+    alertMessage,
+    handleCheckboxChange,
+    handleChange,
+    handleSubmit,
+    handleClose,
+  } = useLogin()
   return (
     <div className="prueba">
+      <Navbar />
       <div className="ContenedorLogin">
         <div className="contenedordelcontenedor">
           <div className="ContenedorFormulario">
@@ -70,24 +71,6 @@ const {
                   </svg>
                 </div>
               </div>
-              <div className="input-group">
-                <select
-                  name="puesto_trabajo"
-                  onChange={handleChange}
-                  className="input"
-                  id="puestoTrabajoSelect"
-                  required
-                >
-                  <option value="" disabled>Selecciona el Puesto de Trabajo</option>
-                  <option value="Super Admin">Super Admin</option>
-                  <option value="Administrador">Administrador</option>
-                  <option value="Usuario">Usuario</option>
-                </select>
-                <label className="label" htmlFor="puestoTrabajoSelect">
-                  Puesto de Trabajo
-                </label>
-              </div>
-              <EmpresaLoader setEmpresaSeleccionada={setEmpresaSeleccionada} />
               <div className="button-container">
                 <button type="submit" className="animated-button">
                   <span>Login</span>
@@ -101,7 +84,6 @@ const {
             {alertMessage}
           </Alert>
         </Snackbar>
-        <audio ref={audioRef} src="/path/to/audio/file.mp3" />
       </div>
     </div>
   );
