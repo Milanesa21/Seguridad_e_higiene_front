@@ -1,8 +1,9 @@
-import { useState, useContext } from "react";
+import React, { useRef, useState, useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import { EmpresaLoader } from "../components/EmpresaLoader.jsx";
 import { Navbar } from "../components/Navbar.jsx";
 
 export const Login = () => {
