@@ -154,6 +154,7 @@ export const InspectionForm = () => {
 
   return (
     <div>
+      <EmergencyModal />
       <Navbar />
 
       <div className="form-container">

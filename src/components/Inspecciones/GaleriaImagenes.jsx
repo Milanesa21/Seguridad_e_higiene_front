@@ -18,7 +18,8 @@ export const ImageGallery = () => {
         const imageList = await getImages();
         const urls = imageList.map(image => ({
           ...image,
-          uploaded_at: new Date(image.uploaded_at) // Convertir la fecha a Date
+          uploaded_at: new Date(image.uploaded_at), 
+          id_empresa: user.id_empresa
         })); 
         setImageUrls(urls);
         setAlertMessage('Imágenes cargadas correctamente');

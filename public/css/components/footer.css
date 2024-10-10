@@ -1,4 +1,61 @@
-.Footer {
+/* Asegúrate de que el footer siempre esté al fondo */
+footer {
+  position: relative;
+  bottom: 0;
   width: 100%;
-  background: rgb(17, 17, 17);
+  background-color: #212529;
+  padding: 1rem 0;
+}
+
+/* Estilos del contenedor del footer */
+.footer {
+  color: #f8f9fa;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  flex-wrap: wrap;
+}
+
+.footer-column {
+  flex: 1;
+  margin: 0 1rem;
+}
+
+.footer h5 {
+  margin-bottom: 1rem;
+}
+
+.footer p {
+  margin: 0.5rem 0;
+}
+
+.footer a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* Ajusta la parte inferior del footer */
+.footer-bottom {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #4b5157;
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .footer-column {
+    margin: 1rem 0;
+  }
 }
