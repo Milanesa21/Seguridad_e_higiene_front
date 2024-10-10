@@ -18,6 +18,10 @@ import { AmbienteEvaluation } from "../pages/IaAmbientes.jsx";
 import { UniformeEvaluation } from "../pages/IaUniformes.jsx";
 import { ChecklistForm } from "../components/Inspecciones/InspeccionChecklist.jsx";
 import { ImageGallery } from "../components/Inspecciones/GaleriaImagenes.jsx";
+import { ConstruccionChecklistForm } from "../components/Inspecciones/ConstruccionChecklist.jsx";
+import { QuimicoChecklistForm } from "../components/Inspecciones/QuimicaChecklist.jsx";
+import { AgropecuarioChecklistForm } from "../components/Inspecciones/AgropecuarioChecklist.jsx";
+import { ElectricidadChecklistForm } from "../components/Inspecciones/ElectricidadChecklist.jsx";
 
 export const routes = [
   {
@@ -83,6 +87,22 @@ export const routes = [
   {
     path: "GaleriaInspecciones",
     element: <ImageGallery />,
+  },
+  {
+    path: "ConstruccionChecklist",
+    element: <ConstruccionChecklistForm />,
+  },
+  {
+    path: "QuimicaChecklist",
+    element: <QuimicoChecklistForm />,
+  },
+  {
+    path: "ElectricidadChecklist",
+    element: <ElectricidadChecklistForm />,
+  },
+  {
+    path: "AgropecuarioChecklist",
+    element: <AgropecuarioChecklistForm />,
   },
 ];
 
