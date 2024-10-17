@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useContext } from "react";
+import { useRef, useState, useEffect, useContext } from "react";
 import "/public/css/components/img.css";
 import "/public/css/pages/Login.css";
 import "/public/css/components/botonanimado.css";
@@ -13,12 +13,12 @@ const Alert = styled(MuiAlert)(({ theme }) => ({
     color: theme.palette.success.main,
   },
 }));
-import { AuthContext } from "../context/AuthProvider";
+import { useAuth } from "../context/AuthProvider";
+import { EmpresaService } from "../service/empresaService";
 
 
 
 export const Registroempresa = () => {
-  const [pedro, setPedro] = React.useState(true);
   const [isChecked, setIsChecked] = useState(true);
   const [passwordType, setPasswordType] = useState("password");
   const [notification, setNotification] = useState({
@@ -35,15 +35,8 @@ export const Registroempresa = () => {
     id_superuser:''
   })
   const audioRef = useRef(null);
-  const { userId } = useContext(AuthContext);
+  const { userId } = useAuth();
 
-  const music = () => {
-    if (pedro) {
-      audioRef.current.play();
-    } else {
-      audioRef.current.pause();
-    }
-  };
 
 
   useEffect(() => {
@@ -65,14 +58,7 @@ export const Registroempresa = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/empresas/registrar_empresa", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(empresaData),
-      });
-      
+      const response = await EmpresaService.regitro(empresaData)
 
       if (response.ok) {
         setNotification({

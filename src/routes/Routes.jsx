@@ -10,7 +10,7 @@ import { Panel } from "../components/Panel de seguridad/Panel.jsx";
 import { Perfil } from "../pages/Perfil.jsx";
 import { PanelPermisos } from "../components/Panel de seguridad/PanelCambioPermisos.jsx";
 import { useLoading } from "../context/LoadingContext.jsx";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Route, Routes as RouterRoutes, useLocation } from "react-router-dom";
 import { LoginEmpresa } from "../pages/LoginEmpresa.jsx";
 import { Login } from "../pages/Login.jsx";
@@ -19,6 +19,10 @@ import { UniformeEvaluation } from "../pages/IaUniformes.jsx";
 import { ChecklistForm } from "../components/Inspecciones/InspeccionChecklist.jsx";
 import { ImageGallery } from "../components/Inspecciones/GaleriaImagenes.jsx";
 import { LoginReplace } from "../pages/LoginReplace.jsx";
+import { ConstruccionChecklistForm } from "../components/Inspecciones/ConstruccionChecklist.jsx";
+import { QuimicoChecklistForm } from "../components/Inspecciones/QuimicaChecklist.jsx";
+import { AgropecuarioChecklistForm } from "../components/Inspecciones/AgropecuarioChecklist.jsx";
+import { ElectricidadChecklistForm } from "../components/Inspecciones/ElectricidadChecklist.jsx";
 
 export const routes = [
   {
@@ -89,6 +93,22 @@ export const routes = [
     path: "LoginReplace",
     element: <LoginReplace />,
   }
+  {
+    path: "ConstruccionChecklist",
+    element: <ConstruccionChecklistForm />,
+  },
+  {
+    path: "QuimicaChecklist",
+    element: <QuimicoChecklistForm />,
+  },
+  {
+    path: "ElectricidadChecklist",
+    element: <ElectricidadChecklistForm />,
+  },
+  {
+    path: "AgropecuarioChecklist",
+    element: <AgropecuarioChecklistForm />,
+  },
 ];
 
 export const RoutesComponent = () => {

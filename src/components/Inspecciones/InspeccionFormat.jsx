@@ -3,10 +3,13 @@ import "/public/css/components/inspecciones/Inspeccion.css";
 import html2pdf from 'html2pdf.js';
 import { Navbar } from "../Navbar";
 import { EmergencyModal } from "../EmergencyModal";
+// Puedes usar react-toastify u otra biblioteca para notificaciones
+import { toast } from 'react-toastify'; // Asegúrate de instalar react-toastify
 
 export const InspectionForm = () => {
   const [fileData, setFileData] = useState(null);
-
+  const [loading, setLoading] = useState(false); // Estado para manejar loading
+  const [notification, setNotification] = useState(""); // Estado para manejar notificaciones
 
   const [employerData, setEmployerData] = useState({
     centroTrabajo: "",
@@ -99,7 +102,8 @@ export const InspectionForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+    setLoading(true); // Iniciar loading
+
     try {
       const element = document.querySelector(".form-container");
       const opt = {
@@ -129,10 +133,14 @@ export const InspectionForm = () => {
         const data = await response.json();
         if (data) {
           setFileData(data);
+          toast.success("Formulario enviado exitosamente!"); // Notificación exitosa
         }
       }
     } catch (error) {
       console.log("Error al enviar el formulario:", error);
+      toast.error("Ocurrió un error al enviar el formulario."); // Notificación de error
+    } finally {
+      setLoading(false); // Detener loading
     }
   
     console.log("Employer Data:", employerData);
@@ -154,6 +162,7 @@ export const InspectionForm = () => {
 
   return (
     <div>
+      <EmergencyModal />
       <Navbar />
 
       <div className="form-container">

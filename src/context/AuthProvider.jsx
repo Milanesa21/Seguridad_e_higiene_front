@@ -1,19 +1,22 @@
-import React, { createContext, useReducer, useEffect, useState } from "react";
+import { createContext, useReducer, useEffect, useState, useContext } from "react";
 import { AuthReducer } from "../context/authReducer";
 import { types } from "../types/types";
+import { ValidateService } from "../service/validateService";
+import { AccessToken } from "../service/tokenService";
+import { UserService } from "../service/userService";
+import { EmpresaService } from "../service/empresaService";
 
 export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const token = localStorage.getItem("token") || null;
   const [userId, setUserId] = useState("");
   const [user, setUser] = useState({});
-  console.log(user)
-
+  const [empresaId, setEmpresaId] = useState('')
   const initialState = {
     logged: false,
     token: null,
   };
-  console.log(userId);
+
 
   const [state, dispatch] = useReducer(AuthReducer, initialState);
 
@@ -21,7 +24,7 @@ export const AuthProvider = ({ children }) => {
     const validateToken = async () => {
       if (!token) {
         dispatch({ type: types.LOGOUT });
-        localStorage.removeItem("token");
+        AccessToken.removeToken();
         setUserId("");
         setUser({});
         return;
@@ -33,53 +36,39 @@ export const AuthProvider = ({ children }) => {
       });
 
       try {
-        const response = await fetch(
-          "http://127.0.0.1:8000/auth/validate/token",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        if (!response.ok) {
-          dispatch({ type: types.LOGOUT });
-          localStorage.removeItem("token");
-          return;
-        }
-
+        const response = await ValidateService.validateToken();
+        
         const data = await response.json();
+        console.log('data del token',data)
         if (data && data.Usuario) {
-          setUserId(data.Usuario.id);
+          console.log(data.Usuario.id_empresa)
+          if (data.Usuario.id_user !== undefined) {
+            setUserId(data.Usuario.id_user)
+            setEmpresaId('')
+          }
+          if (data.Usuario.id_empresa !== undefined) {
+            setEmpresaId(data.Usuario.id_empresa)
+            setUserId('')
+          }
         }
       } catch (error) {
         console.error("Error validating token:", error);
         dispatch({ type: types.LOGOUT });
-        localStorage.removeItem("token");
+        AccessToken.removeToken();
       }
     };
 
     validateToken();
-  }, [token]);
+  }, [token, userId]);
 
   useEffect(() => {
-    if (!userId) {
-      return;
-    }
-
+    console.log('empresaId después de validación:', empresaId)
     const fetchUser = async () => {
+      console.log('user', userId)
+      console.log('empresa', empresaId)
       try {
-        const response = await fetch(
-          `http://127.0.0.1:8000/Usuarios/user/id/${userId}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        if (userId){
+        const response = await UserService.getUserById(userId);
 
         if (response.ok) {
           const data = await response.json();
@@ -87,18 +76,30 @@ export const AuthProvider = ({ children }) => {
             setUser(data.Usuario);
             console.log("User fetched:", data.Usuario);
           }
+        }}
+        if (empresaId !== undefined && empresaId !== null && empresaId !== ''){
+          console.log('hago get en empresa')
+          const response = await EmpresaService.getById(empresaId)
+          console.log(response)
+          if (response.ok){
+            const data = await response.json();
+            console.log(data)
+            if (data) {
+              setUser(data);
+          }
         }
+      }
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
+      
     };
-
     fetchUser();
-  }, [userId]);
+  }, [empresaId, userId]);
 
-  const login = (token, rol) => {
-    localStorage.setItem("token", token);
-    localStorage.setItem("rol", rol); 
+  const login = (token, rol= null) => {
+    AccessToken.setToken(token)
+    if (rol === null) localStorage.setItem("rol", rol); 
     dispatch({
       type: types.LOGIN,
       payload: { token, rol }, 
@@ -107,12 +108,12 @@ export const AuthProvider = ({ children }) => {
   
 
   const logout = () => {
-    console.log("Logging out from provider");
-    localStorage.removeItem("token");
+    AccessToken.removeToken()
     dispatch({ type: types.LOGOUT });
+    setUserId('')
+    setUser('')
+    setEmpresaId('')
   };
-  console.log(user)
-
   return (
     <AuthContext.Provider
       value={{
@@ -127,3 +128,5 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+export const useAuth = () => useContext(AuthContext);
