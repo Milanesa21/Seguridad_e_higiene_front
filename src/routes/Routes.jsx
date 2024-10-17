@@ -1,7 +1,7 @@
 import App from "../App.jsx";
 import { CambioDatos } from "../pages/cambioDatos.jsx";
 import { PasswordChange } from "../pages/PasswordChange.jsx";
-import { ProtectRoutes } from "./ProtectRoutes.jsx";
+// import { ProtectRoutes } from "./ProtectRoutes.jsx";
 import { Registroempleados } from "../pages/registroempleados.jsx";
 import { Chat } from "../pages/Jorgito.jsx";
 import { Registroempresa } from "../pages/registroempresa.jsx";
@@ -92,7 +92,7 @@ export const routes = [
   {
     path: "LoginReplace",
     element: <LoginReplace />,
-  }
+  },
   {
     path: "ConstruccionChecklist",
     element: <ConstruccionChecklistForm />,
