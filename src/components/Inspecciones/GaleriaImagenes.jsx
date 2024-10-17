@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { getImages, deleteImage } from './api'; // Añadimos deleteImage
 import { List, ListItem, ListItemText, Button, Snackbar, Alert, Typography, CircularProgress, Container, Box } from '@mui/material';
-import {Navbar} from '../Navbar';
-import {Footer} from '../Footer';
+import { Navbar } from '../Navbar';
+import { Footer } from '../Footer';
 
 export const ImageGallery = () => {
   const [imageUrls, setImageUrls] = useState([]);
@@ -11,6 +11,7 @@ export const ImageGallery = () => {
   const [open, setOpen] = useState(false);
   const [alertType, setAlertType] = useState('success');
   const [alertMessage, setAlertMessage] = useState('');
+  const [deleting, setDeleting] = useState(false); // Estado para el bloqueo durante la eliminación
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -18,8 +19,9 @@ export const ImageGallery = () => {
         const imageList = await getImages();
         const urls = imageList.map(image => ({
           ...image,
-          uploaded_at: new Date(image.uploaded_at) // Convertir la fecha a Date
-        })); 
+          uploaded_at: new Date(image.uploaded_at),
+          id_empresa: user.id_empresa
+        }));
         setImageUrls(urls);
         setAlertMessage('Imágenes cargadas correctamente');
         setAlertType('success');
@@ -38,6 +40,7 @@ export const ImageGallery = () => {
   }, []);
 
   const handleDelete = async (public_id) => {
+    setDeleting(true); // Activar el estado de bloqueo
     try {
       await deleteImage(public_id); // Llamada a la función para eliminar la imagen
       setImageUrls(imageUrls.filter(image => image.public_id !== public_id)); // Remover de la lista
@@ -46,8 +49,10 @@ export const ImageGallery = () => {
     } catch (err) {
       setAlertType('error');
       setAlertMessage('Error al eliminar la imagen');
+    } finally {
+      setOpen(true);
+      setDeleting(false); // Desbloquear la página
     }
-    setOpen(true);
   };
 
   const handleClose = () => {
@@ -93,8 +98,13 @@ export const ImageGallery = () => {
                 <Button variant="outlined" color="primary" href={image.url} target="_blank">
                   Ver inspección
                 </Button>
-                <Button variant="contained" color="secondary" onClick={() => handleDelete(image.public_id)}>
-                  Eliminar
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={() => handleDelete(image.public_id)}
+                  disabled={deleting} // Deshabilitar el botón mientras se elimina
+                >
+                  {deleting ? <CircularProgress size={24} /> : 'Eliminar'} {/* Mostrar el progreso mientras se elimina */}
                 </Button>
               </ListItem>
             ))}
