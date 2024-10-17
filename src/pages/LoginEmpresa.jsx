@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { Navbar } from "../components/Navbar";
+import { EmpresaService } from "../service/empresaService";
 
 export const LoginEmpresa = () => {
   const [isChecked, setIsChecked] = useState(true);
@@ -36,24 +37,12 @@ export const LoginEmpresa = () => {
     if (empresa.nombre_empresa === "" || empresa.password === "") return;
   
     try {
-      const response = await fetch("http://127.0.0.1:8000/empresas/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(empresa),
-      });
-  
-      if (!response.ok) {
-        throw new Error("Error en la petición");
-      }
-  
+      const response = await EmpresaService.login(empresa)
       if (response.status === 200) {
         const data = await response.json();
         if (data) {
-          const rol = "admin"; 
-          login(data, rol); 
-          localStorage.setItem("loginSuccess", "Logueado correctamente como empresa");
+          const rol = "admin";
+          login(data, rol);
           setAlertType("success");
           setAlertMessage("Logueado correctamente como empresa");
           setOpen(true);

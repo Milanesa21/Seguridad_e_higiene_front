@@ -1,4 +1,6 @@
 import { useState, useRef } from "react";
+import { UserService } from "../service/userService";
+import { useAuth } from "../context/AuthProvider";
 
 
 export const useRegistroEmpleados = () => {
@@ -11,6 +13,7 @@ export const useRegistroEmpleados = () => {
     });
     const audioRef = useRef(null);
   
+    const {user} = useAuth()
     const handleChangePuesto = (e) => {
       setSelectedPuesto(e.target.value);
     };
@@ -27,22 +30,13 @@ export const useRegistroEmpleados = () => {
       const data = {
         puesto_trabajo: selectedPuesto,
         num_usuarios: numUsuarios,
+        id_empresa: user?.id_empresa
       };
-  
+      console.log(data);
       if (data.puesto_trabajo === "" || data.num_usuarios === 0) return;
   
       try {
-        const response = await fetch(
-          "http://127.0.0.1:8000/Usuarios/createUsers",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-          }
-        );
-
+        const response = await UserService.register(data)
         if (response.ok) {
           setNotification({
             message: "Empleados creados correctamente",
