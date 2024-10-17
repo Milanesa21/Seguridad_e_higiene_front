@@ -18,6 +18,7 @@ import { AmbienteEvaluation } from "../pages/IaAmbientes.jsx";
 import { UniformeEvaluation } from "../pages/IaUniformes.jsx";
 import { ChecklistForm } from "../components/Inspecciones/InspeccionChecklist.jsx";
 import { ImageGallery } from "../components/Inspecciones/GaleriaImagenes.jsx";
+import { LoginReplace } from "../pages/LoginReplace.jsx";
 
 export const routes = [
   {
@@ -84,6 +85,10 @@ export const routes = [
     path: "GaleriaInspecciones",
     element: <ImageGallery />,
   },
+  {
+    path: "LoginReplace",
+    element: <LoginReplace />,
+  }
 ];
 
 export const RoutesComponent = () => {
