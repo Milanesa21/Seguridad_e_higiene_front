@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { getImages, deleteImage } from './api'; // Añadimos deleteImage
+import { useEffect, useState } from 'react';
 import { List, ListItem, ListItemText, Button, Snackbar, Alert, Typography, CircularProgress, Container, Box } from '@mui/material';
 import { Navbar } from '../Navbar';
 import { Footer } from '../Footer';
+import { ImageService } from '../../service/imageService';
+import { useAuth } from '../../context/AuthProvider';
 
 export const ImageGallery = () => {
   const [imageUrls, setImageUrls] = useState([]);
@@ -11,21 +12,49 @@ export const ImageGallery = () => {
   const [open, setOpen] = useState(false);
   const [alertType, setAlertType] = useState('success');
   const [alertMessage, setAlertMessage] = useState('');
-  const [deleting, setDeleting] = useState(false); // Estado para el bloqueo durante la eliminación
+  const [deleting, setDeleting] = useState(false);
+  const [empresaId, setEmpresaId] = useState('');
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (user && (user?.id_empresa !== undefined || user?.id_empresa !== null)) {
+      setEmpresaId(user.id_empresa);
+    }
+  }, [empresaId, user]);
 
   useEffect(() => {
     const fetchImages = async () => {
+      if (empresaId === undefined || empresaId === '') return;
+      console.log(empresaId);
       try {
-        const imageList = await getImages();
-        const urls = imageList.map(image => ({
-          ...image,
-          uploaded_at: new Date(image.uploaded_at),
-          id_empresa: user.id_empresa
-        }));
-        setImageUrls(urls);
-        setAlertMessage('Imágenes cargadas correctamente');
-        setAlertType('success');
-        setOpen(true);
+        const response = await ImageService.getImages(empresaId);
+        const imageList = await response.json();
+  
+        // Verificar que imageList y imageList.images estén definidos
+        if (imageList && Array.isArray(imageList.images)) {
+          if (imageList.images.length === 0) {
+            setAlertMessage('No hay imágenes cargadas.');
+            setAlertType('info'); // Cambiar a 'info' para mensajes informativos
+            setOpen(true);
+            setImageUrls([]); // Establecer imageUrls como vacío
+          } else {
+            const urls = imageList.images.map(image => ({
+              ...image,
+              uploaded_at: new Date(image.uploaded_at),
+              id_empresa: empresaId
+            }));
+            setImageUrls(urls);
+            setAlertMessage('Imágenes cargadas correctamente');
+            setAlertType('success');
+            setOpen(true);
+          }
+        } else {
+          // Manejar el caso en que imageList.images no está definido
+          setAlertMessage('No se pudo cargar las imágenes.');
+          setAlertType('error');
+          setOpen(true);
+          setImageUrls([]);
+        }
       } catch (err) {
         setError(err);
         setAlertType('error');
@@ -35,15 +64,16 @@ export const ImageGallery = () => {
         setLoading(false);
       }
     };
-
+  
     fetchImages();
-  }, []);
+  }, [empresaId]);
+  
 
   const handleDelete = async (public_id) => {
-    setDeleting(true); // Activar el estado de bloqueo
+    setDeleting(true);
     try {
-      await deleteImage(public_id); // Llamada a la función para eliminar la imagen
-      setImageUrls(imageUrls.filter(image => image.public_id !== public_id)); // Remover de la lista
+      await ImageService.deleteImage(public_id);
+      setImageUrls(imageUrls.filter(image => image.public_id !== public_id));
       setAlertMessage('Imagen eliminada correctamente');
       setAlertType('success');
     } catch (err) {
@@ -51,7 +81,7 @@ export const ImageGallery = () => {
       setAlertMessage('Error al eliminar la imagen');
     } finally {
       setOpen(true);
-      setDeleting(false); // Desbloquear la página
+      setDeleting(false);
     }
   };
 
@@ -102,9 +132,9 @@ export const ImageGallery = () => {
                   variant="contained"
                   color="secondary"
                   onClick={() => handleDelete(image.public_id)}
-                  disabled={deleting} // Deshabilitar el botón mientras se elimina
+                  disabled={deleting}
                 >
-                  {deleting ? <CircularProgress size={24} /> : 'Eliminar'} {/* Mostrar el progreso mientras se elimina */}
+                  {deleting ? <CircularProgress size={24} /> : 'Eliminar'}
                 </Button>
               </ListItem>
             ))}

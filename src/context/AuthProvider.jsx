@@ -39,9 +39,7 @@ export const AuthProvider = ({ children }) => {
         const response = await ValidateService.validateToken();
         
         const data = await response.json();
-        console.log('data del token',data)
         if (data && data.Usuario) {
-          console.log(data.Usuario.id_empresa)
           if (data.Usuario.id_user !== undefined) {
             setUserId(data.Usuario.id_user)
             setEmpresaId('')
@@ -62,10 +60,7 @@ export const AuthProvider = ({ children }) => {
   }, [token, userId]);
 
   useEffect(() => {
-    console.log('empresaId después de validación:', empresaId)
     const fetchUser = async () => {
-      console.log('user', userId)
-      console.log('empresa', empresaId)
       try {
         if (userId){
         const response = await UserService.getUserById(userId);
@@ -74,16 +69,12 @@ export const AuthProvider = ({ children }) => {
           const data = await response.json();
           if (data && data.Usuario) {
             setUser(data.Usuario);
-            console.log("User fetched:", data.Usuario);
           }
         }}
         if (empresaId !== undefined && empresaId !== null && empresaId !== ''){
-          console.log('hago get en empresa')
           const response = await EmpresaService.getById(empresaId)
-          console.log(response)
           if (response.ok){
             const data = await response.json();
-            console.log(data)
             if (data) {
               setUser(data);
           }
@@ -99,7 +90,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = (token, rol= null) => {
     AccessToken.setToken(token)
-    if (rol === null) localStorage.setItem("rol", rol); 
+    if (rol !== null) localStorage.setItem("rol", rol); 
     dispatch({
       type: types.LOGIN,
       payload: { token, rol }, 

@@ -5,12 +5,16 @@ export class ApiService {
         const options = {
             method,
             headers: {
-                "Content-Type": "application/json",
                 ...(authToken && {Authorization: `Bearer ${authToken}`}),
             },
         };
         if (body && method !== 'GET') {
-            options.body = JSON.stringify(body);
+            if(body instanceof FormData){
+                options.body = body;
+            } else{
+                options.headers['Content-Type'] = 'application/json';
+                options.body = JSON.stringify(body);
+            }
         }
         try {
             const response = await fetch(url, options);
