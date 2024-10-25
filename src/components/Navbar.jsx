@@ -1,24 +1,27 @@
-import React, { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import { CerrarSesion } from "./CerrarSesion";
 import "/public/css/components/nav.css";
 import logo from "/public/Logoo.webp";
-import profile from "/public/img/sddefault.jpg";
 
 export const Navbar = () => {
   const { state, user } = useContext(AuthContext);
-  const [erol, setErol] = useState("");
+  const [rolId, setRolId] = useState("");
+  const [showPanelOptions, setShowPanelOptions] = useState(false);
+
+  const togglePanelOptions = () => {
+    setShowPanelOptions((prev)=> !prev);
+  }
 
   useEffect(() => {
-    if (user) {
-      setErol(user?.rol?.nombre);
-    } else {
-      const rol = localStorage.getItem("rol"); 
-      setErol(rol); 
+    if (user?.rol?.id) {
+      setRolId(user?.rol?.id);
+    } else if ( user?.id_role) {
+      setRolId(user?.id_role);
+    } else{
+      setRolId('');
     }
   }, [user]);
-
-
 
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
@@ -70,13 +73,13 @@ export const Navbar = () => {
                 </>
               )}
 
-              {erol === "super_admin" || erol === "admin" ? (
+              {rolId === 1 || rolId === 2 ? ( 
                 <li>
                   <a href="/Registroempleados">Registro empleados</a>
                 </li>
               ) : null}
 
-              {erol === "super_admin" && (
+              {rolId === 1 && (
                 <li>
                   <a href="/Registroempresa">Registro empresa</a>
                 </li>
@@ -88,25 +91,29 @@ export const Navbar = () => {
                 </a>
               </li>
 
-              {erol === "segurity" || erol === "super_admin" || erol === "admin" ? (
+              {rolId === 3 || rolId === 1 || rolId === 2 ? ( 
                 <li>
                   <a href="/Inspeccion">Inspecciones de seguridad</a>
                 </li>
               ) : null}
 
-              {erol === "super_admin" || erol === "admin" || erol === "segurity" ? (
+              {rolId === 1 || rolId === 2 || rolId === 3 ? (
                 <li>
-                  <a href="/Panel">Panel de Seguridad</a>
+                  <a onClick={togglePanelOptions} href="#" className='panel-options'>Panel</a>
+                  {showPanelOptions && (
+                    <ul className="panel-options-menu">
+                      <li>
+                        <a href="/Panel">Panel de Seguridad</a>
+                      </li>
+                      <li>
+                        <a href="/PanelPermisos">Panel de Permisos</a>
+                      </li>
+                    </ul>
+                  )}
                 </li>
               ) : null}
 
-              {erol === "super_admin" || erol === "admin" ? (
-                <li>
-                  <a href="/PanelPermisos">Panel de Permisos</a>
-                </li>
-              ) : null}
-
-              {erol === "super_admin" || erol === "admin" || erol === "segurity" ? (
+              {rolId === 1 || rolId === 2 || rolId === 3 ? (
                 <li>
                   <a href="/GaleriaInspecciones">Galeria de inspecciones</a>
                 </li>
@@ -123,9 +130,6 @@ export const Navbar = () => {
       {state?.logged && (
         <div className="divpfpnav">
           <span className="pseccion">{user?.full_name || "Bruce Wayne"}</span>
-          <a href="/perfil">
-            <img className="LogoPFPNavbar" src={profile} alt="Perfil" />
-          </a>
         </div>
       )}
     </nav>
