@@ -1,57 +1,87 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import "/public/css/components/inspecciones/Inspeccion.css";
 import { Footer } from "../Footer";
 import { Navbar } from "../Navbar";
 
+// Configuración dinámica para las secciones del checklist
+const sections = [
+  {
+    title: "Sección 1: Equipos eléctricos",
+    fields: [
+      { label: "¿Se ha realizado una inspección visual de los equipos eléctricos?", name: "inspeccionEquipos" },
+      { label: "¿Hay equipos eléctricos dañados o defectuosos?", name: "equiposDañados" },
+      { label: "¿Están todos los equipos etiquetados correctamente?", name: "etiquetadoCorrecto" },
+    ],
+  },
+  {
+    title: "Sección 2: Cables y conexiones",
+    fields: [
+      { label: "¿Están los cables correctamente aislados?", name: "cablesAisladosCorrectamente" },
+      { label: "¿Son las conexiones eléctricas firmes y seguras?", name: "conexionesFirmes" },
+      { label: "¿Hay cables dañados o desgastados?", name: "cablesDañados" },
+    ],
+  },
+  {
+    title: "Sección 3: Interruptores y paneles",
+    fields: [
+      { label: "¿Funcionan correctamente los interruptores automáticos?", name: "interruptoresFuncionando" },
+      { label: "¿Están los paneles eléctricos etiquetados correctamente?", name: "panelesEtiquetados" },
+      { label: "¿Está el acceso a los paneles eléctricos despejado?", name: "accesoDespejadoPaneles" },
+    ],
+  },
+  {
+    title: "Sección 4: Protección personal",
+    fields: [
+      { label: "¿Se está utilizando el equipo de protección adecuado?", name: "usoEquiposProteccion" },
+      { label: "¿Se usan guantes aislantes para trabajos en vivo o cerca de corriente?", name: "guantesAislantes" },
+      { label: "¿Se usan gafas de protección en zonas de riesgo?", name: "gafasProteccion" },
+    ],
+  },
+  {
+    title: "Sección 5: Procedimientos de trabajo",
+    fields: [
+      { label: "¿Se aplica el procedimiento de bloqueo y etiquetado antes de trabajar en equipos eléctricos?", name: "bloqueoEtiquetado" },
+      { label: "¿Se siguen los procedimientos de trabajo seguro?", name: "procedimientosTrabajoSeguro" },
+      { label: "¿Ha recibido el personal la formación adecuada en seguridad eléctrica?", name: "formacionAdecuada" },
+    ],
+  },
+  {
+    title: "Sección 6: Herramientas y equipos de prueba",
+    fields: [
+      { label: "¿Se utilizan herramientas aisladas para trabajos eléctricos?", name: "herramientasAisladas" },
+      { label: "¿Están las herramientas en buen estado de funcionamiento?", name: "herramientasEnBuenEstado" },
+      { label: "¿Está el equipo de pruebas eléctricas debidamente calibrado?", name: "equipoPruebasCalibrado" },
+    ],
+  },
+];
+
 export const ElectricidadChecklistForm = () => {
-  const [checklistData, setChecklistData] = useState({
-    // Sección 1: Equipos eléctricos
-    inspeccionEquipos: false,
-    equiposDañados: false,
-    etiquetadoCorrecto: false,
+  const [checklistData, setChecklistData] = useState(
+    sections.reduce((acc, section) => {
+      section.fields.forEach((field) => {
+        acc[field.name] = false;
+      });
+      return acc;
+    }, {})
+  );
 
-    // Sección 2: Cables y conexiones
-    cablesAisladosCorrectamente: false,
-    conexionesFirmes: false,
-    cablesDañados: false,
-
-    // Sección 3: Interruptores y paneles
-    interruptoresFuncionando: false,
-    panelesEtiquetados: false,
-    accesoDespejadoPaneles: false,
-
-    // Sección 4: Protección personal
-    usoEquiposProteccion: false,
-    guantesAislantes: false,
-    gafasProteccion: false,
-
-    // Sección 5: Procedimientos de trabajo
-    bloqueoEtiquetado: false,
-    procedimientosTrabajoSeguro: false,
-    formacionAdecuada: false,
-
-    // Sección 6: Herramientas y equipos de prueba
-    herramientasAisladas: false,
-    herramientasEnBuenEstado: false,
-    equipoPruebasCalibrado: false,
-  });
-
-  const handleChange = (e) => {
+  const handleChange = useCallback((e) => {
     const { name, checked } = e.target;
-    setChecklistData({
-      ...checklistData,
+    setChecklistData((prevData) => ({
+      ...prevData,
       [name]: checked,
-    });
-  };
+    }));
+  }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = useCallback((e) => {
     e.preventDefault();
     console.log("Checklist Data:", checklistData);
-  };
+    // Aquí puedes enviar el data a tu backend usando una llamada a la API
+  }, [checklistData]);
 
-  const printForm = () => {
+  const printForm = useCallback(() => {
     window.print();
-  };
+  }, []);
 
   return (
     <div>
@@ -59,251 +89,23 @@ export const ElectricidadChecklistForm = () => {
       <div className="container mt-4">
         <h1 className="mb-4">CHECKLIST DE INSPECCIÓN ELÉCTRICA</h1>
         <form onSubmit={handleSubmit}>
-          {/* Sección 1: Equipos eléctricos */}
-          <div className="mb-4">
-            <h2>Sección 1: Equipos eléctricos</h2>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                name="inspeccionEquipos"
-                checked={checklistData.inspeccionEquipos}
-                onChange={handleChange}
-              />
-              <label className="form-check-label">
-                ¿Se ha realizado una inspección visual de los equipos eléctricos?
-              </label>
+          {sections.map((section, index) => (
+            <div className="mb-4" key={index}>
+              <h2>{section.title}</h2>
+              {section.fields.map((field) => (
+                <div className="form-check" key={field.name}>
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    name={field.name}
+                    checked={checklistData[field.name]}
+                    onChange={handleChange}
+                  />
+                  <label className="form-check-label">{field.label}</label>
+                </div>
+              ))}
             </div>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                name="equiposDañados"
-                checked={checklistData.equiposDañados}
-                onChange={handleChange}
-              />
-              <label className="form-check-label">
-                ¿Hay equipos eléctricos dañados o defectuosos?
-              </label>
-            </div>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                name="etiquetadoCorrecto"
-                checked={checklistData.etiquetadoCorrecto}
-                onChange={handleChange}
-              />
-              <label className="form-check-label">
-                ¿Están todos los equipos etiquetados correctamente?
-              </label>
-            </div>
-          </div>
-
-          {/* Sección 2: Cables y conexiones */}
-          <div className="mb-4">
-            <h2>Sección 2: Cables y conexiones</h2>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                name="cablesAisladosCorrectamente"
-                checked={checklistData.cablesAisladosCorrectamente}
-                onChange={handleChange}
-              />
-              <label className="form-check-label">
-                ¿Están los cables correctamente aislados?
-              </label>
-            </div>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                name="conexionesFirmes"
-                checked={checklistData.conexionesFirmes}
-                onChange={handleChange}
-              />
-              <label className="form-check-label">
-                ¿Son las conexiones eléctricas firmes y seguras?
-              </label>
-            </div>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                name="cablesDañados"
-                checked={checklistData.cablesDañados}
-                onChange={handleChange}
-              />
-              <label className="form-check-label">
-                ¿Hay cables dañados o desgastados?
-              </label>
-            </div>
-          </div>
-
-          {/* Sección 3: Interruptores y paneles */}
-          <div className="mb-4">
-            <h2>Sección 3: Interruptores y paneles</h2>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                name="interruptoresFuncionando"
-                checked={checklistData.interruptoresFuncionando}
-                onChange={handleChange}
-              />
-              <label className="form-check-label">
-                ¿Funcionan correctamente los interruptores automáticos?
-              </label>
-            </div>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                name="panelesEtiquetados"
-                checked={checklistData.panelesEtiquetados}
-                onChange={handleChange}
-              />
-              <label className="form-check-label">
-                ¿Están los paneles eléctricos etiquetados correctamente?
-              </label>
-            </div>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                name="accesoDespejadoPaneles"
-                checked={checklistData.accesoDespejadoPaneles}
-                onChange={handleChange}
-              />
-              <label className="form-check-label">
-                ¿Está el acceso a los paneles eléctricos despejado?
-              </label>
-            </div>
-          </div>
-
-          {/* Sección 4: Protección personal */}
-          <div className="mb-4">
-            <h2>Sección 4: Protección personal</h2>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                name="usoEquiposProteccion"
-                checked={checklistData.usoEquiposProteccion}
-                onChange={handleChange}
-              />
-              <label className="form-check-label">
-                ¿Se está utilizando el equipo de protección adecuado?
-              </label>
-            </div>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                name="guantesAislantes"
-                checked={checklistData.guantesAislantes}
-                onChange={handleChange}
-              />
-              <label className="form-check-label">
-                ¿Se usan guantes aislantes para trabajos en vivo o cerca de corriente?
-              </label>
-            </div>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                name="gafasProteccion"
-                checked={checklistData.gafasProteccion}
-                onChange={handleChange}
-              />
-              <label className="form-check-label">
-                ¿Se usan gafas de protección en zonas de riesgo?
-              </label>
-            </div>
-          </div>
-
-          {/* Sección 5: Procedimientos de trabajo */}
-          <div className="mb-4">
-            <h2>Sección 5: Procedimientos de trabajo</h2>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                name="bloqueoEtiquetado"
-                checked={checklistData.bloqueoEtiquetado}
-                onChange={handleChange}
-              />
-              <label className="form-check-label">
-                ¿Se aplica el procedimiento de bloqueo y etiquetado antes de trabajar en equipos eléctricos?
-              </label>
-            </div>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                name="procedimientosTrabajoSeguro"
-                checked={checklistData.procedimientosTrabajoSeguro}
-                onChange={handleChange}
-              />
-              <label className="form-check-label">
-                ¿Se siguen los procedimientos de trabajo seguro?
-              </label>
-            </div>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                name="formacionAdecuada"
-                checked={checklistData.formacionAdecuada}
-                onChange={handleChange}
-              />
-              <label className="form-check-label">
-                ¿Ha recibido el personal la formación adecuada en seguridad eléctrica?
-              </label>
-            </div>
-          </div>
-
-          {/* Sección 6: Herramientas y equipos de prueba */}
-          <div className="mb-4">
-            <h2>Sección 6: Herramientas y equipos de prueba</h2>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                name="herramientasAisladas"
-                checked={checklistData.herramientasAisladas}
-                onChange={handleChange}
-              />
-              <label className="form-check-label">
-                ¿Se utilizan herramientas aisladas para trabajos eléctricos?
-              </label>
-            </div>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                name="herramientasEnBuenEstado"
-                checked={checklistData.herramientasEnBuenEstado}
-                onChange={handleChange}
-              />
-              <label className="form-check-label">
-                ¿Están las herramientas en buen estado de funcionamiento?
-              </label>
-            </div>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                name="equipoPruebasCalibrado"
-                checked={checklistData.equipoPruebasCalibrado}
-                onChange={handleChange}
-              />
-              <label className="form-check-label">
-                ¿Está el equipo de pruebas eléctricas debidamente calibrado?
-              </label>
-            </div>
-          </div>
+          ))}
 
           <button type="submit" className="btn btn-primary">
             Guardar
