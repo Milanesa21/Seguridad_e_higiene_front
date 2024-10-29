@@ -4,6 +4,7 @@ import { Box, Button, Modal, Typography, Paper, Grid, IconButton, Checkbox, Tabl
 import { Edit as EditIcon } from "@mui/icons-material";
 import { Navbar } from "../Navbar";
 import { Footer } from "../Footer"
+import './aña.css'
 
 const modalStyle = {
   position: 'absolute',
@@ -196,13 +197,14 @@ export const PanelPermisos = () => {
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 100 },
-    { field: "nombre", headerName: "Nombre de Usuario", width: 200 },
-    { field: "email", headerName: "Email", width: 250 },
+    { field: "id",  headerClassName: 'header-black',headerName: "ID", width: 100 },
+    { field: "nombre", headerClassName: 'header-black', headerName: "Nombre de Usuario", width: 200 },
+    { field: "email", headerClassName: 'header-black', headerName: "Email", width: 250 },
     {
       field: "acciones",
       headerName: "Acciones",
       width: 150,
+      headerClassName: 'header-black',
       renderCell: (params) => (
         <IconButton color="primary" onClick={() => handleOpen(params.row)}>
           <EditIcon />
