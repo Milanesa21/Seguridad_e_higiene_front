@@ -11,6 +11,9 @@ export class UserService {
     static async getUserById(id){
         return ApiService.request(`${USER_URL}user/${id}`);
     }
+    static async getUserByEmpresa(id){
+        return ApiService.request(`${USER_URL}user/empresa/${id}`);
+    }
     static async updateUser(id, user){
         return ApiService.request(`${USER_URL}updateData${id}`, 'PUT', user);
     }

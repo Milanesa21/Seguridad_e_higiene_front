@@ -1,19 +1,25 @@
 import { useEffect, useState } from 'react';
 import { UsuariosPermisos } from './UsuariosPermisos';
+import { PermisosService } from '../../service/permisosService';
+import { UserService } from '../../service/userService';
+import { useAuth } from '../../context/AuthProvider';
 
 export const PanelPermisos = () => {
     const [permissions, setPermissions] = useState([]);
     const [users, setUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
+    const [empresaId, setEmpresaId] = useState('');
+
+    const { user } = useAuth();
 
     // Función para obtener usuarios
     const fetchUsers = async () => {
         try {
-            const response = await fetch('http://127.0.0.1:8000/Usuarios/user/All');
+            const response = await UserService.getUserByEmpresa(empresaId);
             if (response.ok) {
                 const data = await response.json();
-                if (Array.isArray(data)) {
-                    setUsers(data);
+                if (Array.isArray(data.usuarios)) {
+                    setUsers(data.usuarios);
                 } else {
                     console.error('Datos de usuarios no son un array', data);
                     setUsers([]);
@@ -25,11 +31,11 @@ export const PanelPermisos = () => {
             console.error('Error fetching users:', error);
         }
     };
-
+    
     // Función para obtener permisos
     const fetchPermissions = async () => {
         try {
-            const response = await fetch('http://127.0.0.1:8000/permiso/role/getPermissions');
+            const response = await PermisosService.getPermisos();
             if (response.ok) {
                 const data = await response.json();
                 setPermissions(data);
@@ -42,15 +48,28 @@ export const PanelPermisos = () => {
     };
 
     // Fetch initial data
+
     useEffect(() => {
-        fetchPermissions();
-        fetchUsers();
-    }, []);
+        if (user?.id_empresa || user?.id_empresa === 0) {
+            setEmpresaId(user?.id_empresa);
+            console.log('Empresa ID:', user?.id_empresa);
+        }
+    }, [user]);
+
+    useEffect(() => {
+        const loadData = async () => {
+            await fetchPermissions();
+            if (empresaId !=='' && empresaId !== undefined) {
+                await fetchUsers(); // Llama a la función fetchUsers
+            }
+        };
+        loadData();
+    }, [empresaId]);
 
     // Función para obtener un usuario por ID
     const fetchUserById = async (id) => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/Usuarios/user/id/${id}`);
+            const response = await UserService.getUserById(id);
             if (response.ok) {
                 const data = await response.json();
                 if (data.Usuario) {
@@ -71,21 +90,20 @@ export const PanelPermisos = () => {
         fetchUserById(user.id);
     };
 
-    // Función para manejar la adición de un permiso
     const handlePermissionAdd = async (permission, user) => {
+        if (!user || !permission) {
+            console.error('User or permission is undefined');
+            return;
+        }
+    
         try {
-            const response = await fetch('http://127.0.0.1:8000/permiso/role/addPermission', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ id_user: user.id, id_permiso: permission.id }),
-            });
-            console.log('Add permission response:', response); // Log de la respuesta completa
+            const response = await PermisosService.addPermiso({ id_user: user.id, id_permiso: permission.id });
+            console.log('Add permission response:', response);
+    
             if (response.ok) {
                 const data = await response.json();
-                console.log('Add permission data:', data); // Log de los datos recibidos
-                fetchUserById(user.id); // Actualiza los permisos del usuario
+                console.log('Add permission data:', data);
+                fetchUserById(user.id);
             } else {
                 const error = await response.json();
                 console.error("Error adding permission:", error);
@@ -94,22 +112,21 @@ export const PanelPermisos = () => {
             console.error("Network error:", error);
         }
     };
-
-    // Función para manejar la eliminación de un permiso
+    
     const handlePermissionRemove = async (permission, user) => {
+        if (!user || !permission) {
+            console.error('User or permission is undefined');
+            return;
+        }
+    
         try {
-            const response = await fetch('http://127.0.0.1:8000/permiso/role/removePermission', {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ id_user: user.id, id_permiso: permission.id }),
-            });
-            console.log('Remove permission response:', response); // Log de la respuesta completa
+            const response = await PermisosService.deletePermiso({ id_user: user.id, id_permiso: permission.id });
+            console.log('Remove permission response:', response);
+    
             if (response.ok) {
                 const data = await response.json();
-                console.log('Remove permission data:', data); // Log de los datos recibidos
-                fetchUserById(user.id); // Actualiza los permisos del usuario
+                console.log('Remove permission data:', data);
+                fetchUserById(user.id);
             } else {
                 const error = await response.json();
                 console.error("Error removing permission:", error);
@@ -118,6 +135,7 @@ export const PanelPermisos = () => {
             console.error("Network error:", error);
         }
     };
+    
 
     // Función para manejar el cambio de estado del checkbox
     const handleCheckboxChange = (permission, user) => {
