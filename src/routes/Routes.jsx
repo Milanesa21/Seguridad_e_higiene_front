@@ -1,7 +1,7 @@
 import App from "../App.jsx";
 import { CambioDatos } from "../pages/cambioDatos.jsx";
 import { PasswordChange } from "../pages/PasswordChange.jsx";
-import { ProtectRoutes } from "./ProtectRoutes.jsx";
+// import { ProtectRoutes } from "./ProtectRoutes.jsx";
 import { Registroempleados } from "../pages/registroempleados.jsx";
 import { Chat } from "../pages/Jorgito.jsx";
 import { Registroempresa } from "../pages/registroempresa.jsx";
@@ -18,6 +18,7 @@ import { AmbienteEvaluation } from "../pages/IaAmbientes.jsx";
 import { UniformeEvaluation } from "../pages/IaUniformes.jsx";
 import { ChecklistForm } from "../components/Inspecciones/InspeccionChecklist.jsx";
 import { ImageGallery } from "../components/Inspecciones/GaleriaImagenes.jsx";
+import { LoginReplace } from "../pages/LoginReplace.jsx";
 import { ConstruccionChecklistForm } from "../components/Inspecciones/ConstruccionChecklist.jsx";
 import { QuimicoChecklistForm } from "../components/Inspecciones/QuimicaChecklist.jsx";
 import { AgropecuarioChecklistForm } from "../components/Inspecciones/AgropecuarioChecklist.jsx";
@@ -87,6 +88,10 @@ export const routes = [
   {
     path: "GaleriaInspecciones",
     element: <ImageGallery />,
+  },
+  {
+    path: "LoginReplace",
+    element: <LoginReplace />,
   },
   {
     path: "ConstruccionChecklist",
