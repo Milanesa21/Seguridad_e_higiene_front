@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from "react";
+import axios from "axios";
 import "/public/css/components/inspecciones/Inspeccion.css";
 import { Footer } from "../Footer";
 import { Navbar } from "../Navbar";
@@ -65,6 +66,8 @@ export const ElectricidadChecklistForm = () => {
     }, {})
   );
 
+  const idEmpresa = 1; // Cambia este valor según tu configuración
+
   const handleChange = useCallback((e) => {
     const { name, checked } = e.target;
     setChecklistData((prevData) => ({
@@ -73,11 +76,27 @@ export const ElectricidadChecklistForm = () => {
     }));
   }, []);
 
-  const handleSubmit = useCallback((e) => {
-    e.preventDefault();
-    console.log("Checklist Data:", checklistData);
-    // Aquí puedes enviar el data a tu backend usando una llamada a la API
-  }, [checklistData]);
+  // Función para enviar datos al backend
+  const sendDataToBackend = useCallback(async () => {
+    try {
+      const response = await axios.post(
+        `http://localhost:8000/Electricidad/create/?id_empresa=${idEmpresa}`,
+        checklistData
+      );
+      console.log("Datos enviados exitosamente:", response.data);
+    } catch (error) {
+      console.error("Error al enviar los datos:", error);
+    }
+  }, [checklistData, idEmpresa]);
+
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      console.log("Checklist Data:", checklistData);
+      sendDataToBackend(); // Enviar datos al backend al hacer clic en enviar
+    },
+    [checklistData, sendDataToBackend]
+  );
 
   const printForm = useCallback(() => {
     window.print();
@@ -106,9 +125,8 @@ export const ElectricidadChecklistForm = () => {
               ))}
             </div>
           ))}
-
           <button type="submit" className="btn btn-primary">
-            Guardar
+            Enviar
           </button>
           <button
             type="button"

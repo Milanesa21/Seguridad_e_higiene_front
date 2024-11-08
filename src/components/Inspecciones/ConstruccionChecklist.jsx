@@ -106,7 +106,7 @@ export const ConstruccionChecklistForm = () => {
           ))}
 
           <button type="submit" className="btn btn-primary">
-            Guardar
+            Enviar
           </button>
           <button
             type="button"
