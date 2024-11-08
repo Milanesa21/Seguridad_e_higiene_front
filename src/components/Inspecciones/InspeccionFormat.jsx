@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "/public/css/components/inspecciones/Inspeccion.css";
 import html2pdf from 'html2pdf.js';
 import { Navbar } from "../Navbar";
 import { EmergencyModal } from "../EmergencyModal";
 // Puedes usar react-toastify u otra biblioteca para notificaciones
 import { toast } from 'react-toastify'; // Asegúrate de instalar react-toastify
+import { ImageService } from "../../service/imageService";
+import { useAuth } from "../../context/AuthProvider";
 
 export const InspectionForm = () => {
   const [fileData, setFileData] = useState(null);
   const [loading, setLoading] = useState(false); // Estado para manejar loading
   const [notification, setNotification] = useState(""); // Estado para manejar notificaciones
-
+  const [userIdEmpresa, setUserIdEmpresa] = useState("");
   const [employerData, setEmployerData] = useState({
     centroTrabajo: "",
     razonSocial: "",
@@ -32,6 +34,14 @@ export const InspectionForm = () => {
   });
 
   const [inspectionResults, setInspectionResults] = useState([]);
+  const { user } =  useAuth();
+
+
+  useEffect(()=> {
+    if(user){
+      setUserIdEmpresa(user?.id_empresa);
+    }
+  }, [user]);
 
   const handleEmployerChange = (e) => {
     setEmployerData({
@@ -120,15 +130,8 @@ export const InspectionForm = () => {
       const formData = new FormData();
       formData.append('file', file);
   
-      const response = await fetch('http://localhost:8000/file/upload/', {
-        method: 'POST',
-        body: formData,
-      });
-  
-      if (!response.ok) {
-        throw new Error("Error en la petición");
-      }
-  
+      const response = await ImageService.uploadImage(userIdEmpresa, formData);
+
       if (response.status === 200) {
         const data = await response.json();
         if (data) {

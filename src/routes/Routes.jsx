@@ -38,7 +38,7 @@ export const routes = [
     element: <Login />,
   },
   {
-    path: "/PasswordChange",
+    path: "/PasswordChange/:token",
     element: <PasswordChange />,
   },
   {

@@ -39,10 +39,6 @@ export const useLogin = () => {
     try {
       const response = await UserService.login(user)
 
-      if (!response.ok) {
-        throw new Error("Error en la  petición");
-      }
-
       if (response.status === 200) {
         const data = await response.json();
         console.log(data)

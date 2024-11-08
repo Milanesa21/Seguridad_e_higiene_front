@@ -1,7 +1,6 @@
 import { useLogin } from "../hooks/userLogin.js";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-import { EmpresaLoader } from "../components/EmpresaLoader.jsx";
 import { Navbar } from "../components/Navbar.jsx";
 
 export const Login = () => {
