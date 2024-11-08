@@ -58,10 +58,10 @@ export const ChecklistForm = () => {
   };
 
   return (
-    <div>
+    <div className="prueba">
       <Navbar />
-      <div className="container mt-4">
-        <h1 className="mb-4">CHECKLIST DE INSPECCIÓN LABORAL</h1>
+      <div className="containerCL">
+        <h1 className="CL mb-4">CHECKLIST DE INSPECCIÓN LABORAL</h1>
         <form onSubmit={handleSubmit}>
           {/* Sección 1: Trabajando en las alturas */}
           <div className="mb-4">
@@ -116,7 +116,8 @@ export const ChecklistForm = () => {
                 onChange={handleChange}
               />
               <label className="form-check-label">
-                ¿Planta / equipo incorrecto para el trabajo? (p. ej., discos abrasivos para cortar)
+                ¿Planta / equipo incorrecto para el trabajo? (p. ej., discos
+                abrasivos para cortar)
               </label>
             </div>
             <div className="form-check">
@@ -181,7 +182,8 @@ export const ChecklistForm = () => {
                 onChange={handleChange}
               />
               <label className="form-check-label">
-                ¿Se superó la carga de trabajo segura (SWL)? (herramientas, materiales almacenados, número de personas)
+                ¿Se superó la carga de trabajo segura (SWL)? (herramientas,
+                materiales almacenados, número de personas)
               </label>
             </div>
           </div>
@@ -198,7 +200,8 @@ export const ChecklistForm = () => {
                 onChange={handleChange}
               />
               <label className="form-check-label">
-                Cargas elevadas sobre personas, proximidad a obstáculos ¿líneas de alta tensión?
+                Cargas elevadas sobre personas, proximidad a obstáculos ¿líneas
+                de alta tensión?
               </label>
             </div>
             <div className="form-check">
@@ -222,7 +225,8 @@ export const ChecklistForm = () => {
                 onChange={handleChange}
               />
               <label className="form-check-label">
-                ¿Equipo de elevación inseguro o dañado, incluidas cuerdas, eslingas, cadenas, ganchos?
+                ¿Equipo de elevación inseguro o dañado, incluidas cuerdas,
+                eslingas, cadenas, ganchos?
               </label>
             </div>
             <div className="form-check">
@@ -263,7 +267,8 @@ export const ChecklistForm = () => {
                 onChange={handleChange}
               />
               <label className="form-check-label">
-                ¿Falta de protocolo de inspección para arneses y equipos de protección personal?
+                ¿Falta de protocolo de inspección para arneses y equipos de
+                protección personal?
               </label>
             </div>
             <div className="form-check">
@@ -338,8 +343,16 @@ export const ChecklistForm = () => {
             </div>
           </div>
 
-          <button type="submit" className="btn btn-primary">Enviar</button>
-          <button type="button" className="btn btn-secondary ms-2" onClick={printForm}>Imprimir</button>
+          <button type="submit" className="btn btn-primary">
+            Enviar
+          </button>
+          <button
+            type="button"
+            className="btn btn-secondary ms-2"
+            onClick={printForm}
+          >
+            Imprimir
+          </button>
         </form>
       </div>
       <Footer />

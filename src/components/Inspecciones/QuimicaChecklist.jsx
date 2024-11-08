@@ -81,10 +81,10 @@ export const QuimicoChecklistForm = () => {
   }, []);
 
   return (
-    <div>
+    <div className="prueba">
       <Navbar />
-      <div className="container mt-4">
-        <h1 className="mb-4">CHECKLIST DE INSPECCIÓN EN LABORATORIO QUÍMICO</h1>
+      <div className="containerCL">
+        <h1 className="CL mb-4">CHECKLIST DE INSPECCIÓN EN LABORATORIO QUÍMICO</h1>
         <form onSubmit={handleSubmit}>
           {sections.map((section, index) => (
             <div className="mb-4" key={index}>
@@ -107,7 +107,11 @@ export const QuimicoChecklistForm = () => {
           <button type="submit" className="btn btn-primary">
             Guardar
           </button>
-          <button type="button" className="btn btn-secondary" onClick={printForm}>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={printForm}
+          >
             Imprimir
           </button>
         </form>

@@ -5,6 +5,27 @@
   font-family: Arial, sans-serif;
 }
 
+.containerCL{
+  display : flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  padding-top: 40%;
+  padding-bottom: 40%;
+}
+
+.CL {
+  margin: 0;
+}
+
+.form-check{
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 9px;
+  margin-top: 5px;
+}
+
 .form-title {
   color: #333;
   text-align: center;
