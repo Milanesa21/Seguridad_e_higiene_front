@@ -74,19 +74,20 @@ export const QuimicoChecklistForm = () => {
     console.log("Checklist Data:", checklistData);
 
     try {
-      const response = await fetch("http://localhost:8000/Quimica/create/", {
+      const response = await fetch("http://localhost:8000/Quimica/guardar_checklist", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ checklistData, id_empresa: 1 }),
+        body: JSON.stringify({ ...checklistData, id_empresa: 1 }),
       });
 
       if (!response.ok) {
         throw new Error("Error al enviar los datos");
       }
 
-      alert("Checklist enviado exitosamente");
+      const result = await response.json();
+      alert(result.mensaje);
     } catch (error) {
       console.error("Error al enviar el checklist:", error);
     }
