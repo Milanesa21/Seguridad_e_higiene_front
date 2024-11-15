@@ -1,9 +1,9 @@
-import { Centinela } from "./Centinela";
+import LandingPage from "./pages/LandingPage";
 
 function App() {
   return (
     <>
-    <Centinela />
+    <LandingPage />
     </>
   );
 }

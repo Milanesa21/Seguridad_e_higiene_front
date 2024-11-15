@@ -3,7 +3,6 @@ import "/public/css/components/inspecciones/Inspeccion.css";
 import { Footer } from "../Footer";
 import { Navbar } from "../Navbar";
 
-// Configuración dinámica para las secciones del checklist
 const sections = [
   {
     title: "Sección 1: Equipos de protección personal",
@@ -70,10 +69,27 @@ export const QuimicoChecklistForm = () => {
     }));
   }, []);
 
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
     console.log("Checklist Data:", checklistData);
-    // Aquí puedes enviar el data a tu backend usando una llamada a la API
+
+    try {
+      const response = await fetch("http://localhost:8000/Quimica/create/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ checklistData, id_empresa: 1 }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error al enviar los datos");
+      }
+
+      alert("Checklist enviado exitosamente");
+    } catch (error) {
+      console.error("Error al enviar el checklist:", error);
+    }
   }, [checklistData]);
 
   const printForm = useCallback(() => {
@@ -81,10 +97,10 @@ export const QuimicoChecklistForm = () => {
   }, []);
 
   return (
-    <div>
+    <div className="prueba">
       <Navbar />
-      <div className="container mt-4">
-        <h1 className="mb-4">CHECKLIST DE INSPECCIÓN EN LABORATORIO QUÍMICO</h1>
+      <div className="containerCL">
+        <h1 className="CL mb-4">CHECKLIST DE INSPECCIÓN EN LABORATORIO QUÍMICO</h1>
         <form onSubmit={handleSubmit}>
           {sections.map((section, index) => (
             <div className="mb-4" key={index}>
@@ -105,7 +121,7 @@ export const QuimicoChecklistForm = () => {
           ))}
 
           <button type="submit" className="btn btn-primary">
-            Guardar
+            Enviar
           </button>
           <button type="button" className="btn btn-secondary" onClick={printForm}>
             Imprimir

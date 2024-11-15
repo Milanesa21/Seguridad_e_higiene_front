@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from "react";
+import axios from "axios";
 import "/public/css/components/inspecciones/Inspeccion.css";
 import { Footer } from "../Footer";
 import { Navbar } from "../Navbar";
@@ -62,6 +63,8 @@ export const AgropecuarioChecklistForm = () => {
     }, {})
   );
 
+  const idEmpresa = 1; // Suponiendo que tienes el ID de la empresa
+
   const handleChange = useCallback((e) => {
     const { name, checked } = e.target;
     setChecklistData((prevData) => ({
@@ -70,11 +73,26 @@ export const AgropecuarioChecklistForm = () => {
     }));
   }, []);
 
-  const handleSubmit = useCallback((e) => {
-    e.preventDefault();
-    console.log("Checklist Data:", checklistData);
-    // Aquí puedes enviar el data a tu backend usando una llamada a la API
+  const sendDataToBackend = useCallback(async () => {
+    try {
+      const response = await axios.post(
+        `http://localhost:8000/Agropecuario/create/?id_empresa=${idEmpresa}`,
+        checklistData
+      );
+      console.log("Datos enviados exitosamente:", response.data);
+    } catch (error) {
+      console.error("Error al enviar los datos:", error);
+    }
   }, [checklistData]);
+
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      console.log("Checklist Data:", checklistData);
+      sendDataToBackend(); // Enviar datos al backend al hacer clic en enviar
+    },
+    [checklistData, sendDataToBackend]
+  );
 
   const printForm = useCallback(() => {
     window.print();
@@ -83,8 +101,8 @@ export const AgropecuarioChecklistForm = () => {
   return (
     <div>
       <Navbar />
-      <div className="container mt-4">
-        <h1 className="mb-4">CHECKLIST DE INSPECCIÓN AGROPECUARIA</h1>
+      <div className="containerCL">
+        <h1 className="CL mb-4">CHECKLIST DE INSPECCIÓN AGROPECUARIA</h1>
         <form onSubmit={handleSubmit}>
           {sections.map((section, index) => (
             <div className="mb-4" key={index}>
@@ -103,11 +121,14 @@ export const AgropecuarioChecklistForm = () => {
               ))}
             </div>
           ))}
-
           <button type="submit" className="btn btn-primary">
-            Guardar
+            Enviar
           </button>
-          <button type="button" className="btn btn-secondary" onClick={printForm}>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={printForm}
+          >
             Imprimir
           </button>
         </form>

@@ -3,7 +3,6 @@ import "/public/css/components/inspecciones/Inspeccion.css";
 import { Footer } from "../Footer";
 import { Navbar } from "../Navbar";
 
-// Configuración dinámica para las secciones del checklist
 const sections = [
   {
     title: "Sección 1: Seguridad en el sitio de construcción",
@@ -71,10 +70,31 @@ export const ConstruccionChecklistForm = () => {
     }));
   }, []);
 
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
-    console.log("Checklist Data:", checklistData);
+
     // Aquí puedes enviar el data a tu backend usando una llamada a la API
+    try {
+      const response = await fetch("http://localhost:8000/Construccion/guardar_checklist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(checklistData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert("Checklist guardado exitosamente");
+        console.log("Response:", result);
+      } else {
+        alert("Error al guardar el checklist");
+        console.error("Error:", result);
+      }
+    } catch (error) {
+      console.error("Error al conectar con el backend:", error);
+    }
   }, [checklistData]);
 
   const printForm = useCallback(() => {
@@ -82,10 +102,10 @@ export const ConstruccionChecklistForm = () => {
   }, []);
 
   return (
-    <div>
+    <div className="">
       <Navbar />
-      <div className="container mt-4">
-        <h1 className="mb-4">CHECKLIST DE INSPECCIÓN EN CONSTRUCCIÓN</h1>
+      <div className="containerCL">
+        <h1 className="CL mb-4">CHECKLIST DE INSPECCIÓN EN CONSTRUCCIÓN</h1>
         <form onSubmit={handleSubmit}>
           {sections.map((section, index) => (
             <div className="mb-4" key={index}>
@@ -106,9 +126,13 @@ export const ConstruccionChecklistForm = () => {
           ))}
 
           <button type="submit" className="btn btn-primary">
-            Guardar
+            Enviar
           </button>
-          <button type="button" className="btn btn-secondary" onClick={printForm}>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={printForm}
+          >
             Imprimir
           </button>
         </form>

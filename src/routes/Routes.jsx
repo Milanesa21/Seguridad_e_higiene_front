@@ -23,6 +23,7 @@ import { ConstruccionChecklistForm } from "../components/Inspecciones/Construcci
 import { QuimicoChecklistForm } from "../components/Inspecciones/QuimicaChecklist.jsx";
 import { AgropecuarioChecklistForm } from "../components/Inspecciones/AgropecuarioChecklist.jsx";
 import { ElectricidadChecklistForm } from "../components/Inspecciones/ElectricidadChecklist.jsx";
+import { ChartFinal } from "../components/ChartComponent/ChartComponent.jsx"
 
 export const routes = [
   {
@@ -109,6 +110,10 @@ export const routes = [
     path: "AgropecuarioChecklist",
     element: <AgropecuarioChecklistForm />,
   },
+  {
+    path: "ChartFinal",
+    element: <ChartFinal />,
+  }
 ];
 
 export const RoutesComponent = () => {
