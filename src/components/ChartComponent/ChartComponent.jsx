@@ -1,8 +1,16 @@
-import React from 'react';
 import { CarouselComponent } from './CarrouselComponent';
+import { useState, useEffect } from 'react';
+import { useAuth } from '../../context/AuthProvider';
 
 export const ChartFinal = () => {
-  const idEmpresa = 1; // Reemplaza esto con el ID de la empresa que deseas consultar
+  const { user } = useAuth();
+  const [idEmpresa, setIdEmpresa] = useState(null);
+
+  useEffect(() => {
+    console.log('user', user);
+    setIdEmpresa(user?.id_empresa);
+  }, [idEmpresa, user]);
+
 
   return (
     <div>

@@ -1,31 +1,30 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PieChart } from '@mui/x-charts/PieChart';
-import axios from 'axios';
+import { SectorService } from "../../service/sectorService";
 
 export const PieChartComponent = ({ endpoint, idEmpresa, title }) => {
-  const [data, setData] = useState([]);
+  const [dataCheck, setDataCheck] = useState([]);
 
-  useEffect(() => {
+  useEffect(()=>{
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${endpoint}/${idEmpresa}`);
-        const estadisticas = response.data;
-
-        // Formatear los datos para el gráfico
-        const formattedData = Object.keys(estadisticas).map(key => ({
+        const estadisticas = await SectorService.getEstadisticas(endpoint, idEmpresa)
+        const data = await estadisticas.json();
+        const fromData = Object.keys(data).map((key) => ({
           id: key,
-          value: estadisticas[key],
+          value: data[key],
         }));
-
-        setData(formattedData);
-      } catch (error) {
-        console.error('Error al obtener los datos:', error);
+        setDataCheck(fromData);
       }
-    };
-
-    fetchData();
+      catch (error) {
+        console.error("Error al obtener las estadisticas:",error);
+    }
+  }
+    if (idEmpresa !== null && idEmpresa !== undefined){
+      fetchData();
+    }
   }, [endpoint, idEmpresa]);
 
   return (
@@ -34,7 +33,7 @@ export const PieChartComponent = ({ endpoint, idEmpresa, title }) => {
       <PieChart
         series={[
           {
-            data: data,
+            data: dataCheck,
             highlightScope: { fade: 'global', highlight: 'item' },
             faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
           },

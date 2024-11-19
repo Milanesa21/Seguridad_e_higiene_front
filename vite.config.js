@@ -7,4 +7,10 @@ export default defineConfig({
   build: {
     sourcemap: true,
   },
+  server: {
+    watch: {
+      usePolling: true,  // Habilita el polling
+      interval: 100,     // Intervalo de chequeo en milisegundos
+    },
+  },
 })

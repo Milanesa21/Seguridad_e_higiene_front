@@ -1,8 +1,8 @@
-import React from 'react';
 import Slider from 'react-slick';
 import { PieChartComponent } from './PieChartComponent';
 
 export const CarouselComponent = ({ idEmpresa }) => {
+  console.log('idEmpresa', idEmpresa);
   const settings = {
     dots: true,
     infinite: true,
@@ -13,36 +13,19 @@ export const CarouselComponent = ({ idEmpresa }) => {
     autoplaySpeed: 5000,
   };
 
+  const sectores = [
+    { sector: 'Agropecuario', title: 'Estadísticas Agropecuario' },
+    { sector: 'Construccion', title: 'Estadísticas Construcción' },
+    { sector: 'Electricidad', title: 'Estadísticas Electricidad' },
+    { sector: 'Quimica', title: 'Estadísticas Química' },
+    
+  ];
+
   return (
     <Slider {...settings}>
-      <div>
-        <PieChartComponent
-          endpoint="/Agropecuario/estadisticas"
-          idEmpresa={idEmpresa}
-          title="Estadísticas Agropecuario"
-        />
-      </div>
-      <div>
-        <PieChartComponent
-          endpoint="/Construccion/estadisticas"
-          idEmpresa={idEmpresa}
-          title="Estadísticas Construcción"
-        />
-      </div>
-      <div>
-        <PieChartComponent
-          endpoint="/Electricidad/estadisticas"
-          idEmpresa={idEmpresa}
-          title="Estadísticas Electricidad"
-        />
-      </div>
-      <div>
-        <PieChartComponent
-          endpoint="/Quimica/estadisticas"
-          idEmpresa={idEmpresa}
-          title="Estadísticas Química"
-        />
-      </div>
+      {sectores.map(({ sector, title }) => (
+        <PieChartComponent key={sector} endpoint={sector} idEmpresa={idEmpresa} title={title} />
+      ))}
     </Slider>
   );
 };
