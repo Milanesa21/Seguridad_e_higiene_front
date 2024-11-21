@@ -129,10 +129,6 @@ export const PanelPermisos = () => {
         }
     };
 
-    // Función para manejar clic en un usuario
-    const handleClick = (user) => {
-        fetchUserById(user.id);
-    };
 
     const handlePermissionAdd = async (permission, user) => {
         if (!user || !permission) {
