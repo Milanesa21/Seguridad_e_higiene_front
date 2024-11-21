@@ -23,6 +23,10 @@ import { ConstruccionChecklistForm } from "../components/Inspecciones/Construcci
 import { QuimicoChecklistForm } from "../components/Inspecciones/QuimicaChecklist.jsx";
 import { AgropecuarioChecklistForm } from "../components/Inspecciones/AgropecuarioChecklist.jsx";
 import { ElectricidadChecklistForm } from "../components/Inspecciones/ElectricidadChecklist.jsx";
+import { MailRegistro } from "../pages/MailRegistro.jsx";
+import { RegisterReplace } from "../pages/RegisterReplace.jsx";
+import { EmployeeRR } from "../pages/EmployeeRR.jsx";
+import { EnterpriceRR } from "../pages/EnterpriceRR.jsx";
 
 export const routes = [
   {
@@ -109,6 +113,22 @@ export const routes = [
     path: "AgropecuarioChecklist",
     element: <AgropecuarioChecklistForm />,
   },
+  {
+    path: "MailRegistro",
+    element: <MailRegistro />,
+  },
+  {
+    path: "RegisterReplace",
+    element: <RegisterReplace/>,
+  },
+  {
+    path: "EmployeeRR",
+    element: <EmployeeRR/>,
+  },
+  {
+    path: "EnterpriceRR",
+    element: <EnterpriceRR/>
+  }
 ];
 
 export const RoutesComponent = () => {
