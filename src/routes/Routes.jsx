@@ -24,6 +24,10 @@ import { QuimicoChecklistForm } from "../components/Inspecciones/QuimicaChecklis
 import { AgropecuarioChecklistForm } from "../components/Inspecciones/AgropecuarioChecklist.jsx";
 import { ElectricidadChecklistForm } from "../components/Inspecciones/ElectricidadChecklist.jsx";
 import { ChartFinal } from "../components/ChartComponent/ChartComponent.jsx"
+import { MailRegistro } from "../pages/MailRegistro.jsx";
+import { RegisterReplace } from "../pages/RegisterReplace.jsx";
+import { EmployeeRR } from "../pages/EmployeeRR.jsx";
+import { EnterpriceRR } from "../pages/EnterpriceRR.jsx";
 
 export const routes = [
   {
@@ -113,6 +117,22 @@ export const routes = [
   {
     path: "ChartFinal",
     element: <ChartFinal />,
+  },
+  {
+    path: "MailRegistro",
+    element: <MailRegistro />,
+  },
+  {
+    path: "RegisterReplace",
+    element: <RegisterReplace/>,
+  },
+  {
+    path: "EmployeeRR",
+    element: <EmployeeRR/>,
+  },
+  {
+    path: "EnterpriceRR",
+    element: <EnterpriceRR/>
   }
 ];
 

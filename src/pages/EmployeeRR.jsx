@@ -1,7 +1,7 @@
-import "../../public/LoginReplace.css"
+import "../../public/LoginReplace.css";
 import { Navbar } from "../components/Navbar.jsx";
 
-export const LoginReplace = () => {
+export const EmployeeRR = () => {
   return (
     <div className="prueba">
       <Navbar />
@@ -35,4 +35,3 @@ export const LoginReplace = () => {
     </div>
   );
 };
-

@@ -45,15 +45,6 @@ export const Navbar = () => {
           </label>
 
           <li>
-            <a onClick={() => scrollToSection("Denuncias")}>Denuncias y Emergencias</a>
-          </li>
-          <li>
-            <a onClick={() => scrollToSection("Seccion3")}>Graficos seguridad A</a>
-          </li>
-          <li>
-            <a onClick={() => scrollToSection("Seccion4")}>Graficos seguridad B</a>
-          </li>
-          <li>
             <a href="#" className="desktop-item">Otras Opciones</a>
             <input type="checkbox" id="showDrop" />
             <label htmlFor="showDrop" className="mobile-item">Dropdown Menu</label>
