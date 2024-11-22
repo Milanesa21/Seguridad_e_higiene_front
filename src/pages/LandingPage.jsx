@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
+//shadowdom es una verga
+
 export default function LandingPage() {
   const [activeSection, setActiveSection] = useState(0);
   const shadowRootRef = useRef(null);
