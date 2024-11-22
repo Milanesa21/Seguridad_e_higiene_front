@@ -51,7 +51,7 @@ export const useLogin = () => {
           if (user.full_name.includes("Usuario")) {
             navigate("/cambioDatos");
           } else {
-            navigate("/");
+            navigate("/inicio");
           }
         }
       }

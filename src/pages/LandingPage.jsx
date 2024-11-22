@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import fondoInicio from "../../public/img/fondoinicio.jpg"; // Importa la imagen correctamente
+import landingimage from "../../public/img/fondoinicio.jpg";
 
 export default function LandingPage() {
   const [activeSection, setActiveSection] = useState(0);
+  const [cardsVisible, setCardsVisible] = useState([false, false, false]);
 
   const handleScroll = () => {
     const sections = document.querySelectorAll(".section");
@@ -18,6 +19,21 @@ export default function LandingPage() {
       }
     });
     setActiveSection(currentSection);
+
+    // Check if cards are in viewport
+    const cards = document.querySelectorAll(".card");
+    cards.forEach((card, index) => {
+      const rect = card.getBoundingClientRect();
+      if (rect.top <= window.innerHeight && rect.bottom >= 0) {
+        setTimeout(() => {
+          setCardsVisible((prev) => {
+            const newVisible = [...prev];
+            newVisible[index] = true;
+            return newVisible;
+          });
+        }, index * 300); // Delay of 300ms between each card
+      }
+    });
   };
 
   useEffect(() => {
@@ -60,6 +76,10 @@ export default function LandingPage() {
               cursor: "pointer",
               backgroundColor: activeSection === index ? "#fff" : "#888",
               transition: "transform 0.3s",
+              boxShadow:
+                activeSection === index
+                  ? "0 0 10px rgba(255, 255, 255, 0.5)"
+                  : "0 0 5px rgba(0, 0, 0, 0.1)",
             }}
           />
         ))}
@@ -71,7 +91,7 @@ export default function LandingPage() {
         className="section"
         style={{
           minHeight: "100vh",
-          backgroundImage: `url(${fondoInicio})`, // Usa la variable importada
+          backgroundImage: `url(${landingimage})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           position: "relative",
@@ -96,14 +116,21 @@ export default function LandingPage() {
               fontSize: "3rem",
               fontWeight: "bold",
               marginBottom: "1rem",
+              textShadow: "2px 2px 5px rgba(0, 0, 0, 0.5)",
             }}
           >
             Centinela
           </h1>
-          <p style={{ fontSize: "1.2rem", marginBottom: "1.5rem" }}>
+          <p
+            style={{
+              fontSize: "1.2rem",
+              marginBottom: "1.5rem",
+              color: "#f0f0f0",
+            }}
+          >
             Tu asistente en seguridad e higiene laboral
           </p>
-          <Link to="/Login">
+          <Link to="/LoginReplace">
             <button
               style={{
                 padding: "12px 24px",
@@ -114,6 +141,7 @@ export default function LandingPage() {
                 fontWeight: "bold",
                 cursor: "pointer",
                 transition: "transform 0.3s",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
               }}
               onMouseOver={(e) => (e.target.style.transform = "scale(1.05)")}
               onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
@@ -130,7 +158,7 @@ export default function LandingPage() {
         className="section"
         style={{
           minHeight: "100vh",
-          backgroundColor: "#007bff",
+          background: "linear-gradient(135deg, #0099cc, #003d66)",
           color: "#fff",
           display: "flex",
           alignItems: "center",
@@ -143,7 +171,9 @@ export default function LandingPage() {
             style={{
               fontSize: "2.5rem",
               fontWeight: "bold",
+              borderTop: "transparent",
               marginBottom: "2rem",
+              textShadow: "2px 2px 5px rgba(0, 0, 0, 0.5)",
             }}
           >
             ¿Por qué elegir Centinela?
@@ -152,6 +182,7 @@ export default function LandingPage() {
             style={{
               display: "grid",
               gap: "2rem",
+              borderTop: "transparent",
               gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
             }}
           >
@@ -162,18 +193,45 @@ export default function LandingPage() {
             ].map((text, index) => (
               <div
                 key={index}
+                className={`card ${cardsVisible[index] ? "visible" : ""}`}
                 style={{
                   backgroundColor: "#fff",
                   color: "#007bff",
                   padding: "1.5rem",
+                  borderTop: "transparent",
                   borderRadius: "12px",
                   boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  opacity: cardsVisible[index] ? 1 : 0,
+                  transform: cardsVisible[index]
+                    ? "translateY(0)"
+                    : "translateY(50px)",
+                  transition: "opacity 0.5s ease, transform 0.5s ease",
                 }}
               >
-                <h3 style={{ fontSize: "1.5rem", marginBottom: "1rem" }}>
+                <h3
+                  style={{
+                    fontSize: "1.5rem",
+                    borderTop: "transparent",
+                    marginBottom: "1rem",
+                    textShadow: "1px 1px 3px rgba(0, 0, 0, 0.3)",
+                  }}
+                >
                   {text}
                 </h3>
-                <p>
+                <p
+                  style={{
+                    fontSize: "1rem",
+                    color: "#333",
+                    lineHeight: "1.2",
+                    textAlign: "center",
+                    maxWidth: "80%",
+                    margin: "0 auto",
+                    letterSpacing: "0.07em",
+                  }}
+                >
                   {index === 0
                     ? "Obtén respuestas rápidas sobre seguridad laboral y prevención de riesgos."
                     : index === 1
@@ -192,7 +250,9 @@ export default function LandingPage() {
         className="section"
         style={{
           minHeight: "100vh",
-          backgroundColor: "#004d73",
+          backgroundImage: `url(${landingimage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
           color: "#fff",
           display: "flex",
           alignItems: "center",
@@ -204,8 +264,10 @@ export default function LandingPage() {
           <h2
             style={{
               fontSize: "2.5rem",
+              borderTop: "transparent",
               fontWeight: "bold",
               marginBottom: "1rem",
+              textShadow: "2px 2px 5px rgba(0, 0, 0, 0.5)",
             }}
           >
             ¡Únete a Centinela Hoy!
@@ -214,14 +276,17 @@ export default function LandingPage() {
             style={{
               fontSize: "1.2rem",
               marginBottom: "1.5rem",
+              paddingBottom: "1rem",
               maxWidth: "600px",
               margin: "0 auto",
+              color: "#f0f0f0",
+              lineHeight: "1.6",
             }}
           >
             Mejora la seguridad en tu lugar de trabajo con asesoría profesional
             y siempre actualizada.
           </p>
-          <Link to="/Register">
+          <Link to="/MailRegistro">
             <button
               style={{
                 padding: "12px 24px",
@@ -232,11 +297,12 @@ export default function LandingPage() {
                 fontWeight: "bold",
                 cursor: "pointer",
                 transition: "transform 0.3s",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
               }}
               onMouseOver={(e) => (e.target.style.transform = "scale(1.05)")}
               onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
             >
-              Regístrate Gratis
+              Regístrate Aqui
             </button>
           </Link>
         </div>

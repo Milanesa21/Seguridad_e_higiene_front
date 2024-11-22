@@ -35,7 +35,7 @@ export const Navbar = () => {
       <div className="wrapper">
         <div className="logo">
           <img className="LogoNAV" src={logo} alt="logo" />
-          <a href="/">Centinela</a>
+          <a href="/inicio">Centinela</a>
         </div>
         <input type="radio" name="slider" id="menu-btn" />
         <input type="radio" name="slider" id="close-btn" />
@@ -66,7 +66,7 @@ export const Navbar = () => {
 
               {rolId === 1 || rolId === 2 ? ( 
                 <li>
-                  <a href="/Registroempleados">Registro empleados</a>
+                  <a href="/EmployeeRR">Registro empleados</a>
                 </li>
               ) : null}
 

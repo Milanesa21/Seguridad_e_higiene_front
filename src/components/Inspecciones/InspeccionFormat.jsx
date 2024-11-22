@@ -164,7 +164,7 @@ export const InspectionForm = () => {
   
 
   return (
-    <div className="prueba">
+    <div className="checklistcontainer">
       <EmergencyModal />
       <Navbar />
 
