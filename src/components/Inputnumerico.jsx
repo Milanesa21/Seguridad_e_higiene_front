@@ -2,17 +2,18 @@ import React from "react";
 import "/public/css/pages/registroempleados.css";
 
 function NumericInput({ numUsuarios, handleChangeNumUsuarios }) {
-  // Función para manejar la entrada de teclas y permitir solo números
   const handleKeyPress = (e) => {
     const charCode = e.charCode;
-    // Permitir solo números (charCode 48-57)
     if (charCode < 48 || charCode > 57) {
       e.preventDefault();
     }
   };
 
   return (
-    <div className="input-group">
+    <div className="inputnumerico">
+      <label className="label" htmlFor="numeric-input">
+        Número de Usuarios
+      </label>
       <input
         id="numeric-input"
         className="inputNum"
@@ -24,9 +25,6 @@ function NumericInput({ numUsuarios, handleChangeNumUsuarios }) {
         max="100"
         required
       />
-      <label className="label" htmlFor="numeric-input">
-        Número de Usuarios
-      </label>
     </div>
   );
 }

@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { EmergencyModal } from "./EmergencyModal"; 
+import { Navbar } from "./Navbar";
+import { Footer } from "./Footer";
+import  DenunciasYEmergencias  from "./DenunciasyEmergencias"
 
 export const Inicio = () => {
   const [open, setOpen] = useState(false);
@@ -23,6 +26,7 @@ export const Inicio = () => {
 
   return (
     <div className="SECCION">
+        <Navbar />
       <section id="inicio">
         <div className="DivSeccion">
           <div className="DivPresentacion">
@@ -53,6 +57,9 @@ export const Inicio = () => {
       </Snackbar>
 
       <EmergencyModal />
+      <DenunciasYEmergencias />
+
+      <Footer />
     </div>
   );
 };
