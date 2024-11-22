@@ -1,7 +1,7 @@
 import App from "../App.jsx";
+import {  Inicio} from "../components/Inicio.jsx"
 import { CambioDatos } from "../pages/cambioDatos.jsx";
 import { PasswordChange } from "../pages/PasswordChange.jsx";
-// import { ProtectRoutes } from "./ProtectRoutes.jsx";
 import { Registroempleados } from "../pages/registroempleados.jsx";
 import { Chat } from "../pages/Jorgito.jsx";
 import { Registroempresa } from "../pages/registroempresa.jsx";
@@ -33,6 +33,10 @@ export const routes = [
   {
     path: "/",
     element: <App />,
+  },
+  {
+    path: "/Inicio",
+    element: <Inicio />
   },
   {
     path: "/LoginEmpresa",
@@ -73,10 +77,6 @@ export const routes = [
   {
     path: "Panel",
     element: <Panel />,
-  },
-  {
-    path: "Perfil",
-    element: <Perfil />,
   },
   {
     path: "PanelPermisos",

@@ -120,7 +120,7 @@ export default function LandingPage() {
         <header
           className="section relative min-h-screen bg-cover bg-center flex items-center justify-center text-white bg-gradient-to-r from-blue-600 to-indigo-700"
           style={{
-            backgroundImage: `url('/public/img/fondoinicio.jpg')`,
+            backgroundImage: `url('../../public/img/fondoinicio.jpg')`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -191,7 +191,7 @@ export default function LandingPage() {
               Mejora la seguridad en tu lugar de trabajo con asesoría
               profesional y siempre actualizada.
             </p>
-            <Link to="/Register">
+            <Link to="/MailRegistro">
               <button className="px-10 py-4 bg-white text-blue-600 font-bold rounded-lg hover:bg-gray-100 transition duration-300 transform hover:scale-105">
                 Regístrate Gratis
               </button>
