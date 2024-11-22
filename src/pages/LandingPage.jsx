@@ -130,7 +130,7 @@ export default function LandingPage() {
           >
             Tu asistente en seguridad e higiene laboral
           </p>
-          <Link to="/Login">
+          <Link to="/LoginReplace">
             <button
               style={{
                 padding: "12px 24px",
@@ -158,7 +158,7 @@ export default function LandingPage() {
         className="section"
         style={{
           minHeight: "100vh",
-          background: "linear-gradient(135deg, #cceeff, #007acc)",
+          background: "linear-gradient(135deg, #0099cc, #003d66)",
           color: "#fff",
           display: "flex",
           alignItems: "center",
@@ -250,7 +250,9 @@ export default function LandingPage() {
         className="section"
         style={{
           minHeight: "100vh",
-          background: "linear-gradient(135deg, #0099cc, #003d66)",
+          backgroundImage: `url(${landingimage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
           color: "#fff",
           display: "flex",
           alignItems: "center",

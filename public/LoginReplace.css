@@ -12,7 +12,7 @@
 }
 
 .container {
-  max-width: 350px;
+  max-width: 400px;
   background: #f8f9fd;
   background: linear-gradient(
     0deg,
@@ -30,6 +30,7 @@
   font-weight: 900;
   font-size: 30px;
   color: rgb(16, 137, 211);
+ 
 }
 
 .form {
@@ -63,13 +64,14 @@
 .form .forgot-password {
   display: block;
   margin-top: 10px;
-  margin-left: 10px;
+  text-align: center;
 }
 
 .form .forgot-password a {
   font-size: 11px;
   color: #0099ff;
   text-decoration: none;
+  
 }
 
 .form .login-button {
