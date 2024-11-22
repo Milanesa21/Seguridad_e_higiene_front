@@ -43,7 +43,7 @@ export const routes = [
     element: <Login />,
   },
   {
-    path: "/PasswordChange/:token",
+    path: "/PasswordChange/:id/:token",
     element: <PasswordChange />,
   },
   {
