@@ -4,10 +4,10 @@ import { CambioDatos } from "../pages/cambioDatos.jsx";
 import { PasswordChange } from "../pages/PasswordChange.jsx";
 import { Registroempleados } from "../pages/registroempleados.jsx";
 import { Chat } from "../pages/Jorgito.jsx";
+import { Chat2 } from "../pages/Jorgito2.jsx";
 import { Registroempresa } from "../pages/registroempresa.jsx";
 import { InspectionForm } from "../components/Inspecciones/InspeccionFormat.jsx";
 import { Panel } from "../components/Panel de seguridad/Panel.jsx";
-import { Perfil } from "../pages/Perfil.jsx";
 import { PanelPermisos } from "../components/Panel de seguridad/PanelCambioPermisos.jsx";
 import { useLoading } from "../context/LoadingContext.jsx";
 import { useEffect } from "react";
@@ -65,6 +65,10 @@ export const routes = [
   {
     path: "Jorgito",
     element: <Chat />,
+  },
+  {
+    path: "Jorgito2",
+    element: <Chat2 />,
   },
   {
     path: "/InspeccionChecklist",
