@@ -27,6 +27,7 @@ import { MailRegistro } from "../pages/MailRegistro.jsx";
 import { RegisterReplace } from "../pages/RegisterReplace.jsx";
 import { EmployeeRR } from "../pages/EmployeeRR.jsx";
 import { EnterpriceRR } from "../pages/EnterpriceRR.jsx";
+import { Inicio } from "../components/Inicio.jsx";
 
 export const routes = [
   {
@@ -119,16 +120,20 @@ export const routes = [
   },
   {
     path: "RegisterReplace",
-    element: <RegisterReplace/>,
+    element: <RegisterReplace />,
   },
   {
     path: "EmployeeRR",
-    element: <EmployeeRR/>,
+    element: <EmployeeRR />,
   },
   {
     path: "EnterpriceRR",
-    element: <EnterpriceRR/>
-  }
+    element: <EnterpriceRR />,
+  },
+  {
+    path: "Inicio",
+    element: <Inicio />,
+  },
 ];
 
 export const RoutesComponent = () => {
