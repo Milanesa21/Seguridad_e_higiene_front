@@ -8,4 +8,7 @@ export class ValidateService{
     static async validateTokenEmpresa(){
         return ApiService.request(`${VALIDATE_URL}token/empresa`, 'POST')
     }
+    static async validateTokenPassword(token){
+        return ApiService.request(`${VALIDATE_URL}?token=${token}`, 'POST');
+    }
 }

@@ -12,5 +12,6 @@ export default defineConfig({
       usePolling: true,  // Habilita el polling
       interval: 100,     // Intervalo de chequeo en milisegundos
     },
+    historyApiFallback: true,
   },
 })

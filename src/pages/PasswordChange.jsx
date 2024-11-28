@@ -1,5 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { ValidateService } from "../service/validateService";
+import { UserService } from "../service/userService";
 
 export const PasswordChange = () => {
   const [isChecked, setIsChecked] = useState(true);
@@ -7,19 +9,21 @@ export const PasswordChange = () => {
   const [isTokenValid, setIsTokenValid] = useState(null); // Para manejar la validez del token
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const { token } = useParams(); // Obtener el token de la URL
+  const { id ,token } = useParams(); // Obtener el token de la URL
   const navigate = useNavigate();
 
   useEffect(() => {
     // Validar el token cuando se cargue el componente
     const validateToken = async () => {
+      console.log(token)
       try {
-        const response = await fetch(`http://localhost:8000/api/validate-token/${token}`);
+        const response = await ValidateService.validateTokenPassword(token);
         const data = await response.json();
-        if (data.valid) {
-          setIsTokenValid(true); // Token es válido
-        } else {
-          setIsTokenValid(false); // Token no es válido
+        if (data){
+          setIsTokenValid(true);
+        }
+        else{
+          setIsTokenValid(false);
         }
       } catch (error) {
         console.error("Error validando el token", error);
@@ -43,14 +47,7 @@ export const PasswordChange = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:8000/api/reset-password`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ token, new_password: newPassword }),
-      });
-
+      const response = await UserService.chengePassword(id, {new_password:newPassword} );
       const data = await response.json();
       if (data.success) {
         alert("Contraseña cambiada con éxito");
