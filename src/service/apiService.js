@@ -19,7 +19,10 @@ export class ApiService {
         try {
             const response = await fetch(url, options);
             if (!response.ok) {
-                throw new Error(`Error: ${response.status}`);
+                const errorDetails = await response.json().catch(() => null);
+                throw new Error(
+                    errorDetails?.message || `Error: ${response.status} ${response.statusText}`
+                );
             }
             return response;
         } catch (error) {

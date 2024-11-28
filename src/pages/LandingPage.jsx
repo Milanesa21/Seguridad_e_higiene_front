@@ -286,7 +286,7 @@ export default function LandingPage() {
             Mejora la seguridad en tu lugar de trabajo con asesoría profesional
             y siempre actualizada.
           </p>
-          <Link to="/Register">
+          <Link to="/MailRegistro">
             <button
               style={{
                 padding: "12px 24px",
@@ -302,7 +302,7 @@ export default function LandingPage() {
               onMouseOver={(e) => (e.target.style.transform = "scale(1.05)")}
               onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
             >
-              Regístrate Gratis
+              Regístrate Aqui
             </button>
           </Link>
         </div>

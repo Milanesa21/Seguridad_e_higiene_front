@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "/public/css/components/inspecciones/Inspeccion.css";
 import html2pdf from 'html2pdf.js';
 import { Navbar } from "../Navbar";
@@ -164,7 +164,7 @@ export const InspectionForm = () => {
   
 
   return (
-    <div className="prueba">
+    <div className="checklistcontainer">
       <EmergencyModal />
       <Navbar />
 

@@ -1,4 +1,31 @@
+import { useState } from "react";
+import { EmailService } from "../service/emailService";
 export const MailRegistro = () => {
+  const [empresa, setEmpresa] = useState({
+    empresa: "",
+    dueno: "",
+    email: "",
+    telefono: "",
+  });
+
+  const handleInputChange = (e) => {
+    setEmpresa({ ...empresa, [e.target.name]: e.target.value });
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!empresa){
+      return;
+    }
+    try{
+      EmailService.createCompany(empresa);
+      alert('Registro enviado correctamente');
+    }
+    catch (error){
+      console.error('Error:', error);
+    }
+  }
+
   return (
     <div
       style={{
@@ -37,7 +64,7 @@ export const MailRegistro = () => {
         aplicación.
       </p>
 
-      <form style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+      <form style={{ display: "flex", flexDirection: "column", gap: "16px" }} onSubmit={handleSubmit}>
         <div>
           <label
             style={{ color: "#333333", fontWeight: "600", fontSize: "0.95rem" }}
@@ -47,6 +74,8 @@ export const MailRegistro = () => {
           <input
             type="text"
             placeholder="Nombre legal de la empresa"
+            onChange={handleInputChange}
+            name="empresa"
             style={{
               width: "100%",
               marginTop: "8px",
@@ -69,6 +98,8 @@ export const MailRegistro = () => {
           <input
             type="text"
             placeholder="Nombre y cargo"
+            onChange={handleInputChange}
+            name="dueno"
             style={{
               width: "100%",
               marginTop: "8px",
@@ -91,6 +122,8 @@ export const MailRegistro = () => {
           <input
             type="email"
             placeholder="correo@ejemplo.com"
+            onChange={handleInputChange}
+            name="email"
             style={{
               width: "100%",
               marginTop: "8px",
@@ -113,6 +146,8 @@ export const MailRegistro = () => {
           <input
             type="tel"
             placeholder="Número de teléfono"
+            onChange={handleInputChange}
+            name="telefono"
             style={{
               width: "100%",
               marginTop: "8px",

@@ -1,9 +1,8 @@
-import React, { useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import "/public/css/components/inspecciones/Inspeccion.css";
 import { Footer } from "../Footer";
 import { Navbar } from "../Navbar";
 
-// Configuración dinámica para las secciones del checklist
 const sections = [
   {
     title: "Sección 1: Equipos de protección personal",
@@ -70,10 +69,28 @@ export const QuimicoChecklistForm = () => {
     }));
   }, []);
 
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
     console.log("Checklist Data:", checklistData);
-    // Aquí puedes enviar el data a tu backend usando una llamada a la API
+
+    try {
+      const response = await fetch("http://localhost:8000/Quimica/guardar_checklist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...checklistData, id_empresa: 1 }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error al enviar los datos");
+      }
+
+      const result = await response.json();
+      alert(result.mensaje);
+    } catch (error) {
+      console.error("Error al enviar el checklist:", error);
+    }
   }, [checklistData]);
 
   const printForm = useCallback(() => {
@@ -105,13 +122,9 @@ export const QuimicoChecklistForm = () => {
           ))}
 
           <button type="submit" className="btn btn-primary">
-            Guardar
+            Enviar
           </button>
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={printForm}
-          >
+          <button type="button" className="btn btn-secondary" onClick={printForm}>
             Imprimir
           </button>
         </form>

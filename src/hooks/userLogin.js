@@ -25,7 +25,6 @@ export const useLogin = () => {
   };
 
   const handleChange = (e) => {
-    console.log(e.target.name, e.target.value); 
     setUser({
       ...user,
       [e.target.name]: e.target.value,
@@ -52,7 +51,7 @@ export const useLogin = () => {
           if (user.full_name.includes("Usuario")) {
             navigate("/cambioDatos");
           } else {
-            navigate("/");
+            navigate("/inicio");
           }
         }
       }

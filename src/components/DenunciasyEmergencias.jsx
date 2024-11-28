@@ -1,5 +1,6 @@
-import React, { useRef, useState, useContext } from "react";
-import "/public/css/components/inputtext.css";
+import { useRef, useState, useContext } from "react";
+import "../../public/css/components/inputtext.css"
+import "../../public/css/components/boton.css"
 import { AuthContext } from "../context/AuthProvider";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
@@ -103,5 +104,5 @@ export const DenunciasyEmergencias = () => {
     </div>
   );
 };
-{/*aqui se exporta el componente\*/}
+
 export default DenunciasyEmergencias;      

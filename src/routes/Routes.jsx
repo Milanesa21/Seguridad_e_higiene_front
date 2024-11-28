@@ -1,13 +1,13 @@
 import App from "../App.jsx";
+import {  Inicio} from "../components/Inicio.jsx"
 import { CambioDatos } from "../pages/cambioDatos.jsx";
 import { PasswordChange } from "../pages/PasswordChange.jsx";
-// import { ProtectRoutes } from "./ProtectRoutes.jsx";
 import { Registroempleados } from "../pages/registroempleados.jsx";
 import { Chat } from "../pages/Jorgito.jsx";
+import { Chat2 } from "../pages/Jorgito2.jsx";
 import { Registroempresa } from "../pages/registroempresa.jsx";
 import { InspectionForm } from "../components/Inspecciones/InspeccionFormat.jsx";
 import { Panel } from "../components/Panel de seguridad/Panel.jsx";
-import { Perfil } from "../pages/Perfil.jsx";
 import { PanelPermisos } from "../components/Panel de seguridad/PanelCambioPermisos.jsx";
 import { useLoading } from "../context/LoadingContext.jsx";
 import { useEffect } from "react";
@@ -23,16 +23,20 @@ import { ConstruccionChecklistForm } from "../components/Inspecciones/Construcci
 import { QuimicoChecklistForm } from "../components/Inspecciones/QuimicaChecklist.jsx";
 import { AgropecuarioChecklistForm } from "../components/Inspecciones/AgropecuarioChecklist.jsx";
 import { ElectricidadChecklistForm } from "../components/Inspecciones/ElectricidadChecklist.jsx";
+import { ChartFinal } from "../components/ChartComponent/ChartComponent.jsx"
 import { MailRegistro } from "../pages/MailRegistro.jsx";
 import { RegisterReplace } from "../pages/RegisterReplace.jsx";
 import { EmployeeRR } from "../pages/EmployeeRR.jsx";
 import { EnterpriceRR } from "../pages/EnterpriceRR.jsx";
-import { Inicio } from "../components/Inicio.jsx";
 
 export const routes = [
   {
     path: "/",
     element: <App />,
+  },
+  {
+    path: "/Inicio",
+    element: <Inicio />
   },
   {
     path: "/LoginEmpresa",
@@ -63,6 +67,10 @@ export const routes = [
     element: <Chat />,
   },
   {
+    path: "Jorgito2",
+    element: <Chat2 />,
+  },
+  {
     path: "/InspeccionChecklist",
     element: <ChecklistForm />,
   },
@@ -73,10 +81,6 @@ export const routes = [
   {
     path: "Panel",
     element: <Panel />,
-  },
-  {
-    path: "Perfil",
-    element: <Perfil />,
   },
   {
     path: "PanelPermisos",
@@ -113,6 +117,10 @@ export const routes = [
   {
     path: "AgropecuarioChecklist",
     element: <AgropecuarioChecklistForm />,
+  },
+  {
+    path: "ChartFinal",
+    element: <ChartFinal />,
   },
   {
     path: "MailRegistro",

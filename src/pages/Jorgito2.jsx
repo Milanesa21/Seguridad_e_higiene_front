@@ -4,14 +4,14 @@ import { hourglass } from "ldrs";
 import { Navbar } from "../components/Navbar";
 import Loader from "../components/Loader/Loader.jsx";
 import { EmergencyModal } from "../components/EmergencyModal.jsx";
-import CreateNewFolderTwoToneIcon from '@mui/icons-material/CreateNewFolderTwoTone';
 
 hourglass.register();
 
-export const Chat = () => {
+export const Chat2 = () => {
   const [inputText, setInputText] = useState("");
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [conversationHistory, setConversationHistory] = useState([]);
   const [disableInput, setDisableInput] = useState(false);
 
   const handleChange = (e) => {
@@ -35,7 +35,7 @@ export const Chat = () => {
     setMessages((prevMessages) => [...prevMessages, loadingMessage]);
 
     try {
-        const fullPrompt = inputText;
+        const fullPrompt = conversationHistory.join("\n") + "\n" + inputText;
 
         const response = await fetch("http://localhost:8000/jorgito/query/", {
             method: "POST",
@@ -68,6 +68,11 @@ export const Chat = () => {
             }
         }
 
+        setConversationHistory((prevHistory) => [
+            ...prevHistory,
+            inputText,
+            text,
+        ]);
         setMessages((prevMessages) => [
             ...prevMessages,
             { type: "answer", text: "¿Necesitas que te ayude con algo más?" },
@@ -142,7 +147,6 @@ export const Chat = () => {
             >
               Enviar
             </button>
-            <CreateNewFolderTwoToneIcon className="folder-icon" />
           </div>
         </form>
         <EmergencyModal />
