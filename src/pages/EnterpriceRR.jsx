@@ -108,7 +108,7 @@ export const EnterpriceRR = () => {
               placeholder="Teléfono"
             />
             {/* Contraseña */}
-            <div className="input-group">
+            <div  style={{ margin: "0",}} className="input-group"  >
               <input
                 required
                 className="inputlr"

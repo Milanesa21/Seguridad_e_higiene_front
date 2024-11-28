@@ -1,17 +1,16 @@
 import { useRef, useState, useContext } from "react";
-import "../../public/css/components/inputtext.css"
-import "../../public/css/components/boton.css"
+import { Fab, Modal, Box, TextareaAutosize, Button, Stack, Alert, AlertTitle } from "@mui/material";
 import { AuthContext } from "../context/AuthProvider";
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
-import Stack from "@mui/material/Stack";
-import { EmergencyModal } from "./EmergencyModal";
+import EmergencyIcon from "@mui/icons-material/Warning"; // Icono para el botón flotante
+import "../../public/css/components/inputtext.css";
+import "../../public/css/components/boton.css";
 
 export const DenunciasyEmergencias = () => {
   const emergencyRef = useRef(null);
   const denunciaRef = useRef(null);
   const [denunciaMessage, setDenunciaMessage] = useState("");
-  const [notification, setNotification] = useState({ open: false, severity: '', message: '' });
+  const [notification, setNotification] = useState({ open: false, severity: "", message: "" });
+  const [openModal, setOpenModal] = useState(false);
 
   const { user } = useContext(AuthContext);
 
@@ -31,15 +30,15 @@ export const DenunciasyEmergencias = () => {
       });
 
       if (response.ok) {
-        setNotification({ open: true, severity: 'success', message: 'Mensaje enviado correctamente' });
+        setNotification({ open: true, severity: "success", message: "Mensaje enviado correctamente" });
       } else {
         const data = await response.json();
-        console.log("Error al enviar el mensaje:", data.detail);
-        setNotification({ open: true, severity: 'error', message: 'Error al enviar mensaje' });
+        console.error("Error al enviar el mensaje:", data.detail);
+        setNotification({ open: true, severity: "error", message: "Error al enviar mensaje" });
       }
     } catch (error) {
-      console.log("Error al enviar el mensaje:", error);
-      setNotification({ open: true, severity: 'error', message: 'Error al enviar mensaje' });
+      console.error("Error al enviar el mensaje:", error);
+      setNotification({ open: true, severity: "error", message: "Error al enviar mensaje" });
     }
   };
 
@@ -50,8 +49,9 @@ export const DenunciasyEmergencias = () => {
   const handleDenunciaClick = async () => {
     if (denunciaMessage.trim() !== "") {
       await handleSendMessage(denunciaMessage);
+      setDenunciaMessage(""); // Limpia el campo después de enviar
     } else {
-      setNotification({ open: true, severity: 'error', message: 'No puedes enviar una denuncia vacía' });
+      setNotification({ open: true, severity: "error", message: "No puedes enviar una denuncia vacía" });
     }
   };
 
@@ -59,50 +59,103 @@ export const DenunciasyEmergencias = () => {
     setNotification({ ...notification, open: false });
   };
 
-  return (
-    <div className="SECCION">
-      <section id="Denuncias">
-        <h2>Alerta de Seguridad: Denuncias y Emergencias</h2>
-        <div className="DivSeccion">
-          <div className="DivBotones">
-            {/* BOTON DE EMERGENCIA */}
-            <div className="buttonwrapper">
-              <h2>Boton de Emergencias</h2>
-              <button className="buttonEmergencia" onClick={handleEmergencyClick} ref={emergencyRef}>
-                <p className="text">¡EMERGENCIA!</p>
-              </button>
-            </div>
-          </div>
-          <div className="linea-divisoria"></div>
-          
-          <div className="inputwrapper">
-            <h2>Realice su Denuncia de seguridad</h2>
-            <textarea
-              ref={denunciaRef}
-              spellCheck="false"
-              placeholder="Type something here..."
-              value={denunciaMessage}
-              onChange={(e) => setDenunciaMessage(e.target.value)}
-              required
-            ></textarea>
-            {/* BOTON DE DENUNCIA */}
-            <button className="button" onClick={handleDenunciaClick} ref={denunciaRef}>
-              <p className="text">Denuncia</p>
-            </button>
-          </div>
-        </div>
-      </section>
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
 
+  return (
+    <>
+      {/* Botón flotante */}
+      <Fab
+        color="primary"
+        aria-label="emergencia"
+        onClick={handleOpenModal}
+        style={{
+          position: "fixed",
+          bottom: "2rem",
+          right: "2rem",
+          zIndex: 10,
+        }}
+        className="emergency-button"
+      >
+        <EmergencyIcon />
+      </Fab>
+
+      {/* Modal */}
+      <Modal
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+        style={{ animation: "fadeInModal 0.5s ease-out" }} // Animación de entrada del modal
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 400,
+            bgcolor: "background.paper",
+            boxShadow: 24,
+            p: 4,
+            borderRadius: "8px",
+          }}
+        >
+          {/* Botón de Emergencia */}
+          <Button
+            variant="contained"
+            color="error"
+            fullWidth
+            onClick={handleEmergencyClick}
+            style={{
+              marginBottom: "1rem",
+              fontSize: "1.5rem", // Tamaño de la fuente más grande
+              padding: "16px 32px", // Más espacio en los bordes para hacer el botón más grande
+              height: "60px", // Establecer una altura fija (opcional)
+            }}
+            className="emergency-modal-button"
+          >
+            ¡Emergencia!
+          </Button>
+
+          {/* Área de texto y botón de Denuncia */}
+          <TextareaAutosize
+            ref={denunciaRef}
+            minRows={3}
+            placeholder="Escribe tu denuncia aquí..."
+            value={denunciaMessage}
+            onChange={(e) => setDenunciaMessage(e.target.value)}
+            style={{
+              width: "100%",
+              marginBottom: "1rem",
+              padding: "0.5rem",
+              border: "1px solid #ccc",
+              borderRadius: "4px",
+              resize: "none",
+            }}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            onClick={handleDenunciaClick}
+          >
+            Enviar Denuncia
+          </Button>
+        </Box>
+      </Modal>
+
+      {/* Notificación */}
       {notification.open && (
-        <Stack sx={{ width: '100%' }} spacing={2}>
+        <Stack sx={{ width: "100%", position: "fixed", bottom: "2rem", left: "50%", transform: "translateX(-50%)", zIndex: 10 }} spacing={2}>
           <Alert severity={notification.severity} onClose={handleCloseNotification}>
             <AlertTitle>{notification.severity.charAt(0).toUpperCase() + notification.severity.slice(1)}</AlertTitle>
             {notification.message}
           </Alert>
         </Stack>
       )}
-    </div>
+    </>
   );
 };
 
-export default DenunciasyEmergencias;      
+export default DenunciasyEmergencias;
