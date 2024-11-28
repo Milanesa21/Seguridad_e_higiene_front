@@ -11,4 +11,10 @@ export class PermisosService {
     static async deletePermiso(permiso){
         return ApiService.request(`${URL_PERMISOS}/deletePermission`, 'PATCH', permiso);
     }
+    static async changeRole(role){
+        return ApiService.request(`${URL_PERMISOS}/changeRole`, 'PATCH', role);
+    }
+    static async getRoles(){
+        return ApiService.request(`${URL_PERMISOS}/`);
+    }
 }
