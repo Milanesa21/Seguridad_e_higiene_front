@@ -5,6 +5,7 @@ import { EmergencyModal } from "./EmergencyModal";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import {DenunciasyEmergencias} from "./DenunciasyEmergencias.jsx"
+import {GestorTareas} from "./GestorTareas.jsx"
 
 // Material UI components for dashboard
 import { Card, Box, Typography, Stack, Grid, List, ListItem, ListItemText } from "@mui/material";
@@ -107,11 +108,7 @@ export const Inicio = () => {
       </Snackbar>
 
       {/* Sección de Dashboard */}
-      <div style={{ padding: "20px", height:"100vh", margin:"70px"}}>
-        <Typography variant="h4" gutterBottom>
-          Dashboard de Seguridad
-        </Typography>
-        
+      <div style={{ padding: "20px", height:"100vh", margin:"70px", marginBottom:"0"}}>
         {/* Sección para los cuadros y columna */}
         <Grid container spacing={3}>
           {/* Bloques de Cuadros */}
@@ -168,7 +165,7 @@ export const Inicio = () => {
                       padding: "16px",
                       display: "flex",
                       justifyContent: "center",
-                      height: "300px", // Agregando altura para visualizar el gráfico
+                      height: "220px", // Agregando altura para visualizar el gráfico
                     }}
                   >
                     <PieChart
@@ -238,6 +235,7 @@ export const Inicio = () => {
 
       <EmergencyModal />
       <DenunciasyEmergencias/>
+      <GestorTareas />
       <Footer />
     </div>
   );

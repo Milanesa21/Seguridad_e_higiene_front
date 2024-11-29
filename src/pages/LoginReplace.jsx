@@ -22,7 +22,7 @@ export const LoginReplace = () => {
           <div className="heading">Bienvenido</div>
           <form onSubmit={handleSubmit} className="form">
             {/* Campo para Username */}
-            <div className="input-group">
+            <div className="input-groupLr">
               <input
                 required
                 className="inputlr"
@@ -34,7 +34,7 @@ export const LoginReplace = () => {
               />
             </div>
             {/* Campo para contraseña */}
-            <div className="input-group">
+            <div className="input-groupLr">
               <input
                 required
                 className="inputlr"

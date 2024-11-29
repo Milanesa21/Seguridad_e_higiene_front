@@ -1,6 +1,19 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Fab,
+  Container,
+  Paper,
+} from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { EmailService } from "../service/emailService";
+import { useNavigate } from "react-router-dom";
+
 export const MailRegistro = () => {
+  const navigate = useNavigate();
   const [empresa, setEmpresa] = useState({
     empresa: "",
     dueno: "",
@@ -10,182 +23,101 @@ export const MailRegistro = () => {
 
   const handleInputChange = (e) => {
     setEmpresa({ ...empresa, [e.target.name]: e.target.value });
-  }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!empresa){
+    if (!empresa) {
       return;
     }
-    try{
+    try {
       EmailService.createCompany(empresa);
-      alert('Registro enviado correctamente');
+      alert("Registro enviado correctamente");
+    } catch (error) {
+      console.error("Error:", error);
     }
-    catch (error){
-      console.error('Error:', error);
-    }
-  }
+  };
 
   return (
-    <div
+    <Container
+      maxWidth="sm"
       style={{
-        maxWidth: "400px",
-        margin: "20px auto",
-        padding: "24px",
-        backgroundColor: "#ffffff",
-        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-        borderRadius: "8px",
-        fontFamily: "Arial, sans-serif",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
       }}
     >
-      <h2
-        style={{
-          fontSize: "1.75rem",
-          fontWeight: "bold",
-          marginBottom: "16px",
-          textAlign: "center",
-          color: "#333333",
-        }}
+      {/* Botón flotante para volver */}
+      <Fab
+        color="primary"
+        aria-label="back"
+        onClick={() => navigate("/")}
+        style={{ position: "fixed", top: "20px", left: "20px" }}
       >
-        Formulario de Registro
-      </h2>
-      <p
-        style={{
-          color: "#666666",
-          marginBottom: "24px",
-          marginLeft: "auto",
-          marginRight: "auto",
-          textAlign: "center",
-          width: "70%",
-          fontSize: "0.8rem",
-        }}
-      >
-        Complete los siguientes campos para registrar su empresa en nuestra
-        aplicación.
-      </p>
+        <ArrowBackIcon />
+      </Fab>
 
-      <form style={{ display: "flex", flexDirection: "column", gap: "16px" }} onSubmit={handleSubmit}>
-        <div>
-          <label
-            style={{ color: "#333333", fontWeight: "600", fontSize: "0.95rem" }}
-          >
-            Nombre de la Empresa
-          </label>
-          <input
-            type="text"
-            placeholder="Nombre legal de la empresa"
-            onChange={handleInputChange}
-            name="empresa"
-            style={{
-              width: "100%",
-              marginTop: "8px",
-              padding: "8px",
-              border: "1px solid #cccccc",
-              borderRadius: "4px",
-              fontSize: "0.9rem",
-              outline: "none",
-              transition: "border-color 0.2s",
-            }}
-          />
-        </div>
-
-        <div>
-          <label
-            style={{ color: "#333333", fontWeight: "600", fontSize: "0.95rem" }}
-          >
-            Nombre del Dueño
-          </label>
-          <input
-            type="text"
-            placeholder="Nombre y cargo"
-            onChange={handleInputChange}
-            name="dueno"
-            style={{
-              width: "100%",
-              marginTop: "8px",
-              padding: "8px",
-              border: "1px solid #cccccc",
-              borderRadius: "4px",
-              fontSize: "0.9rem",
-              outline: "none",
-              transition: "border-color 0.2s",
-            }}
-          />
-        </div>
-
-        <div>
-          <label
-            style={{ color: "#333333", fontWeight: "600", fontSize: "0.95rem" }}
-          >
-            Correo Electrónico de Contacto
-          </label>
-          <input
-            type="email"
-            placeholder="correo@ejemplo.com"
-            onChange={handleInputChange}
-            name="email"
-            style={{
-              width: "100%",
-              marginTop: "8px",
-              padding: "8px",
-              border: "1px solid #cccccc",
-              borderRadius: "4px",
-              fontSize: "0.9rem",
-              outline: "none",
-              transition: "border-color 0.2s",
-            }}
-          />
-        </div>
-
-        <div>
-          <label
-            style={{ color: "#333333", fontWeight: "600", fontSize: "0.95rem" }}
-          >
-            Teléfono de Contacto
-          </label>
-          <input
-            type="tel"
-            placeholder="Número de teléfono"
-            onChange={handleInputChange}
-            name="telefono"
-            style={{
-              width: "100%",
-              marginTop: "8px",
-              padding: "8px",
-              border: "1px solid #cccccc",
-              borderRadius: "4px",
-              fontSize: "0.9rem",
-              outline: "none",
-              transition: "border-color 0.2s",
-            }}
-          />
-        </div>
-
-        <button
-          type="submit"
-          style={{
-            width: "100%",
-            padding: "10px",
-            marginTop: "16px",
-            backgroundColor: "#007bff",
-            color: "#ffffff",
-            fontWeight: "600",
-            borderRadius: "4px",
-            fontSize: "1rem",
-            border: "none",
-            cursor: "pointer",
-            transition: "background-color 0.2s",
+      <Paper elevation={3} style={{ padding: "24px", width: "100%" }}>
+        <Typography variant="h4" align="center" gutterBottom>
+          Formulario de Registro
+        </Typography>
+        <Typography variant="body2" align="center" gutterBottom>
+          Complete los siguientes campos para registrar su empresa en nuestra
+          aplicación.
+        </Typography>
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            marginTop: 2,
           }}
-          onMouseOver={(e) =>
-            (e.currentTarget.style.backgroundColor = "#0056b3")
-          }
-          onMouseOut={(e) =>
-            (e.currentTarget.style.backgroundColor = "#007bff")
-          }
         >
-          Enviar Registro
-        </button>
-      </form>
-    </div>
+          <TextField
+            label="Nombre de la Empresa"
+            name="empresa"
+            variant="outlined"
+            fullWidth
+            onChange={handleInputChange}
+          />
+          <TextField
+            label="Nombre del Dueño"
+            name="dueno"
+            variant="outlined"
+            fullWidth
+            onChange={handleInputChange}
+          />
+          <TextField
+            label="Correo Electrónico"
+            name="email"
+            type="email"
+            variant="outlined"
+            fullWidth
+            onChange={handleInputChange}
+          />
+          <TextField
+            label="Teléfono de Contacto"
+            name="telefono"
+            type="tel"
+            variant="outlined"
+            fullWidth
+            onChange={handleInputChange}
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            fullWidth
+            size="large"
+          >
+            Enviar Registro
+          </Button>
+        </Box>
+      </Paper>
+    </Container>
   );
 };
