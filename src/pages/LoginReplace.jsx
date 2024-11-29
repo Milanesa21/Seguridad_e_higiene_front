@@ -3,8 +3,14 @@ import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { Navbar } from "../components/Navbar.jsx";
 import "../../public/LoginReplace.css";
+import { ConstruccionChecklistForm } from './../components/Inspecciones/ConstruccionChecklist';
+import {Fab} from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useNavigate } from "react-router-dom";
+
 
 export const LoginReplace = () => {
+  const navigate = useNavigate();
   const {
     open,
     alertType,
@@ -16,13 +22,22 @@ export const LoginReplace = () => {
 
   return (
     <div className="prueba">
+      <Fab
+        color="primary"
+        aria-label="back"
+        onClick={() => navigate("/")}
+        style={{ position: "fixed", top: "10%", left: "20px" }}
+      >
+        <ArrowBackIcon />
+      </Fab>
+
       <Navbar />
       <div className="formcontainterlr">
         <div className="container">
           <div className="heading">Bienvenido</div>
           <form onSubmit={handleSubmit} className="form">
             {/* Campo para Username */}
-            <div className="input-group">
+            <div className="input-groupLr">
               <input
                 required
                 className="inputlr"
@@ -34,7 +49,7 @@ export const LoginReplace = () => {
               />
             </div>
             {/* Campo para contraseña */}
-            <div className="input-group">
+            <div className="input-groupLr">
               <input
                 required
                 className="inputlr"
@@ -46,13 +61,16 @@ export const LoginReplace = () => {
               />
             </div>
             {/* Botón de envío */}
-            <div className="button-container">
+            <div className="button-containerLr">
               <button type="submit" className="login-button">
                 Ingresar
               </button>
             </div>
             <span className="forgot-password">
               <a href="MailRegistro">¿No posees una cuenta?</a>
+            </span>
+            <span className="forgot-password">
+              <a href="CorreoRecuperacion">¿No recuerdas tu contraseña?</a>
             </span>
           </form>
         </div>

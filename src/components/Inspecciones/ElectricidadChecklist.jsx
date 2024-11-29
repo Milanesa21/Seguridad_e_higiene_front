@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import axios from "axios";
 import "/public/css/components/inspecciones/Inspeccion.css";
 import { Footer } from "../Footer";

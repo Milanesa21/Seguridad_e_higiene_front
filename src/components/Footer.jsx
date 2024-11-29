@@ -1,4 +1,3 @@
-import React from "react";
 import "../../public/css/components/footer.css";
 
 export const Footer = () => {

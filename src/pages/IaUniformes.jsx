@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { EmergencyModal } from '../components/EmergencyModal';
-
+import styles from "../../public/css/pages/AmbienteEvaluation.module.css";
 
 
 export const UniformeEvaluation = () => {
@@ -33,7 +33,7 @@ export const UniformeEvaluation = () => {
 
       try {
         setLoading(true);
-        const response = await fetch('http://127.0.0.1:8000/predict', {
+        const response = await fetch('http://127.0.0.1:8000/predict/', {
           method: 'POST',
           body: formData,
         });
@@ -73,34 +73,34 @@ export const UniformeEvaluation = () => {
   }, []);
 
   return (
-    <div className="d-flex flex-column min-vh-100">
+    <div className={`container-fluid ${styles.container}`}>
       <Navbar />
-      <div className="container mt-5">
-        <div className="row justify-content-center">
-          <div className="col-md-8 text-center">
+      <div className={`d-flex flex-column justify-content-center align-items-center  ${styles.mainContent}`}>
+        
+          <div className="text-center">
             <h1 className="mb-4">Evaluar uniformes de Seguridad</h1>
             
             <div className="mb-3">
-              <video ref={videoRef} width="300" height="300" autoPlay className="img-thumbnail" />
+              <video ref={videoRef} width="800" height="800" autoPlay className={`img-thumbnail ${styles.largerVideo}`} />
             </div>
 
-            <canvas ref={canvasRef} style={{ display: 'none' }} width="300" height="300"></canvas>
+            <canvas ref={canvasRef} style={{ display: 'none' }} width="800" height="800"></canvas>
 
             {loading && (
               <div className="mb-3">
-                <div className="spinner-border text-primary" role="status">
+                <div className={`spinner-border text-primary ${styles.spinner}`} role="status">
                   <span className="sr-only">Loading...</span>
                 </div>
               </div>
             )}
 
             {result && (
-              <div className={`alert ${result === 'Falla en el uniforme' ? 'alert-danger' : 'alert-info'} mt-3`}>
+               <div className={`alert ${result === 'Indumentaria no Correspondiente' ? styles.alertDanger : styles.alertInfo} mt-3`}>
                 <p>{result}</p>
               </div>
             )}
           </div>
-        </div>
+    
       </div>
       <Footer />
       <EmergencyModal />

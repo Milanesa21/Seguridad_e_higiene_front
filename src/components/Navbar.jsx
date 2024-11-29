@@ -56,7 +56,7 @@ export const Navbar = () => {
               ) : (
                 <>
                   <li>
-                    <a href="/Login">Inicio de sesión</a>
+                    <a href="/LoginReplace">Inicio de sesión</a>
                   </li>
                   <li>
                     <a href="/LoginEmpresa">Inicio de sesión como empresa</a>
@@ -72,7 +72,7 @@ export const Navbar = () => {
 
               {rolId === 1 && (
                 <li>
-                  <a href="/Registroempresa">Registro empresa</a>
+                  <a href="/EnterpriceRR">Registro empresa</a>
                 </li>
               )}
 

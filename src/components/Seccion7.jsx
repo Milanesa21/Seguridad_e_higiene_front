@@ -1,4 +1,4 @@
-import React from "react";
+
 import "/public/css/components/boton.css";
 
 export const Seccion7 = () => {

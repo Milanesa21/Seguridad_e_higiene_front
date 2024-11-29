@@ -2,13 +2,23 @@
 .container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 100vh; /* Asegura que ocupe toda la altura de la ventana */
 }
 
 /* Estilo específico para el contenedor dentro del componente */
 .mainContent {
   margin-top: 3rem;
-  flex-grow: 1;
+  flex-grow: 1; /* Permite que este contenido ocupe el espacio restante */
+  display: flex; /* Asegura alineación central si es necesario */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Estilo para el Footer */
+footer {
+  align-self: flex-end;
+  width: 100%;
 }
 
 /* Estilos para el encabezado */
@@ -23,8 +33,8 @@
 
 /* Estilos para la vista previa de la imagen */
 .imagePreview {
-  max-width: 300px;
-  max-height: 300px;
+  max-width: 600px;
+  max-height: 400px;
 }
 
 /* Estilos para el mensaje de carga */
@@ -44,4 +54,12 @@
   background-color: #f8d7da;
   color: #721c24;
   border-color: #f5c6cb;
+}
+
+/* Estilo para el video más grande */
+.largerVideo {
+  width: 800px;
+  height: 800px;
+  border-radius: 10px; /* Opcional: añade bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Opcional: añade una sombra */
 }

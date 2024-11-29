@@ -1,0 +1,11 @@
+.react-calendar__tile--highlight-task {
+  background: #8ebfec !important; /* Color de fondo para los días con tareas */
+  color: #000;
+}
+
+.react-calendar__tile--highlight-task:active,
+.react-calendar__tile--highlight-task:focus {
+  background: #578bec !important; /* Color de fondo cuando se selecciona el día con tareas */
+}
+
+

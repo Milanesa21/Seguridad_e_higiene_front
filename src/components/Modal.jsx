@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Modal, Button, Input } from "antd"; // Asegúrate de instalar antd si no lo has hecho
 
 const UploadModal = ({ onClose, onFileUpload }) => {
