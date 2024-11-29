@@ -310,6 +310,7 @@ export const PanelPermisos = () => {
           </Box>
         </Box>
       </Modal>
+      <Footer />
     </div>
   );
 };

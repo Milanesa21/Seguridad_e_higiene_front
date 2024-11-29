@@ -6,7 +6,6 @@ export class SectorService {
       Electricidad: 'http://127.0.0.1:8000/Electricidad/estadisticas_por_seccion',
       Quimica: 'http://127.0.0.1:8000/Quimica/estadisticas_por_seccion',
     };
-  
     static async getEstadisticas(sector, idEmpresa) {
       const url = `${this.endpoints[sector]}/${idEmpresa}`;
       return ApiService.request(url);
