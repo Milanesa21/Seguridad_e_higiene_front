@@ -1,4 +1,3 @@
-import React from "react";
 import "/public/css/pages/registroempleados.css";
 
 function NumericInput({ numUsuarios, handleChangeNumUsuarios }) {

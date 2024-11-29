@@ -1,4 +1,4 @@
-import React from "react";
+
 
 export const Seccion5 = () => {
   const abrirVentanaImagen = (urlImagen) => {

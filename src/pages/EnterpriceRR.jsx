@@ -4,12 +4,16 @@ import { Navbar } from "../components/Navbar.jsx";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { EmpresaService } from "../service/empresaService";
+import { Fab } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useNavigate } from "react-router-dom";
 
 // Styled Alert component
 const Alert = MuiAlert;
 
 export const EnterpriceRR = () => {
   const [isChecked, setIsChecked] = useState(true);
+  const navigate = useNavigate();
   const [passwordType, setPasswordType] = useState("password");
   const [notification, setNotification] = useState({
     message: "",
@@ -66,11 +70,23 @@ export const EnterpriceRR = () => {
 
   return (
     <div className="prueba">
+      <Fab
+        color="primary"
+        aria-label="back"
+        onClick={() => navigate("/Inicio")}
+        style={{ position: "fixed", top: "10%", left: "20px" }}
+      >
+        <ArrowBackIcon />
+      </Fab>
       <Navbar />
       <div className="formcontainterlr">
         <div className="container">
           <div className="heading">Registro de Empresa</div>
-          <form onSubmit={handleSubmit} className="form" onChange={handleChange}>
+          <form
+            onSubmit={handleSubmit}
+            className="form"
+            onChange={handleChange}
+          >
             {/* Nombre de Empresa */}
             <input
               required
@@ -108,7 +124,7 @@ export const EnterpriceRR = () => {
               placeholder="Teléfono"
             />
             {/* Contraseña */}
-            <div className="input-group">
+            <div style={{ margin: "0" }} className="input-group">
               <input
                 required
                 className="inputlr"

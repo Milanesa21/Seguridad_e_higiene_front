@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Navbar } from "../components/Navbar";
 import { FaPencilAlt, FaCheck, FaTimes } from "react-icons/fa";
 import "/public/css/pages/perfil.css";

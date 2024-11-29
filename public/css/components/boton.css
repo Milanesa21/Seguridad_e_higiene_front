@@ -80,3 +80,67 @@
 .buttonEmergencia:hover svg path {
   fill: #ff0000;
 }
+
+/* Animaciones para el botón flotante y el botón de emergencia */
+@keyframes scaleUp {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Hover animation para el botón flotante */
+.emergency-button:hover {
+  animation: scaleUp 0.3s ease-in-out forwards;
+}
+
+/* Hover animation para el botón de emergencia dentro del modal */
+.emergency-modal-button:hover {
+  animation: pulse 1s infinite;
+}
+
+/* Animación de Fade-In para el modal */
+@keyframes fadeInModal {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}

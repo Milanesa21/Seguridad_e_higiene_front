@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import landingimage from "../../public/img/fondoinicio.jpg";
+import factory2 from "../../public/img/factory2.jpg";
 
 export default function LandingPage() {
   const [activeSection, setActiveSection] = useState(0);
@@ -64,25 +65,27 @@ export default function LandingPage() {
           zIndex: 10,
         }}
       >
-        {["section-0", "section-1", "section-2"].map((id, index) => (
-          <div
-            key={id}
-            onClick={() => scrollToSection(index)}
-            style={{
-              width: "12px",
-              height: "12px",
-              borderRadius: "50%",
-              marginBottom: "8px",
-              cursor: "pointer",
-              backgroundColor: activeSection === index ? "#fff" : "#888",
-              transition: "transform 0.3s",
-              boxShadow:
-                activeSection === index
-                  ? "0 0 10px rgba(255, 255, 255, 0.5)"
-                  : "0 0 5px rgba(0, 0, 0, 0.1)",
-            }}
-          />
-        ))}
+        {["section-0", "section-1", "section-2", "section-3"].map(
+          (id, index) => (
+            <div
+              key={id}
+              onClick={() => scrollToSection(index)}
+              style={{
+                width: "12px",
+                height: "12px",
+                borderRadius: "50%",
+                marginBottom: "8px",
+                cursor: "pointer",
+                backgroundColor: activeSection === index ? "#fff" : "#888",
+                transition: "transform 0.3s",
+                boxShadow:
+                  activeSection === index
+                    ? "0 0 10px rgba(255, 255, 255, 0.5)"
+                    : "0 0 5px rgba(0, 0, 0, 0.1)",
+              }}
+            />
+          )
+        )}
       </div>
 
       {/* Sección de cabecera */}
@@ -142,6 +145,7 @@ export default function LandingPage() {
                 cursor: "pointer",
                 transition: "transform 0.3s",
                 boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+
               }}
               onMouseOver={(e) => (e.target.style.transform = "scale(1.05)")}
               onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
@@ -227,7 +231,7 @@ export default function LandingPage() {
                     color: "#333",
                     lineHeight: "1.2",
                     textAlign: "center",
-                    maxWidth: "80%",
+                    Width: "80%",
                     margin: "0 auto",
                     letterSpacing: "0.07em",
                   }}
@@ -244,15 +248,98 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Sección de llamada a la acción */}
       <section
         id="section-2"
         className="section"
         style={{
           minHeight: "100vh",
-          backgroundImage: `url(${landingimage})`,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundImage: `url(${factory2})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            maxWidth: "1200px",
+            width: "90%",
+            margin: "0 auto",
+          }}
+        >
+          <div style={{ flex: 1, padding: "1rem" }}>
+            <h1
+              style={{
+                fontSize: "2.5rem",
+                borderTop: "transparent",
+                fontWeight: "bold",
+                color: "#fff",
+                backgroundColor: "#7D999F",
+                padding: "0.5rem",
+                borderRadius: "10px",
+                textAlign: "center",
+                marginBottom: "1rem",
+                textShadow: "2px 2px 5px rgba(0, 0, 0, 0.9)",
+              }}
+            >
+              ¿Que es Centinela?
+            </h1>
+            <div
+              style={{
+                backgroundColor: "#7D999F",
+                padding: "1rem",
+                borderRadius: "10px",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                marginTop: "1rem",
+              }}
+            >
+              <p
+                style={{
+                  fontSize: "1.2rem",
+                  lineHeight: "1.6",
+                  textAlign: "center",
+                  color: "#fff",
+                  width: "90%",
+                  margin: "0 auto",
+                  textShadow: "2px 2px 5px rgba(0, 0, 0, 0.9)",
+                }}
+              >
+                Somos tu aliado en seguridad industrial, una plataforma diseñada
+                para brindarte información precisa y herramientas efectivas para
+                proteger tus entornos de trabajo. En un mundo donde la seguridad
+                es primordial, Centinela se destaca como tu compañero confiable.
+                Nuestro objetivo es simple: proporcionarte la tranquilidad que
+                necesitas al ofrecerte soluciones integrales para la protección
+                de tus instalaciones industriales.
+              </p>
+            </div>
+          </div>
+          <div style={{ flex: 1, padding: "1rem", textAlign: "center" }}>
+            <img
+              src="./img/logo.jpg"
+              alt="Logo Centinela"
+              style={{
+                width: "80%",
+                borderRadius: "20%",
+                boxShadow: "6px 4px 9px rgba(0, 0, 0, 0.7)",
+              }}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Sección de llamada a la acción */}
+      <section
+        id="section-3"
+        className="section"
+        style={{
+          minHeight: "100vh",
+          background: "linear-gradient(-90deg, #003d66, #0096c7)",
           color: "#fff",
           display: "flex",
           alignItems: "center",
