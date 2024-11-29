@@ -47,6 +47,7 @@ nav {
   z-index: 99;
   width: 100%;
   background: #000f1d;
+  top: -1px;
 }
 nav .wrapper {
   position: relative;
@@ -306,3 +307,4 @@ nav input {
   font-size: 45px;
   font-weight: 600;
 }
+
