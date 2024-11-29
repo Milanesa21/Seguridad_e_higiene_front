@@ -1,7 +1,10 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import "/public/css/components/inspecciones/Inspeccion.css";
 import { Footer } from "../Footer";
 import { Navbar } from "../Navbar";
+import { ConstruccionService } from "../../service/Checklists/construccionService";
+import { useAuth } from "../../context/AuthProvider";
+
 
 const sections = [
   {
@@ -61,6 +64,15 @@ export const ConstruccionChecklistForm = () => {
       return acc;
     }, {})
   );
+  const [idEmpresa, setIdEmpresa] = useState(null);
+
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      setIdEmpresa(user.id_empresa);
+    }
+  }, [user]);
 
   const handleChange = useCallback((e) => {
     const { name, checked } = e.target;
@@ -75,14 +87,7 @@ export const ConstruccionChecklistForm = () => {
 
     // Aquí puedes enviar el data a tu backend usando una llamada a la API
     try {
-      const response = await fetch("http://localhost:8000/Construccion/guardar_checklist", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(checklistData),
-      });
-
+      const response = await ConstruccionService.createChecklist(checklistData, idEmpresa);
       const result = await response.json();
 
       if (response.ok) {
@@ -95,7 +100,7 @@ export const ConstruccionChecklistForm = () => {
     } catch (error) {
       console.error("Error al conectar con el backend:", error);
     }
-  }, [checklistData]);
+  }, [checklistData, idEmpresa]);
 
   const printForm = useCallback(() => {
     window.print();

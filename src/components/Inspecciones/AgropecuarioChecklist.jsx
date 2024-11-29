@@ -1,8 +1,9 @@
-import { useState, useCallback } from "react";
-import axios from "axios";
+import { useState, useCallback, useEffect } from "react";
+import { useAuth } from "../../context/AuthProvider";
 import "/public/css/components/inspecciones/Inspeccion.css";
 import { Footer } from "../Footer";
 import { Navbar } from "../Navbar";
+import { AgropecuarioService } from "../../service/Checklists/agropecuarioService";
 
 // Configuración dinámica para las secciones del checklist
 const sections = [
@@ -62,8 +63,15 @@ export const AgropecuarioChecklistForm = () => {
       return acc;
     }, {})
   );
+  const [idEmpresa, setIdEmpresa] = useState(null);
 
-  const idEmpresa = 1; // Suponiendo que tienes el ID de la empresa
+  const { user } = useAuth();
+
+  useEffect(() =>{
+    if(user){
+      setIdEmpresa(user.id_empresa);
+    }
+  }, [user])
 
   const handleChange = useCallback((e) => {
     const { name, checked } = e.target;
@@ -75,16 +83,14 @@ export const AgropecuarioChecklistForm = () => {
 
   const sendDataToBackend = useCallback(async () => {
     try {
-      const response = await axios.post(
-        `http://localhost:8000/Agropecuario/create/?id_empresa=${idEmpresa}`,
-        checklistData
-      );
-      console.log("Datos enviados exitosamente:", response.data);
+      const response = await AgropecuarioService.createChecklist(checklistData, idEmpresa);
+      console.log("Response:", response);
+      alert("Checklist enviado correctamente");
     } catch (error) {
-      console.error("Error al enviar los datos:", error);
+      console.error("Error al enviar el checklist:", error);
+      alert("Error al enviar el checklist");
     }
-  }, [checklistData]);
-
+  }, [checklistData, idEmpresa]);
   const handleSubmit = useCallback(
     (e) => {
       e.preventDefault();
