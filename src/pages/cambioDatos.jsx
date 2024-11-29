@@ -1,12 +1,14 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { Navbar } from "./../components/Navbar";
-
+import { UserService } from "../service/userService";
+import { Api } from "@mui/icons-material";
 export const CambioDatos = () => {
   const [newData, setNewData] = useState({
+    id: "",
     name: "",
     email: "",
     password: "",
@@ -26,13 +28,21 @@ export const CambioDatos = () => {
     setPasswordType(passwordType === "password" ? "text" : "password");
   };
 
+  useEffect(() => {
+    if (user) {
+      setNewData({
+        id: user.id,
+      });
+    }
+  },[user])
+
   const handleChange = (e) => {
     setNewData({
       ...newData,
       [e.target.name]: e.target.value,
     });
   };
-
+  console.log(newData);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -45,42 +55,22 @@ export const CambioDatos = () => {
     }
 
     try {
-      const response = await fetch(
-        "http://127.0.0.1:8000/Usuarios/user/updateData",
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            id: user.id,
-            new_name: newData.name || null,
-            new_email: newData.email || null,
-            new_password: newData.password || null,
-          }),
-        }
-      );
+      const response = await UserService.updateUser(newData)
 
       if (response.ok) {
         if (response.status === 200) {
-          const result = await response.json();
-          if (result.message === "User data successfully updated") {
             setAlertType("success");
             setAlertMessage("Datos actualizados correctamente");
             setOpen(true);
             setTimeout(() => navigate("/"), 2000); // Redirige después de 2 segundos
-          } else {
+        }
+            else {
             setAlertType("error");
             setAlertMessage("Error al actualizar los datos del usuario");
             setOpen(true);
           }
         }
-      } else {
-        setAlertType("error");
-        setAlertMessage("Error en la petición: " + response.status);
-        setOpen(true);
-      }
-    } catch (error) {
+      } catch (error) {
       console.error("Error:", error);
       setAlertType("error");
       setAlertMessage("Ha ocurrido un error");
