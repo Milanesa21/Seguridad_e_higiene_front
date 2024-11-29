@@ -6,6 +6,7 @@ export class EmpresaService {
         return ApiService.request(`${URL_EMPRESA}login`, 'POST', empresa)
     }
     static async regitro(empresa){
+        console.log(empresa)
         return ApiService.request(`${URL_EMPRESA}registrar`, 'POST', empresa)
     }
     static async getById(id){

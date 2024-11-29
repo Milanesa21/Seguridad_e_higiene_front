@@ -7,6 +7,7 @@ import { EmpresaService } from "../service/empresaService";
 import { Fab } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthProvider.jsx";
 
 // Styled Alert component
 const Alert = MuiAlert;
@@ -26,8 +27,20 @@ export const EnterpriceRR = () => {
     correo_jefe: "",
     numero_jefe: "",
     password: "",
+    id_superuser: 0
   });
 
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (user){
+      setEmpresaData({
+        id_superuser: user.id
+      })
+    }
+  }, [user]);
+
+  console.log(empresaData);
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
     setPasswordType(passwordType === "password" ? "text" : "password");
@@ -37,6 +50,7 @@ export const EnterpriceRR = () => {
     e.preventDefault();
     try {
       const response = await EmpresaService.regitro(empresaData);
+      console.log('AAAA',response);
       if (response.ok) {
         setNotification({
           message: "Empresa registrada exitosamente",
