@@ -28,6 +28,7 @@ import { MailRegistro } from "../pages/MailRegistro.jsx";
 import { RegisterReplace } from "../pages/RegisterReplace.jsx";
 import { EmployeeRR } from "../pages/EmployeeRR.jsx";
 import { EnterpriceRR } from "../pages/EnterpriceRR.jsx";
+import { RecuperarContra } from "../pages/RecuperarContra.jsx";
 
 export const routes = [
   {
@@ -142,6 +143,10 @@ export const routes = [
     path: "Inicio",
     element: <Inicio />,
   },
+  {
+    path: "CorreoRecuperacion",
+    element: <RecuperarContra/>,
+  }
 ];
 
 export const RoutesComponent = () => {
