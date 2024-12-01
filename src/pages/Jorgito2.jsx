@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import "/public/css/pages/Chat.css";
 import { hourglass } from "ldrs";
 import { Navbar } from "../components/Navbar";

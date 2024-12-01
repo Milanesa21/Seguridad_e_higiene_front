@@ -81,6 +81,21 @@ export const Navbar = () => {
                   Asistente virtual
                 </a>
               </li>
+              <li>
+                <a href="/Jorgito2" target="_blank" className="nav-link px-2">
+                  Asistente virtual 2
+                </a>
+              </li>
+              <li>
+                <a href="/IaUniformes" target="_blank" className="nav-link px-2">
+                IaUniformes
+                </a>
+              </li>
+              <li>
+                <a href="/IaAmbientes" target="_blank" className="nav-link px-2">
+                IaAmbientes
+                </a>
+              </li>
 
               {rolId === 3 || rolId === 1 || rolId === 2 ? ( 
                 <li>
