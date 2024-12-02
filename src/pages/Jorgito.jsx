@@ -5,6 +5,7 @@ import { Navbar } from "../components/Navbar";
 import Loader from "../components/Loader/Loader.jsx";
 import { EmergencyModal } from "../components/EmergencyModal.jsx";
 import CreateNewFolderTwoToneIcon from '@mui/icons-material/CreateNewFolderTwoTone';
+import DenunciasyEmergencias from "../components/DenunciasyEmergencias.jsx";
 
 hourglass.register();
 
@@ -146,6 +147,7 @@ export const Chat = () => {
           </div>
         </form>
         <EmergencyModal />
+        <DenunciasyEmergencias />
       </div>
     </div>
   );

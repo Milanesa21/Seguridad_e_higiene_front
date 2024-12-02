@@ -4,6 +4,7 @@ import { hourglass } from "ldrs";
 import { Navbar } from "../components/Navbar";
 import Loader from "../components/Loader/Loader.jsx";
 import { EmergencyModal } from "../components/EmergencyModal.jsx";
+import DenunciasyEmergencias from "../components/DenunciasyEmergencias.jsx";
 
 hourglass.register();
 
@@ -150,6 +151,7 @@ export const Chat2 = () => {
           </div>
         </form>
         <EmergencyModal />
+        <DenunciasyEmergencias />
       </div>
     </div>
   );

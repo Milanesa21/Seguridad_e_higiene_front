@@ -3,6 +3,7 @@ import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { EmergencyModal } from '../components/EmergencyModal';
 import styles from "../../public/css/pages/AmbienteEvaluation.module.css";
+import { DenunciasyEmergencias } from "../components/DenunciasyEmergencias";
 
 
 export const UniformeEvaluation = () => {
@@ -104,6 +105,7 @@ export const UniformeEvaluation = () => {
       </div>
       <Footer />
       <EmergencyModal />
+      <DenunciasyEmergencias />
     </div>
   );
 };

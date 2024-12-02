@@ -3,8 +3,12 @@ import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { Navbar } from "../components/Navbar.jsx";
 import "../../public/LoginReplace.css";
+import { Fab } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useNavigate } from "react-router-dom";
 
 export const RecuperarContra = () => {
+  const navigate = useNavigate();
   const {
     open,
     alertType,
@@ -14,6 +18,14 @@ export const RecuperarContra = () => {
 
   return (
     <div className="prueba">
+      <Fab
+        color="primary"
+        aria-label="back"
+        onClick={() => navigate("/LoginReplace")}
+        style={{ position: "fixed", top: "10%", left: "20px" }}
+      >
+        <ArrowBackIcon />
+      </Fab>
       <Navbar />
       <div className="formcontainterlr">
         <div className="container">

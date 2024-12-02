@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "/public/css/components/inspecciones/Inspeccion.css";
 import { Footer} from "../Footer"
 import { Navbar } from "../Navbar";
+import DenunciasyEmergencias from "../DenunciasyEmergencias";
 
 export const ChecklistForm = () => {
   const [checklistData, setChecklistData] = useState({
@@ -356,6 +357,7 @@ export const ChecklistForm = () => {
         </form>
       </div>
       <Footer />
+      <DenunciasyEmergencias />
     </div>
   );
 };

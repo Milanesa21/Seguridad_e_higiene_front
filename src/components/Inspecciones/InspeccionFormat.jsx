@@ -7,6 +7,7 @@ import { EmergencyModal } from "../EmergencyModal";
 import { toast } from 'react-toastify'; // Asegúrate de instalar react-toastify
 import { ImageService } from "../../service/imageService";
 import { useAuth } from "../../context/AuthProvider";
+import DenunciasyEmergencias from "../DenunciasyEmergencias";
 
 export const InspectionForm = () => {
   const [fileData, setFileData] = useState(null);
@@ -615,6 +616,7 @@ export const InspectionForm = () => {
           </div>
         </form>
       </div>
+      <DenunciasyEmergencias />
     </div>
   );
 };

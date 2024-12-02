@@ -4,6 +4,7 @@ import { Navbar } from '../Navbar';
 import { Footer } from '../Footer';
 import { ImageService } from '../../service/imageService';
 import { useAuth } from '../../context/AuthProvider';
+import DenunciasyEmergencias from '../DenunciasyEmergencias';
 
 export const ImageGallery = () => {
   const [imageUrls, setImageUrls] = useState([]);
@@ -147,6 +148,7 @@ export const ImageGallery = () => {
         </Snackbar>
       </Container>
       <Footer />
+      <DenunciasyEmergencias />
     </>
   );
 };

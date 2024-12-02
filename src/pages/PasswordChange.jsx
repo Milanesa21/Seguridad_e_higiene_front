@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ValidateService } from "../service/validateService";
 import { UserService } from "../service/userService";
+import DenunciasyEmergencias from "../components/DenunciasyEmergencias";
 
 export const PasswordChange = () => {
   const [isChecked, setIsChecked] = useState(true);
@@ -121,6 +122,7 @@ export const PasswordChange = () => {
           </div>
         </div>
       </div>
+      <DenunciasyEmergencias />
     </div>
   );
 };

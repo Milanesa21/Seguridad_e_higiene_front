@@ -3,6 +3,7 @@ import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { EmergencyModal } from '../components/EmergencyModal';
 import styles from "../../public/css/pages/AmbienteEvaluation.module.css";
+import { DenunciasyEmergencias } from '../components/DenunciasyEmergencias';
 
 export const AmbienteEvaluation = () => {
   const [result, setResult] = useState('');
@@ -74,26 +75,48 @@ export const AmbienteEvaluation = () => {
   return (
     <div className={`container-fluid ${styles.container}`}>
       <Navbar />
-      <div className={`d-flex flex-column justify-content-center align-items-center ${styles.mainContent}`}>
+      <div
+        className={`d-flex flex-column justify-content-center align-items-center ${styles.mainContent}`}
+      >
         <div className="text-center">
           <h1 className="mb-4">Evaluar Ambiente</h1>
-          
+
           <div className="mb-3">
-            <video ref={videoRef} width="800" height="800" autoPlay className={`img-thumbnail ${styles.largerVideo}`} />
+            <video
+              ref={videoRef}
+              width="800"
+              height="800"
+              autoPlay
+              className={`img-thumbnail ${styles.largerVideo}`}
+            />
           </div>
 
-          <canvas ref={canvasRef} style={{ display: 'none' }} width="800" height="800"></canvas>
+          <canvas
+            ref={canvasRef}
+            style={{ display: "none" }}
+            width="800"
+            height="800"
+          ></canvas>
 
           {loading && (
             <div className="mb-3">
-              <div className={`spinner-border text-primary ${styles.spinner}`} role="status">
+              <div
+                className={`spinner-border text-primary ${styles.spinner}`}
+                role="status"
+              >
                 <span className="sr-only">Loading...</span>
               </div>
             </div>
           )}
 
           {result && (
-            <div className={`alert ${result === 'Falla de seguridad' ? styles.alertDanger : styles.alertInfo} mt-3`}>
+            <div
+              className={`alert ${
+                result === "Falla de seguridad"
+                  ? styles.alertDanger
+                  : styles.alertInfo
+              } mt-3`}
+            >
               <p>{result}</p>
             </div>
           )}
@@ -101,6 +124,7 @@ export const AmbienteEvaluation = () => {
       </div>
       <Footer />
       <EmergencyModal />
+      <DenunciasyEmergencias/>
     </div>
   );
 };

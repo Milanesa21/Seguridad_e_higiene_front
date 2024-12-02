@@ -65,7 +65,7 @@ export const EnterpriceRR = () => {
     setEmpresaData({
       ...empresaData,
       [e.target.name]: e.target.value,
-    });
+    });a
   };
 
   return (
