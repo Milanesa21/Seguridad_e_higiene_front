@@ -3,6 +3,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import { ValidateService } from "../service/validateService";
 import { UserService } from "../service/userService";
 import DenunciasyEmergencias from "../components/DenunciasyEmergencias";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+import { Navbar } from "../components/Navbar.jsx";
+import "../../public/LoginReplace.css";
+import { Fab } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export const PasswordChange = () => {
   const [isChecked, setIsChecked] = useState(true);
@@ -10,20 +16,21 @@ export const PasswordChange = () => {
   const [isTokenValid, setIsTokenValid] = useState(null); // Para manejar la validez del token
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const { id ,token } = useParams(); // Obtener el token de la URL
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [alertType, setAlertType] = useState("success");
+  const [alertMessage, setAlertMessage] = useState("");
+  const { id, token } = useParams(); // Obtener el token de la URL
   const navigate = useNavigate();
 
   useEffect(() => {
     // Validar el token cuando se cargue el componente
     const validateToken = async () => {
-      console.log(token)
       try {
         const response = await ValidateService.validateTokenPassword(token);
         const data = await response.json();
-        if (data){
+        if (data) {
           setIsTokenValid(true);
-        }
-        else{
+        } else {
           setIsTokenValid(false);
         }
       } catch (error) {
@@ -40,24 +47,37 @@ export const PasswordChange = () => {
     setPasswordType(passwordType === "password" ? "text" : "password");
   };
 
+  const handleSnackbarClose = () => {
+    setOpenSnackbar(false);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
-      alert("Las contraseñas no coinciden");
+      setAlertType("error");
+      setAlertMessage("Las contraseñas no coinciden");
+      setOpenSnackbar(true);
       return;
     }
 
     try {
-      const response = await UserService.chengePassword(id, {new_password:newPassword} );
+      const response = await UserService.chengePassword(id, { new_password: newPassword });
       const data = await response.json();
       if (data.success) {
-        alert("Contraseña cambiada con éxito");
-        navigate("/Login"); // Redirigir al login tras el cambio de contraseña
+        setAlertType("success");
+        setAlertMessage("Contraseña cambiada con éxito");
+        setOpenSnackbar(true);
+        setTimeout(() => navigate("/Login"), 2000); // Redirigir al login tras el cambio de contraseña
       } else {
-        alert("Error al cambiar la contraseña");
+        setAlertType("error");
+        setAlertMessage("Error al cambiar la contraseña");
+        setOpenSnackbar(true);
       }
     } catch (error) {
       console.error("Error al cambiar la contraseña", error);
+      setAlertType("error");
+      setAlertMessage("Error al cambiar la contraseña");
+      setOpenSnackbar(true);
     }
   };
 
@@ -71,57 +91,62 @@ export const PasswordChange = () => {
 
   return (
     <div className="prueba">
-      <div className="ContenedorLogin">
-        <div className="contenedordelcontenedor">
-          <div className="ContenedorFormulario">
-            <h4 className="titulo-Login">Cambio de Contraseña</h4>
-            <form onSubmit={handleSubmit}>
-              <div className="input-group">
-                <input
-                  type={passwordType}
-                  name="new_password"
-                  className="input1"
-                  id="inputFieldPassword"
-                  required
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                />
-                <label className="label1" htmlFor="inputFieldPassword">
-                  Nueva contraseña
-                </label>
+      <Fab
+        color="primary"
+        aria-label="back"
+        onClick={() => navigate("/")}
+        style={{ position: "fixed", top: "10%", left: "20px" }}
+      >
+        <ArrowBackIcon />
+      </Fab>
 
-                <br />
-                <br />
-
-                <input
-                  type={passwordType}
-                  name="confirm_password"
-                  className="input"
-                  id="inputFieldConfirmPassword"
-                  required
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-                <label className="label" htmlFor="inputFieldConfirmPassword">
-                  Confirmar contraseña
-                </label>
-
-                <div className="containera1" onClick={handleCheckboxChange}>
-                  <input type="checkbox" defaultChecked={isChecked} />
-                  {/* SVG de ojo para mostrar u ocultar la contraseña */}
-                  {/* Aquí sigue tu SVG */}
-                </div>
-              </div>
-
-              <div className="button-container">
-                <button type="submit" className="animated-button">
-                  <span>Confirmar</span>
-                </button>
-              </div>
-            </form>
-          </div>
+      <Navbar />
+      <div className="formcontainterlr">
+        <div className="container">
+          <div className="heading">Cambio de Contraseña</div>
+          <form onSubmit={handleSubmit} className="form">
+            <div className="input-groupLr">
+              <input
+                type={passwordType}
+                name="new_password"
+                className="inputlr"
+                id="new_password"
+                placeholder="Nueva contraseña"
+                required
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+              />
+            </div>
+            <div className="input-groupLr">
+              <input
+                type={passwordType}
+                name="confirm_password"
+                className="inputlr"
+                id="confirm_password"
+                placeholder="Confirmar contraseña"
+                required
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </div>
+            <div className="containera1" onClick={handleCheckboxChange}>
+              <input type="checkbox" defaultChecked={isChecked} />
+              {/* SVG de ojo para mostrar u ocultar la contraseña */}
+            </div>
+            <div className="button-containerLr">
+              <button type="submit" className="login-button">
+                Confirmar
+              </button>
+            </div>
+          </form>
         </div>
       </div>
+
+      <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleSnackbarClose}>
+        <Alert onClose={handleSnackbarClose} severity={alertType}>
+          {alertMessage}
+        </Alert>
+      </Snackbar>
       <DenunciasyEmergencias />
     </div>
   );

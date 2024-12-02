@@ -9,7 +9,7 @@ export class PermisosService {
         return ApiService.request(`${URL_PERMISOS}/addPermission`, 'POST', permiso);
     }
     static async deletePermiso(permiso){
-        return ApiService.request(`${URL_PERMISOS}/deletePermission`, 'PATCH', permiso);
+        return ApiService.request(`${URL_PERMISOS}/removePermission`, 'PATCH', permiso);
     }
     static async changeRole(role){
         return ApiService.request(`${URL_PERMISOS}/changeRole`, 'PATCH', role);
