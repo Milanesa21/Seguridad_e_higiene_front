@@ -5,6 +5,14 @@ import { Navbar } from "../components/Navbar";
 import Loader from "../components/Loader/Loader.jsx";
 import { EmergencyModal } from "../components/EmergencyModal.jsx";
 import CreateNewFolderTwoToneIcon from '@mui/icons-material/CreateNewFolderTwoTone';
+import { 
+  Dialog, 
+  DialogTitle, 
+  DialogContent, 
+  DialogActions, 
+  Button, 
+  TextField 
+} from '@mui/material';
 
 hourglass.register();
 
@@ -87,6 +95,10 @@ export const Chat = () => {
       setLoadingPopup(false);
     }
   };
+  
+  // Estado para el modal de subida de PDF
+  const [openPDFModal, setOpenPDFModal] = useState(false);
+  const [selectedPDF, setSelectedPDF] = useState(null);
 
   const handleChange = (e) => {
     setInputText(e.target.value);
@@ -109,15 +121,13 @@ export const Chat = () => {
     setMessages((prevMessages) => [...prevMessages, loadingMessage]);
 
     try {
-        const fullPrompt = inputText;
-
-        const response = await fetch("http://localhost:8000/jorgito2/query/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ input_text: fullPrompt }),
-        });
+      const response = await fetch("http://localhost:8000/jorgito2/query/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query: inputText }),
+    });
 
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
@@ -152,13 +162,48 @@ export const Chat = () => {
             const updatedMessages = [...prevMessages];
             updatedMessages[updatedMessages.length - 1] = {
                 type: "answer",
-                text: "Error fetching response",
+                text: "Error al obtener respuesta",
             };
             return updatedMessages;
         });
     } finally {
         setLoading(false);
         setDisableInput(false);
+    }
+  };
+
+  const handlePDFUpload = async () => {
+    if (!selectedPDF) {
+      alert("Por favor, selecciona un archivo PDF");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', selectedPDF);
+
+    try {
+      const response = await fetch("http://localhost:8000/jorgito2/upload", {
+        method: "POST",
+        body: formData
+      });
+
+      const result = await response.json();
+      
+      // Añadir mensaje de confirmación
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { 
+          type: "answer", 
+          text: result.status || "PDF procesado exitosamente" 
+        }
+      ]);
+
+      // Cerrar modal
+      setOpenPDFModal(false);
+      setSelectedPDF(null);
+    } catch (error) {
+      console.error("Error uploading PDF:", error);
+      alert("Error al subir el PDF");
     }
   };
 
@@ -216,13 +261,35 @@ export const Chat = () => {
             >
               Enviar
             </button>
-            <CreateNewFolderTwoToneIcon
-              className="folder-icon"
-              onClick={togglePopup} // Muestra el pop-up
+            <CreateNewFolderTwoToneIcon 
+              className="folder-icon" 
+              onClick={() => setOpenPDFModal(true)}
+              style={{ cursor: 'pointer' }}
             />
           </div>
         </form>
         <EmergencyModal />
+
+        {/* Modal para subir PDF */}
+        <Dialog open={openPDFModal} onClose={() => setOpenPDFModal(false)}>
+          <DialogTitle>Subir Documento PDF</DialogTitle>
+          <DialogContent>
+            <input
+              type="file"
+              accept=".pdf"
+              onChange={(e) => setSelectedPDF(e.target.files[0])}
+            />
+            {selectedPDF && (
+              <p>Archivo seleccionado: {selectedPDF.name}</p>
+            )}
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setOpenPDFModal(false)}>Cancelar</Button>
+            <Button onClick={handlePDFUpload} color="primary">
+              Subir
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
 
       {/* Pop-up para gestión de PDFs */}
