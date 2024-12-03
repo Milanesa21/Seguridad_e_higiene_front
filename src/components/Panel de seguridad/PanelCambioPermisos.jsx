@@ -47,6 +47,7 @@ const gridStyles = {
 import { PermisosService } from '../../service/permisosService';
 import { UserService } from '../../service/userService';
 import { useAuth } from '../../context/AuthProvider';
+import DenunciasyEmergencias from "../DenunciasyEmergencias";
 
 export const PanelPermisos = () => {
   const [permissions, setPermissions] = useState([]);
@@ -310,7 +311,7 @@ export const PanelPermisos = () => {
           </Box>
         </Box>
       </Modal>
-      <Footer />
+      <DenunciasyEmergencias />
     </div>
   );
 };

@@ -5,6 +5,7 @@ import { useWebSocket } from "../../context/WebSocketContext";
 import { useNotification } from "../../context/NotificationContext";
 import { Navbar } from "../Navbar";
 import { EmergencyModal } from "../EmergencyModal";
+import DenunciasyEmergencias from "../DenunciasyEmergencias";
 
 
 const style = {
@@ -116,6 +117,8 @@ export const Panel = () => {
         </Modal>
         <EmergencyModal />
       </Box>
+      <DenunciasyEmergencias />
+      
     </div>
   );
 };

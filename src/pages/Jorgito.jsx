@@ -5,14 +5,7 @@ import { Navbar } from "../components/Navbar";
 import Loader from "../components/Loader/Loader.jsx";
 import { EmergencyModal } from "../components/EmergencyModal.jsx";
 import CreateNewFolderTwoToneIcon from '@mui/icons-material/CreateNewFolderTwoTone';
-import { 
-  Dialog, 
-  DialogTitle, 
-  DialogContent, 
-  DialogActions, 
-  Button, 
-  TextField 
-} from '@mui/material';
+import DenunciasyEmergencias from "../components/DenunciasyEmergencias.jsx";
 
 hourglass.register();
 
@@ -269,27 +262,7 @@ export const Chat = () => {
           </div>
         </form>
         <EmergencyModal />
-
-        {/* Modal para subir PDF */}
-        <Dialog open={openPDFModal} onClose={() => setOpenPDFModal(false)}>
-          <DialogTitle>Subir Documento PDF</DialogTitle>
-          <DialogContent>
-            <input
-              type="file"
-              accept=".pdf"
-              onChange={(e) => setSelectedPDF(e.target.files[0])}
-            />
-            {selectedPDF && (
-              <p>Archivo seleccionado: {selectedPDF.name}</p>
-            )}
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setOpenPDFModal(false)}>Cancelar</Button>
-            <Button onClick={handlePDFUpload} color="primary">
-              Subir
-            </Button>
-          </DialogActions>
-        </Dialog>
+        <DenunciasyEmergencias />
       </div>
 
       {/* Pop-up para gestión de PDFs */}

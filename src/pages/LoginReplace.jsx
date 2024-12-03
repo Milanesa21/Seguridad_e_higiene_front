@@ -67,7 +67,7 @@ export const LoginReplace = () => {
               </button>
             </div>
             <span className="forgot-password">
-              <a href="MailRegistro">¿No posees una cuenta?</a>
+              <a href="LoginEmpresa">Iniciar Como Empresa</a>
             </span>
             <span className="forgot-password">
               <a href="CorreoRecuperacion">¿No recuerdas tu contraseña?</a>

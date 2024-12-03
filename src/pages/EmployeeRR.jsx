@@ -5,6 +5,9 @@ import MuiAlert from "@mui/material/Alert";
 import { styled } from "@mui/material/styles";
 import { Navbar } from "../components/Navbar.jsx";
 import { EmergencyModal } from "../components/EmergencyModal.jsx";
+import { useNavigate } from "react-router-dom";
+import { Fab } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const Alert = styled(MuiAlert)(({ theme }) => ({
   "& .MuiAlert-icon": {
@@ -13,6 +16,7 @@ const Alert = styled(MuiAlert)(({ theme }) => ({
 }));
 
 export const EmployeeRR = () => {
+  const navigate = useNavigate();
   const {
     selectedPuesto,
     numUsuarios,
@@ -27,6 +31,14 @@ export const EmployeeRR = () => {
 
   return (
     <>
+      <Fab
+        color="primary"
+        aria-label="back"
+        onClick={() => navigate("/Inicio")}
+        style={{ position: "fixed", top: "10%", left: "20px" }}
+      >
+        <ArrowBackIcon />
+      </Fab>
       <Navbar />
       <EmergencyModal />
       <div className="formcontainterlr">

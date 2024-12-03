@@ -2,12 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ValidateService } from "../service/validateService";
 import { UserService } from "../service/userService";
-import Snackbar from "@mui/material/Snackbar";
-import Alert from "@mui/material/Alert";
-import { Navbar } from "../components/Navbar.jsx";
-import "../../public/LoginReplace.css";
-import { Fab } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import DenunciasyEmergencias from "../components/DenunciasyEmergencias";
 
 export const PasswordChange = () => {
   const [isChecked, setIsChecked] = useState(true);
@@ -90,62 +85,58 @@ export const PasswordChange = () => {
 
   return (
     <div className="prueba">
-      <Fab
-        color="primary"
-        aria-label="back"
-        onClick={() => navigate("/")}
-        style={{ position: "fixed", top: "10%", left: "20px" }}
-      >
-        <ArrowBackIcon />
-      </Fab>
+      <div className="ContenedorLogin">
+        <div className="contenedordelcontenedor">
+          <div className="ContenedorFormulario">
+            <h4 className="titulo-Login">Cambio de Contraseña</h4>
+            <form onSubmit={handleSubmit}>
+              <div className="input-group">
+                <input
+                  type={passwordType}
+                  name="new_password"
+                  className="input1"
+                  id="inputFieldPassword"
+                  required
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                />
+                <label className="label1" htmlFor="inputFieldPassword">
+                  Nueva contraseña
+                </label>
 
-      <Navbar />
-      <div className="formcontainterlr">
-        <div className="container">
-          <div className="heading">Cambio de Contraseña</div>
-          <form onSubmit={handleSubmit} className="form">
-            <div className="input-groupLr">
-              <input
-                type={passwordType}
-                name="new_password"
-                className="inputlr"
-                id="new_password"
-                placeholder="Nueva contraseña"
-                required
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-              />
-            </div>
-            <div className="input-groupLr">
-              <input
-                type={passwordType}
-                name="confirm_password"
-                className="inputlr"
-                id="confirm_password"
-                placeholder="Confirmar contraseña"
-                required
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-            </div>
-            <div className="containera1" onClick={handleCheckboxChange}>
-              <input type="checkbox" defaultChecked={isChecked} />
-              {/* SVG de ojo para mostrar u ocultar la contraseña */}
-            </div>
-            <div className="button-containerLr">
-              <button type="submit" className="login-button">
-                Confirmar
-              </button>
-            </div>
-          </form>
+                <br />
+                <br />
+
+                <input
+                  type={passwordType}
+                  name="confirm_password"
+                  className="input"
+                  id="inputFieldConfirmPassword"
+                  required
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+                <label className="label" htmlFor="inputFieldConfirmPassword">
+                  Confirmar contraseña
+                </label>
+
+                <div className="containera1" onClick={handleCheckboxChange}>
+                  <input type="checkbox" defaultChecked={isChecked} />
+                  {/* SVG de ojo para mostrar u ocultar la contraseña */}
+                  {/* Aquí sigue tu SVG */}
+                </div>
+              </div>
+
+              <div className="button-container">
+                <button type="submit" className="animated-button">
+                  <span>Confirmar</span>
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-
-      <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleSnackbarClose}>
-        <Alert onClose={handleSnackbarClose} severity={alertType}>
-          {alertMessage}
-        </Alert>
-      </Snackbar>
+      <DenunciasyEmergencias />
     </div>
   );
 };

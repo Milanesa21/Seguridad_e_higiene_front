@@ -3,6 +3,7 @@ import axios from "axios";
 import "/public/css/components/inspecciones/Inspeccion.css";
 import { Footer } from "../Footer";
 import { Navbar } from "../Navbar";
+import DenunciasyEmergencias from "../DenunciasyEmergencias";
 
 // Configuración dinámica para las secciones del checklist
 const sections = [
@@ -134,6 +135,7 @@ export const AgropecuarioChecklistForm = () => {
         </form>
       </div>
       <Footer />
+      <DenunciasyEmergencias />
     </div>
   );
 };

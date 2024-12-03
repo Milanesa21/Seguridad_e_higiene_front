@@ -39,7 +39,7 @@
   margin-right: 10px;
 }
 
-nav {
+.nav {
   display: flex;
   flex-direction: row;
   
@@ -49,7 +49,7 @@ nav {
   background: #000f1d;
   top: -1px;
 }
-nav .wrapper {
+.nav .wrapper {
   position: relative;
   max-width: 1300px;
   height: 70px;
