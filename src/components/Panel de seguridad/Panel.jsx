@@ -63,14 +63,16 @@ export const Panel = () => {
   };
 
   const columns = [
-    { field: "timestamp", headerName: "Fecha del mensaje", width: 200 },
+    { field: "puesto_trabajo", headerName: "Puesto de trabajo", width: 200 },
+    {field: "full_name" , headerName: "Nombre", width: 200 },
     { field: "message", headerName: "Mensaje de la denuncia", width: 600 },
   ];
 
   const rows = messages.map((msg, index) => ({
     id: index,
-    timestamp: new Date(msg.timestamp).toLocaleString(),
-    message: msg.message,
+    puesto_trabajo: msg.puesto_trabajo,  
+    full_name: msg.full_name,           
+    message: msg.message,              
   }));
 
   return (

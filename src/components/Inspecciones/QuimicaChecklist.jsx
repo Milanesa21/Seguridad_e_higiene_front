@@ -1,8 +1,10 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import "/public/css/components/inspecciones/Inspeccion.css";
 import { Footer } from "../Footer";
 import { Navbar } from "../Navbar";
 import DenunciasyEmergencias from "../DenunciasyEmergencias";
+import { useAuth } from "../../context/AuthProvider";
+import { QuimicaService } from "../../service/Checklists/quimicaService";
 
 const sections = [
   {
@@ -61,6 +63,14 @@ export const QuimicoChecklistForm = () => {
       return acc;
     }, {})
   );
+  const [idEmpresa, setIdEmpresa] = useState(null);
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      setIdEmpresa(user.id_empresa);
+    }
+  }, [user]);
 
   const handleChange = useCallback((e) => {
     const { name, checked } = e.target;
@@ -75,13 +85,7 @@ export const QuimicoChecklistForm = () => {
     console.log("Checklist Data:", checklistData);
 
     try {
-      const response = await fetch("http://localhost:8000/Quimica/guardar_checklist", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ...checklistData, id_empresa: 1 }),
-      });
+      const response = await QuimicaService.createChecklist(checklistData, idEmpresa);
 
       if (!response.ok) {
         throw new Error("Error al enviar los datos");
@@ -92,7 +96,7 @@ export const QuimicoChecklistForm = () => {
     } catch (error) {
       console.error("Error al enviar el checklist:", error);
     }
-  }, [checklistData]);
+  }, [checklistData, idEmpresa]);
 
   const printForm = useCallback(() => {
     window.print();

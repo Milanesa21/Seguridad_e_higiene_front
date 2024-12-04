@@ -1,9 +1,11 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import axios from "axios";
 import "/public/css/components/inspecciones/Inspeccion.css";
 import { Footer } from "../Footer";
 import { Navbar } from "../Navbar";
 import DenunciasyEmergencias from "../DenunciasyEmergencias";
+import { ElectricidadService } from "../../service/Checklists/electricidadService";
+import { useAuth } from "../../context/AuthProvider";
 
 // Configuración dinámica para las secciones del checklist
 const sections = [
@@ -67,7 +69,14 @@ export const ElectricidadChecklistForm = () => {
     }, {})
   );
 
-  const idEmpresa = 1; // Cambia este valor según tu configuración
+  const [idEmpresa, setIdEmpresa] = useState(null);
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      setIdEmpresa(user.id_empresa);
+    }
+  }, [user]);
 
   const handleChange = useCallback((e) => {
     const { name, checked } = e.target;
@@ -80,10 +89,7 @@ export const ElectricidadChecklistForm = () => {
   // Función para enviar datos al backend
   const sendDataToBackend = useCallback(async () => {
     try {
-      const response = await axios.post(
-        `http://localhost:8000/Electricidad/create/?id_empresa=${idEmpresa}`,
-        checklistData
-      );
+      const response = await ElectricidadService.createChecklist(checklistData, idEmpresa);
       console.log("Datos enviados exitosamente:", response.data);
     } catch (error) {
       console.error("Error al enviar los datos:", error);
