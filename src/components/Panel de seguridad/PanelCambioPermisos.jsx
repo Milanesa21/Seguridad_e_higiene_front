@@ -312,6 +312,7 @@ export const PanelPermisos = () => {
         </Box>
       </Modal>
       <DenunciasyEmergencias />
+      <Footer />
     </div>
   );
 };
