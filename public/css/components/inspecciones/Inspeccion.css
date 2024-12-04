@@ -1,4 +1,8 @@
 
+/* Estilos para ocultar componentes al imprimir */
+.hidden {
+  display: none;
+}
 
 
 .form-container {

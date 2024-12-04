@@ -41,7 +41,7 @@ const data = {
   datasets: [
     {
       label: "Número de incidencias",
-      data: [30, 45, 35, 60, 55, 80, 90],
+      data: [90, 80, 55, 60, 35, 45, 30],
       borderColor: "rgba(75, 192, 192, 1)",
       backgroundColor: "rgba(75, 192, 192, 0.2)",
       fill: true,

@@ -1,18 +1,37 @@
 import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Box, Button, Modal, Typography, Paper, Grid, IconButton, Checkbox, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
+import {
+  Box,
+  Button,
+  Modal,
+  Typography,
+  Paper,
+  Grid,
+  IconButton,
+  Checkbox,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
 import { Edit as EditIcon } from "@mui/icons-material";
 import { Navbar } from "../Navbar";
 import { Footer } from "../Footer";
-import './aña.css';
+import "./aña.css";
 
 const modalStyle = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 600,
-  bgcolor: 'background.paper',
+  bgcolor: "background.paper",
   borderRadius: 4,
   boxShadow: 24,
   p: 4,
@@ -44,9 +63,9 @@ const gridStyles = {
   },
 };
 
-import { PermisosService } from '../../service/permisosService';
-import { UserService } from '../../service/userService';
-import { useAuth } from '../../context/AuthProvider';
+import { PermisosService } from "../../service/permisosService";
+import { UserService } from "../../service/userService";
+import { useAuth } from "../../context/AuthProvider";
 import DenunciasyEmergencias from "../DenunciasyEmergencias";
 
 export const PanelPermisos = () => {
@@ -54,7 +73,7 @@ export const PanelPermisos = () => {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [open, setOpen] = useState(false);
-  const [empresaId, setEmpresaId] = useState('');
+  const [empresaId, setEmpresaId] = useState("");
   const [roles, setRoles] = useState([]);
   const [selectedRole, setSelectedRole] = useState(null);
 
@@ -68,14 +87,14 @@ export const PanelPermisos = () => {
         if (Array.isArray(data.usuarios)) {
           setUsers(data.usuarios);
         } else {
-          console.error('Datos de usuarios no son un array', data);
+          console.error("Datos de usuarios no son un array", data);
           setUsers([]);
         }
       } else {
-        console.error('Failed to fetch users');
+        console.error("Failed to fetch users");
       }
     } catch (error) {
-      console.error('Error fetching users:', error);
+      console.error("Error fetching users:", error);
     }
   };
 
@@ -86,10 +105,10 @@ export const PanelPermisos = () => {
         const data = await response.json();
         setPermissions(data);
       } else {
-        console.error('Failed to fetch permissions');
+        console.error("Failed to fetch permissions");
       }
     } catch (error) {
-      console.error('Error fetching permissions:', error);
+      console.error("Error fetching permissions:", error);
     }
   };
 
@@ -100,17 +119,17 @@ export const PanelPermisos = () => {
         const data = await response.json();
         setRoles(data);
       } else {
-        console.error('Failed to fetch roles');
+        console.error("Failed to fetch roles");
       }
     } catch (error) {
-      console.error('Error fetching roles:', error);
+      console.error("Error fetching roles:", error);
     }
   };
 
   useEffect(() => {
     if (user?.id_empresa || user?.id_empresa === 0) {
       setEmpresaId(user?.id_empresa);
-      console.log('Empresa ID:', user?.id_empresa);
+      console.log("Empresa ID:", user?.id_empresa);
     }
   }, [user]);
 
@@ -118,7 +137,7 @@ export const PanelPermisos = () => {
     const loadData = async () => {
       await fetchPermissions();
       await fetchRoles();
-      if (empresaId !== '' && empresaId !== undefined) {
+      if (empresaId !== "" && empresaId !== undefined) {
         await fetchUsers(); // Llama a la función fetchUsers
       }
     };
@@ -132,31 +151,34 @@ export const PanelPermisos = () => {
         const data = await response.json();
         if (data.Usuario) {
           setSelectedUser(data.Usuario);
-          setSelectedRole(data.Usuario.rol.id);  // Establecer el rol seleccionado
+          setSelectedRole(data.Usuario.rol.id); // Establecer el rol seleccionado
         } else {
-          console.error('User not found');
+          console.error("User not found");
         }
       } else {
-        console.error('Failed to fetch user');
+        console.error("Failed to fetch user");
       }
     } catch (error) {
-      console.error('Error fetching user:', error);
+      console.error("Error fetching user:", error);
     }
   };
 
   const handlePermissionAdd = async (permission, user) => {
     if (!user || !permission) {
-      console.error('User or permission is undefined');
+      console.error("User or permission is undefined");
       return;
     }
 
     try {
-      const response = await PermisosService.addPermiso({ id_user: user.id, id_permiso: permission.id });
-      console.log('Add permission response:', response);
+      const response = await PermisosService.addPermiso({
+        id_user: user.id,
+        id_permiso: permission.id,
+      });
+      console.log("Add permission response:", response);
 
       if (response.ok) {
         const data = await response.json();
-        console.log('Add permission data:', data);
+        console.log("Add permission data:", data);
         fetchUserById(user.id);
       } else {
         const error = await response.json();
@@ -169,17 +191,20 @@ export const PanelPermisos = () => {
 
   const handleChengeRoles = async (roleId, user) => {
     if (!user || !roleId) {
-      console.error('User or role is undefined');
+      console.error("User or role is undefined");
       return;
     }
 
     try {
-      const response = await PermisosService.changeRole({ id_user: user.id, id_rol: roleId });
-      console.log('Change role response:', response);
+      const response = await PermisosService.changeRole({
+        id_user: user.id,
+        id_rol: roleId,
+      });
+      console.log("Change role response:", response);
 
       if (response.ok) {
         const data = await response.json();
-        console.log('Change role data:', data);
+        console.log("Change role data:", data);
         fetchUserById(user.id);
       } else {
         const error = await response.json();
@@ -192,17 +217,20 @@ export const PanelPermisos = () => {
 
   const handlePermissionRemove = async (permission, user) => {
     if (!user || !permission) {
-      console.error('User or permission is undefined');
+      console.error("User or permission is undefined");
       return;
     }
 
     try {
-      const response = await PermisosService.deletePermiso({ id_user: user.id, id_permiso: permission.id });
-      console.log('Remove permission response:', response);
+      const response = await PermisosService.deletePermiso({
+        id_user: user.id,
+        id_permiso: permission.id,
+      });
+      console.log("Remove permission response:", response);
 
       if (response.ok) {
         const data = await response.json();
-        console.log('Remove permission data:', data);
+        console.log("Remove permission data:", data);
         fetchUserById(user.id);
       } else {
         const error = await response.json();
@@ -225,19 +253,38 @@ export const PanelPermisos = () => {
 
   const handleCheckboxChange = (permission, user) => {
     if (!selectedUser) return;
-    const userHasPermission = selectedUser.rol.permisos.includes(permission.nombre_permiso);
-    userHasPermission ? handlePermissionRemove(permission, user) : handlePermissionAdd(permission, user);
+    const userHasPermission = selectedUser.rol.permisos.includes(
+      permission.nombre_permiso
+    );
+    userHasPermission
+      ? handlePermissionRemove(permission, user)
+      : handlePermissionAdd(permission, user);
   };
 
   const columns = [
-    { field: "id", headerClassName: 'header-black', headerName: "ID", width: 100 },
-    { field: "nombre", headerClassName: 'header-black', headerName: "Nombre de Usuario", width: 200 },
-    { field: "email", headerClassName: 'header-black', headerName: "Email", width: 250 },
+    {
+      field: "id",
+      headerClassName: "header-black",
+      headerName: "ID",
+      width: 100,
+    },
+    {
+      field: "nombre",
+      headerClassName: "header-black",
+      headerName: "Nombre de Usuario",
+      width: 200,
+    },
+    {
+      field: "email",
+      headerClassName: "header-black",
+      headerName: "Email",
+      width: 250,
+    },
     {
       field: "acciones",
       headerName: "Acciones",
       width: 150,
-      headerClassName: 'header-black',
+      headerClassName: "header-black",
       renderCell: (params) => (
         <IconButton color="primary" onClick={() => handleOpen(params.row)}>
           <EditIcon />
@@ -254,65 +301,101 @@ export const PanelPermisos = () => {
 
   return (
     <div>
-      <Navbar /><br /><br /><br /><br />
+      <Navbar />
       <br />
-      <Box p={3} component={Paper} elevation={3} sx={{ borderRadius: 2, mt: 3, mx: 'auto', maxWidth: 900 }}>
+      <br />
+      <br />
+      <br />
+      <br />
+      <Box
+        p={3}
+        component={Paper}
+        elevation={3}
+        sx={{
+          borderRadius: 2,
+          mt: 3,
+          mx: "auto",
+          maxWidth: 900,
+          boxShadow: 3,
+          mb: 4,
+        }}
+      >
         <Typography variant="h4" gutterBottom>
           Administrar Usuarios y Roles
         </Typography>
         <Box sx={gridStyles}>
-          <DataGrid rows={rows} columns={columns} pageSize={5} rowsPerPageOptions={[5]} />
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+          />
         </Box>
       </Box>
       <Modal open={open} onClose={handleClose}>
         <Box sx={modalStyle}>
-          <Typography variant="h6" gutterBottom>Configuración de Usuario</Typography>
+          <Typography variant="h6" gutterBottom>
+            Configuración de Usuario
+          </Typography>
           <Box>
             <Grid container spacing={2}>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12}>
                 <FormControl fullWidth>
-                  <InputLabel>Rol</InputLabel>
+                  <InputLabel>Roles</InputLabel>
                   <Select
-                    value={selectedRole || ''}
-                    label="Rol"
-                    onChange={(e) => handleChengeRoles(e.target.value, selectedUser)}
+                    value={selectedRole || ""}
+                    onChange={(e) =>
+                      handleChengeRoles(e.target.value, selectedUser)
+                    }
                   >
                     {roles.map((role) => (
-                      <MenuItem key={role.id} value={role.id}>{role.nombre_rol}</MenuItem>
+                      <MenuItem key={role.id} value={role.id}>
+                        {role.nombre}
+                      </MenuItem>
                     ))}
                   </Select>
                 </FormControl>
               </Grid>
+              <Grid item xs={12}>
+                <Typography variant="h6" gutterBottom>
+                  Permisos
+                </Typography>
+                <TableContainer component={Paper}>
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Permiso</TableCell>
+                        <TableCell align="right">Acción</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {permissions.map((permission) => (
+                        <TableRow key={permission.id}>
+                          <TableCell>{permission.nombre_permiso}</TableCell>
+                          <TableCell align="right">
+                            <Checkbox
+                              checked={selectedUser?.rol?.permisos.includes(
+                                permission.nombre_permiso
+                              )}
+                              onChange={() =>
+                                handleCheckboxChange(permission, selectedUser)
+                              }
+                            />
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </Grid>
             </Grid>
-            <Typography variant="h6" gutterBottom>Permisos</Typography>
-            <TableContainer component={Paper}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Permiso</TableCell>
-                    <TableCell align="right">Asignado</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {permissions.map((permission) => (
-                    <TableRow key={permission.id}>
-                      <TableCell>{permission.nombre_permiso}</TableCell>
-                      <TableCell align="right">
-                        <Checkbox
-                          checked={selectedUser?.rol?.permisos.includes(permission.nombre_permiso) || false}
-                          onChange={() => handleCheckboxChange(permission, selectedUser)}
-                        />
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+            <Button sx={{ mt: 2 }} onClick={handleClose}>
+              Cerrar
+            </Button>
           </Box>
         </Box>
       </Modal>
-      <DenunciasyEmergencias />
-      <Footer />
+      <Footer sx={{ mt: 4 }} /> {/* Ajustar el margen superior del footer */}
     </div>
   );
 };

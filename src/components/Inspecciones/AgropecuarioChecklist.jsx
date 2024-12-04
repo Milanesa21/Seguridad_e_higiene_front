@@ -16,6 +16,7 @@ import { Footer } from "../Footer";
 import { Navbar } from "../Navbar";
 import DenunciasyEmergencias from "../DenunciasyEmergencias";
 import { AgropecuarioService } from "../../service/Checklists/agropecuarioService";
+import "../../../public/css/components/inspecciones/Inspeccion.css";
 
 const sections = [
   {
@@ -140,7 +141,6 @@ const sections = [
   },
 ];
 
-
 export const AgropecuarioChecklistForm = () => {
   const [checklistData, setChecklistData] = useState(
     sections.reduce((acc, section) => {
@@ -151,6 +151,7 @@ export const AgropecuarioChecklistForm = () => {
     }, {})
   );
   const [idEmpresa, setIdEmpresa] = useState(null);
+  const [isPrinting, setIsPrinting] = useState(false); // Estado para controlar el modo de impresión
   const { user } = useAuth();
 
   useEffect(() => {
@@ -190,14 +191,29 @@ export const AgropecuarioChecklistForm = () => {
   );
 
   const printForm = useCallback(() => {
-    window.print();
+    setIsPrinting(true); // Cambia el estado a true para ocultar los componentes
+    window.print(); // Llama a la función de impresión
   }, []);
+
+  const handleAfterPrint = useCallback(() => {
+    setIsPrinting(false); // Cambia el estado a false después de que se termine de imprimir
+  }, []);
+
+  useEffect(() => {
+    window.onafterprint = handleAfterPrint; // Se ejecuta después de la impresión
+    return () => {
+      window.onafterprint = null; // Limpia el evento cuando el componente se desmonta
+    };
+  }, [handleAfterPrint]);
 
   return (
     <div>
-      <Navbar />
+      {/* Oculta el Navbar y Footer cuando estamos imprimiendo */}
+      {!isPrinting && <Navbar />}
+
       <br />
-      <br /> <br />
+      <br />
+      <br />
       <Container maxWidth="lg" sx={{ my: 4 }}>
         <Typography variant="h4" align="center" gutterBottom>
           Checklist de Inspección Agropecuaria
@@ -229,18 +245,28 @@ export const AgropecuarioChecklistForm = () => {
               </CardContent>
             </Card>
           ))}
-          <Box display="flex" justifyContent="center" gap={2}>
-            <Button type="submit" variant="contained" color="primary">
-              Enviar
-            </Button>
-            <Button type="button" variant="outlined" onClick={printForm}>
-              Imprimir
-            </Button>
-          </Box>
+
+          {/* Oculta los botones cuando estamos imprimiendo */}
+          {!isPrinting && (
+            <Box display="flex" justifyContent="center" gap={2}>
+              <Button type="submit" variant="contained" color="primary">
+                Enviar
+              </Button>
+              <Button type="button" variant="outlined" onClick={printForm}>
+                Imprimir
+              </Button>
+            </Box>
+          )}
         </form>
       </Container>
-      <Footer />
-      <DenunciasyEmergencias />
+
+      {/* Oculta Footer y DenunciasyEmergencias durante la impresión */}
+      {!isPrinting && (
+        <>
+          <Footer />
+          <DenunciasyEmergencias />
+        </>
+      )}
     </div>
   );
 };
