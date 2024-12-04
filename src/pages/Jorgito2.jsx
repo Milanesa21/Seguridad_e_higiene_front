@@ -140,7 +140,7 @@ export const Chat2 = () => {
             className="input-field"
             disabled={disableInput}
           />
-          <div className="button-container">
+          <div className="button-container" style={{ paddingBottom: "0" }}>
             <button
               type="submit"
               className="send-button"
