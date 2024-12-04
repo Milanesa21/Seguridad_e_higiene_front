@@ -6,6 +6,18 @@ import { Navbar } from "../Navbar";
 import DenunciasyEmergencias from "../DenunciasyEmergencias";
 import { ElectricidadService } from "../../service/Checklists/electricidadService";
 import { useAuth } from "../../context/AuthProvider";
+import {
+  Container,
+  Typography,
+  Card,
+  CardContent,
+  FormControlLabel,
+  Checkbox,
+  Button,
+  Grid,
+  Divider,
+  Box,
+} from "@mui/material";
 
 // Configuración dinámica para las secciones del checklist
 const sections = [
@@ -112,38 +124,49 @@ export const ElectricidadChecklistForm = () => {
   return (
     <div className="prueba">
       <Navbar />
-      <div className="containerCL">
-        <h1 className="CL mb-4">CHECKLIST DE INSPECCIÓN ELÉCTRICA</h1>
+      <br />
+      <br /> <br />
+      <Container maxWidth="lg" sx={{ my: 4 }}>
+        <Typography variant="h4" align="center" gutterBottom>
+          CHECKLIST DE INSPECCIÓN ELÉCTRICA{" "}
+        </Typography>
         <form onSubmit={handleSubmit}>
           {sections.map((section, index) => (
-            <div className="mb-4" key={index}>
-              <h2>{section.title}</h2>
-              {section.fields.map((field) => (
-                <div className="form-check" key={field.name}>
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    name={field.name}
-                    checked={checklistData[field.name]}
-                    onChange={handleChange}
-                  />
-                  <label className="form-check-label">{field.label}</label>
-                </div>
-              ))}
-            </div>
+            <Card key={index} sx={{ mb: 4 }}>
+              <CardContent>
+                <Typography variant="h6" gutterBottom>
+                  {section.title}
+                </Typography>
+                <Divider sx={{ mb: 2 }} />
+                <Grid container spacing={2}>
+                  {section.fields.map((field) => (
+                    <Grid item xs={12} sm={6} key={field.name}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            name={field.name}
+                            checked={checklistData[field.name]}
+                            onChange={handleChange}
+                          />
+                        }
+                        label={field.label}
+                      />
+                    </Grid>
+                  ))}
+                </Grid>
+              </CardContent>
+            </Card>
           ))}
-          <button type="submit" className="btn btn-primary">
-            Enviar
-          </button>
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={printForm}
-          >
-            Imprimir
-          </button>
+          <Box display="flex" justifyContent="center" gap={2}>
+            <Button type="submit" variant="contained" color="primary">
+              Enviar
+            </Button>
+            <Button type="button" variant="outlined" onClick={printForm}>
+              Imprimir
+            </Button>
+          </Box>
         </form>
-      </div>
+      </Container>
       <Footer />
       <DenunciasyEmergencias />
     </div>

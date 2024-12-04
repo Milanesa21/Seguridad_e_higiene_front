@@ -196,6 +196,8 @@ export const AgropecuarioChecklistForm = () => {
   return (
     <div>
       <Navbar />
+      <br />
+      <br /> <br />
       <Container maxWidth="lg" sx={{ my: 4 }}>
         <Typography variant="h4" align="center" gutterBottom>
           Checklist de Inspección Agropecuaria

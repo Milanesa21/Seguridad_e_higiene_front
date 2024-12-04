@@ -1,13 +1,19 @@
-import { useState, useEffect, useRef } from 'react';
-import { Navbar } from '../components/Navbar';
-import { Footer } from '../components/Footer';
-import { EmergencyModal } from '../components/EmergencyModal';
-import styles from "../../public/css/pages/AmbienteEvaluation.module.css";
+import { useState, useEffect, useRef } from "react";
+import { Navbar } from "../components/Navbar";
+import { Footer } from "../components/Footer";
+import { EmergencyModal } from "../components/EmergencyModal";
 import { DenunciasyEmergencias } from "../components/DenunciasyEmergencias";
-
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Alert,
+  Typography,
+  Paper,
+} from "@mui/material";
 
 export const UniformeEvaluation = () => {
-  const [result, setResult] = useState('');
+  const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
@@ -18,36 +24,36 @@ export const UniformeEvaluation = () => {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
       videoRef.current.srcObject = stream;
     } catch (error) {
-      console.error('Error accessing the camera:', error);
+      console.error("Error accessing the camera:", error);
     }
   };
 
   const captureAndEvaluateFrame = async () => {
     const video = videoRef.current;
     const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
+    const context = canvas.getContext("2d");
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
     canvas.toBlob(async (blob) => {
       const formData = new FormData();
-      formData.append('file', blob);
+      formData.append("file", blob);
 
       try {
         setLoading(true);
-        const response = await fetch('http://127.0.0.1:8000/predict/', {
-          method: 'POST',
+        const response = await fetch("http://127.0.0.1:8000/predict/", {
+          method: "POST",
           body: formData,
         });
 
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
 
         const data = await response.json();
         setResult(data.message);
       } catch (error) {
-        console.error('Error:', error);
-        setResult('An error occurred');
+        console.error("Error:", error);
+        setResult("An error occurred");
       } finally {
         setLoading(false);
       }
@@ -74,38 +80,79 @@ export const UniformeEvaluation = () => {
   }, []);
 
   return (
-    <div className={`container-fluid ${styles.container}`}>
+    <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <Navbar />
-      <div className={`d-flex flex-column justify-content-center align-items-center  ${styles.mainContent}`}>
-        
-          <div className="text-center">
-            <h1 className="mb-4">Evaluar uniformes de Seguridad</h1>
-            
-            <div className="mb-3">
-              <video ref={videoRef} width="800" height="800" autoPlay className={`img-thumbnail ${styles.largerVideo}`} />
-            </div>
+      <br /><br />
+      <Box
+        sx={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          p: 4,
+        }}
+      >
+        <Paper
+          elevation={3}
+          sx={{
+            p: 3,
+            mb: 3,
+            width: "100%",
+            maxWidth: "800px",
+            textAlign: "center",
+          }}
+        >
+          <Typography variant="h4" component="h1" gutterBottom>
+            Evaluar Uniformes de Seguridad
+          </Typography>
+          <video
+            ref={videoRef}
+            width="100%"
+            height="auto"
+            autoPlay
+            style={{ borderRadius: 8, marginBottom: 16 }}
+          />
+          <canvas
+            ref={canvasRef}
+            style={{ display: "none" }}
+            width="800"
+            height="800"
+          />
+          {loading && result && (
+            <Alert
+              severity={
+                result === "Indumentaria no Correspondiente" ? "error" : "info"
+              }
+              icon={
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <CircularProgress size={24} />
+                </Box>
+              }
+              sx={{ mt: 2 }}
+            >
+              {result}
+            </Alert>
+          )}
+          {!loading && result && (
+            <Alert
+              severity={
+                result === "Indumentaria no Correspondiente" ? "error" : "info"
+              }
+              sx={{ mt: 2 }}
+            >
+              {result}
+            </Alert>
+          )}
+        </Paper>
 
-            <canvas ref={canvasRef} style={{ display: 'none' }} width="800" height="800"></canvas>
-
-            {loading && (
-              <div className="mb-3">
-                <div className={`spinner-border text-primary ${styles.spinner}`} role="status">
-                  <span className="sr-only">Loading...</span>
-                </div>
-              </div>
-            )}
-
-            {result && (
-               <div className={`alert ${result === 'Indumentaria no Correspondiente' ? styles.alertDanger : styles.alertInfo} mt-3`}>
-                <p>{result}</p>
-              </div>
-            )}
-          </div>
-    
-      </div>
+        <Button variant="contained" color="primary" sx={{ mb: 2 }}>
+          Agregar Imagen
+        </Button>
+      </Box>
       <Footer />
       <EmergencyModal />
       <DenunciasyEmergencias />
-    </div>
+    </Box>
   );
 };
