@@ -5,9 +5,6 @@ import {
   Grid,
   Card,
   Box,
-  List,
-  ListItem,
-  ListItemText,
 } from "@mui/material";
 import { Line } from "react-chartjs-2";
 import {
@@ -25,6 +22,9 @@ import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { CarouselComponentDB } from "../components/ChartComponentDashB/CarrouselComponentDB";
 import { GestorTareas } from "./GestorTareas";
+import { UserService } from "../service/userService";
+import {DenunciasyEmergencias} from "./DenunciasyEmergencias";
+import { MedidorDeSeguridad } from "./MedidorDeSeguridad";
 
 ChartJS.register(
   CategoryScale,
@@ -61,16 +61,51 @@ const options = {
     },
   },
 };
-
 export const Inicio = () => {
-  const [counter, setCounter] = useState(0);
+  const [counter, setCounter] = useState(0); // Días sin emergencias
+  const [message, setMessage] = useState([]);
+  const [hasEmergencies, setHasEmergencies] = useState(false); // Indica si hay emergencias activas
+
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCounter((prev) => prev + 1);
-    }, 60000);
-    return () => clearInterval(interval);
+    getMessages();
+    const intervalID = setInterval(getMessages, 5000);
+
+    return () => {
+      clearInterval(intervalID);
+    };
   }, []);
+
+
+
+  const rows = message.map((msg, index) => ({
+    id: index,
+    puesto_trabajo: msg.puesto_trabajo,
+    full_name: msg.full_name,
+    message: msg.message,
+    urgency: msg.message === "¡Emergencia! Necesito asistencia" ? "red" : "yellow",
+  }));
+
+  const getMessages = async () => {
+    try {
+      const response = await UserService.alert();
+      const data = await response.json();
+      setMessage(data);
+
+      // Verificar si hay emergencias en los mensajes
+      const hasEmergency = data.some((msg) => msg.message === "¡Emergencia! Necesito asistencia");
+
+      if (hasEmergency) {
+        setHasEmergencies(true);
+        setCounter(0); // Reinicia los días sin emergencias
+      } else if (!hasEmergencies) {
+        setHasEmergencies(false);
+        setCounter((prev) => prev + 1); // Incrementa los días sin emergencias solo si no había emergencias antes
+      }
+    } catch (error) {
+      console.error("Error al obtener las alertas:", error);
+    }
+  };
 
   return (
     <div className="SECCION">
@@ -103,28 +138,7 @@ export const Inicio = () => {
                 </Card>
               </Grid>
               <Grid item xs={12} md={6}>
-                <Card style={{ height: "100%" }}>
-                  <Typography
-                    variant="h6"
-                    gutterBottom
-                    style={{ padding: "16px" }}
-                  >
-                    Medidor de Seguridad
-                  </Typography>
-                  <Box display="flex" justifyContent="center" height="150px">
-                    <Gauge
-                      value={75}
-                      startAngle={-110}
-                      endAngle={110}
-                      sx={{
-                        [`& .${gaugeClasses.valueText}`]: {
-                          fontSize: 24,
-                        },
-                      }}
-                      text={({ value, valueMax }) => `${value} / ${valueMax}`}
-                    />
-                  </Box>
-                </Card>
+                <MedidorDeSeguridad/>
               </Grid>
               <Grid item xs={12} md={6}>
                 <Card style={{ height: "100%" }}>
@@ -135,7 +149,7 @@ export const Inicio = () => {
                   >
                     Estadísticas de Sectores
                   </Typography>
-                  <CarouselComponentDB idEmpresa={null} showArrows />
+                  <CarouselComponentDB showArrows />
                 </Card>
               </Grid>
               <Grid item xs={12} md={6}>
@@ -168,7 +182,8 @@ export const Inicio = () => {
               </Typography>
               <Box height={600}>
                 <DataGrid
-                  rows={[]}
+                  rows={rows}
+                  getRowClassName={(params) => `row-${params.row.urgency}`}
                   columns={[
                     { field: "message", headerName: "Mensaje", width: 300 },
                   ]}
@@ -182,6 +197,7 @@ export const Inicio = () => {
       </div>
 
       <GestorTareas />
+      <DenunciasyEmergencias />
       <Footer />
     </div>
   );

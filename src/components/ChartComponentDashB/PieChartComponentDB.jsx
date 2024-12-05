@@ -7,7 +7,7 @@ import { SectorService } from "../../service/sectorService";
 export const PieChartComponentDB = ({ endpoint, idEmpresa, title }) => {
   const [allData, setAllData] = useState({}); // Estado para guardar todos los datos de la API
   const [dataCheck, setDataCheck] = useState([]); // Datos formateados para el gráfico
-  const [sectors, setSectors] = useState([]); // Lista de sectores
+  const [sectors, setSectors] = useState([]); // Lista de sectores con datos
   const [selectedSector, setSelectedSector] = useState(""); // Sector seleccionado
 
   useEffect(() => {
@@ -19,12 +19,13 @@ export const PieChartComponentDB = ({ endpoint, idEmpresa, title }) => {
         );
         const data = await estadisticas.json();
 
-        // Guardar todos los datos de la API
-        setAllData(data);
+        // Filtrar sectores que tienen al menos un valor mayor a 0
+        const sectorKeys = Object.keys(data).filter((sector) =>
+          Object.values(data[sector]).some((value) => value > 0)
+        );
 
-        // Obtener sectores disponibles
-        const sectorKeys = Object.keys(data);
-        setSectors(sectorKeys);
+        setAllData(data); // Guardar todos los datos de la API
+        setSectors(sectorKeys); // Actualizar sectores con datos
 
         // Tomar el primer sector como predeterminado
         if (sectorKeys.length > 0) {
@@ -42,13 +43,15 @@ export const PieChartComponentDB = ({ endpoint, idEmpresa, title }) => {
   }, [endpoint, idEmpresa]);
 
   const formatSectorData = (data, sector) => {
-    // Formatear los datos como porcentajes directos
+    // Formatear los datos como porcentajes directos, excluyendo valores 0 o nulos
     const sectorData = data[sector] || {};
-    return Object.keys(sectorData).map((key) => ({
-      id: key, // Identificador interno
-      label: `${key} (${(sectorData[key] * 100).toFixed(0)}%)`, // Etiqueta con porcentaje
-      value: sectorData[key], // Valor original (para uso interno del gráfico)
-    }));
+    return Object.keys(sectorData)
+      .filter((key) => sectorData[key] > 0) // Excluir valores no significativos
+      .map((key) => ({
+        id: key, // Identificador interno
+        label: `${key} (${(sectorData[key] * 100).toFixed(0)}%)`, // Etiqueta con porcentaje
+        value: sectorData[key], // Valor original (para uso interno del gráfico)
+      }));
   };
 
   const handleSectorChange = (event) => {
@@ -80,18 +83,22 @@ export const PieChartComponentDB = ({ endpoint, idEmpresa, title }) => {
           </select>
         </div>
       )}
-      <PieChart
-        series={[
-          {
-            data: dataCheck,
-            highlightScope: { fade: "global", highlight: "item" },
-            faded: { innerRadius: 30, additionalRadius: -30, color: "gray" },
-            labelKey: "label", // Mostrar las etiquetas con nombres y porcentajes
-            valueKey: "value", // Usar los valores numéricos para el gráfico
-          },
-        ]}
-        height={300}
-      />
+      {dataCheck.length > 0 ? (
+        <PieChart
+          series={[
+            {
+              data: dataCheck,
+              highlightScope: { fade: "global", highlight: "item" },
+              faded: { innerRadius: 30, additionalRadius: -30, color: "gray" },
+              labelKey: "label", // Mostrar las etiquetas con nombres y porcentajes
+              valueKey: "value", // Usar los valores numéricos para el gráfico
+            },
+          ]}
+          height={300}
+        />
+      ) : (
+        <p style={{ textAlign: "center" }}>No hay datos para mostrar.</p>
+      )}
     </div>
   );
 };
