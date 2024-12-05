@@ -26,4 +26,7 @@ export class UserService {
     static async chengePassword(id, password){
         return await ApiService.request(`${USER_URL}user/changePassword/${id}`, 'PATCH', password);
     }
+    static async alert(){
+        return await ApiService.request(`${USER_URL}alert/messages`);
+    }
 }
