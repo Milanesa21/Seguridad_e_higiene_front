@@ -16,6 +16,8 @@ import {
   Grid,
   Divider,
   Box,
+  Snackbar,
+  Alert
 } from "@mui/material";
 
 const sections = [
@@ -154,7 +156,9 @@ export const ConstruccionChecklistForm = () => {
     }, {})
   );
   const [idEmpresa, setIdEmpresa] = useState(null);
-  const [isPrinting, setIsPrinting] = useState(false); // Nuevo estado para la impresión
+  const [isPrinting, setIsPrinting] = useState(false);
+  const [alertOpen, setAlertOpen] = useState(false); // Estado para controlar la visibilidad de la alerta
+  const [alertMessage, setAlertMessage] = useState(""); // Mensaje de la alerta
   const { user } = useAuth();
 
   useEffect(() => {
@@ -182,30 +186,38 @@ export const ConstruccionChecklistForm = () => {
       const result = await response.json();
 
       if (response.ok) {
-        alert("Checklist guardado exitosamente");
+        setAlertMessage("Checklist guardado exitosamente");
+        setAlertOpen(true); // Mostrar la alerta de éxito
         console.log("Response:", result);
       } else {
-        alert("Error al guardar el checklist");
+        setAlertMessage("Error al guardar el checklist");
+        setAlertOpen(true); // Mostrar la alerta de error
         console.error("Error:", result);
       }
     } catch (error) {
+      setAlertMessage("Error al conectar con el backend");
+      setAlertOpen(true); // Mostrar la alerta de error
       console.error("Error al conectar con el backend:", error);
     }
   }, [checklistData, idEmpresa]);
 
+  const handleAlertClose = () => {
+    setAlertOpen(false); // Cerrar la alerta
+  };
+
   const printForm = useCallback(() => {
-    setIsPrinting(true); // Cambia a modo impresión
+    setIsPrinting(true);
     setTimeout(() => {
       window.print();
-    }, 500); // Agrega un pequeño retraso
+    }, 500);
   }, []);
 
   const handleAfterPrint = useCallback(() => {
-    setIsPrinting(false); // Regresa a modo normal después de imprimir
+    setIsPrinting(false);
   }, []);
 
   useEffect(() => {
-    window.onafterprint = handleAfterPrint; // Controla el evento después de imprimir
+    window.onafterprint = handleAfterPrint;
     return () => {
       window.onafterprint = null;
     };
@@ -213,11 +225,10 @@ export const ConstruccionChecklistForm = () => {
 
   return (
     <div className="">
-      {/* Oculta el Navbar durante la impresión */}
       {!isPrinting && <Navbar />}
       <Container maxWidth="lg" sx={{ my: 4 }} style={{ marginTop: "80px" }}>
         <Typography variant="h4" align="center" gutterBottom>
-          CHECKLIST DE INSPECCIÓN EN CONSTRUCCIÓN{" "}
+          CHECKLIST DE INSPECCIÓN EN CONSTRUCCIÓN
         </Typography>
         <form onSubmit={handleSubmit}>
           {sections.map((section, index) => (
@@ -246,7 +257,6 @@ export const ConstruccionChecklistForm = () => {
               </CardContent>
             </Card>
           ))}
-          {/* Oculta botones durante la impresión */}
           {!isPrinting && (
             <Box display="flex" justifyContent="center" gap={2}>
               <Button type="submit" variant="contained" color="primary">
@@ -259,7 +269,18 @@ export const ConstruccionChecklistForm = () => {
           )}
         </form>
       </Container>
-      {/* Oculta Footer y DenunciasyEmergencias durante la impresión */}
+
+      {/* Snackbar para mostrar alertas */}
+      <Snackbar
+        open={alertOpen}
+        autoHideDuration={6000}
+        onClose={handleAlertClose}
+      >
+        <Alert onClose={handleAlertClose} severity={alertMessage.includes("Error") ? "error" : "success"}>
+          {alertMessage}
+        </Alert>
+      </Snackbar>
+
       {!isPrinting && (
         <>
           <Footer />

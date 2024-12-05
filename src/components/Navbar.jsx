@@ -243,6 +243,14 @@ export const Navbar = () => {
                 <MenuItem
                   onClick={handleMenuClose}
                   component="a"
+                  href="/Jorgito2"
+                  target="_blank"
+                >
+                  Asistente virtual 2
+                </MenuItem>
+                <MenuItem
+                  onClick={handleMenuClose}
+                  component="a"
                   href="/IaAmbientes"
                 >
                   Reconocimiento de ambientes
