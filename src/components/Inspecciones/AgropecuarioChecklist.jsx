@@ -10,6 +10,8 @@ import {
   Grid,
   Divider,
   Box,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import { useAuth } from "../../context/AuthProvider";
 import { Footer } from "../Footer";
@@ -152,6 +154,9 @@ export const AgropecuarioChecklistForm = () => {
   );
   const [idEmpresa, setIdEmpresa] = useState(null);
   const [isPrinting, setIsPrinting] = useState(false); // Estado para controlar el modo de impresión
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
   const { user } = useAuth();
 
   useEffect(() => {
@@ -175,10 +180,14 @@ export const AgropecuarioChecklistForm = () => {
         idEmpresa
       );
       console.log("Response:", response);
-      alert("Checklist enviado correctamente");
+      setSnackbarMessage("Checklist enviado correctamente");
+      setSnackbarSeverity("success");
+      setOpenSnackbar(true);
     } catch (error) {
       console.error("Error al enviar el checklist:", error);
-      alert("Error al enviar el checklist");
+      setSnackbarMessage("Error al enviar el checklist");
+      setSnackbarSeverity("error");
+      setOpenSnackbar(true);
     }
   }, [checklistData, idEmpresa]);
 
@@ -191,11 +200,11 @@ export const AgropecuarioChecklistForm = () => {
   );
 
   const printForm = useCallback(() => {
-  setIsPrinting(true); // Cambia el estado a true para ocultar los componentes
-  setTimeout(() => {
-    window.print(); // Llama a la función de impresión después del retraso
-  }, 500); // Retraso de 500 ms
-}, []);
+    setIsPrinting(true); // Cambia el estado a true para ocultar los componentes
+    setTimeout(() => {
+      window.print(); // Llama a la función de impresión después del retraso
+    }, 500); // Retraso de 500 ms
+  }, []);
 
   const handleAfterPrint = useCallback(() => {
     setIsPrinting(false); // Cambia el estado a false después de que se termine de imprimir
@@ -265,6 +274,21 @@ export const AgropecuarioChecklistForm = () => {
           <DenunciasyEmergencias />
         </>
       )}
+
+      {/* Snackbar para mostrar alertas */}
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={() => setOpenSnackbar(false)}
+      >
+        <Alert
+          onClose={() => setOpenSnackbar(false)}
+          severity={snackbarSeverity}
+          sx={{ width: "100%" }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };

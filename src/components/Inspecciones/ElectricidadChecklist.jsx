@@ -17,6 +17,8 @@ import {
   Grid,
   Divider,
   Box,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 
 const sections = [
@@ -137,6 +139,9 @@ export const ElectricidadChecklistForm = () => {
 
   const [idEmpresa, setIdEmpresa] = useState(null);
   const [isPrinting, setIsPrinting] = useState(false); // Control de impresión
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
   const { user } = useAuth();
 
   useEffect(() => {
@@ -157,8 +162,14 @@ export const ElectricidadChecklistForm = () => {
     try {
       const response = await ElectricidadService.createChecklist(checklistData, idEmpresa);
       console.log("Datos enviados exitosamente:", response.data);
+      setSnackbarMessage("Checklist enviado exitosamente");
+      setSnackbarSeverity("success");
+      setOpenSnackbar(true);
     } catch (error) {
       console.error("Error al enviar los datos:", error);
+      setSnackbarMessage("Error al enviar el checklist");
+      setSnackbarSeverity("error");
+      setOpenSnackbar(true);
     }
   }, [checklistData, idEmpresa]);
 
@@ -236,6 +247,21 @@ export const ElectricidadChecklistForm = () => {
       </Container>
       {!isPrinting && <Footer />}
       {!isPrinting && <DenunciasyEmergencias />}
+
+      {/* Snackbar para mostrar alertas */}
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={() => setOpenSnackbar(false)}
+      >
+        <Alert
+          onClose={() => setOpenSnackbar(false)}
+          severity={snackbarSeverity}
+          sx={{ width: "100%" }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
