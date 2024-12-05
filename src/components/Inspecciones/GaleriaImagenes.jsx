@@ -1,5 +1,16 @@
 import { useEffect, useState } from 'react';
-import { List, ListItem, ListItemText, Button, Snackbar, Alert, Typography, CircularProgress, Container, Box } from '@mui/material';
+import {
+  List,
+  ListItem,
+  ListItemText,
+  Button,
+  Snackbar,
+  Alert,
+  Typography,
+  CircularProgress,
+  Container,
+  Box,
+} from '@mui/material';
 import { Navbar } from '../Navbar';
 import { Footer } from '../Footer';
 import { ImageService } from '../../service/imageService';
@@ -26,23 +37,20 @@ export const ImageGallery = () => {
   useEffect(() => {
     const fetchImages = async () => {
       if (empresaId === undefined || empresaId === '') return;
-      console.log(empresaId);
       try {
         const response = await ImageService.getImages(empresaId);
         const imageList = await response.json();
-  
-        // Verificar que imageList y imageList.images estén definidos
         if (imageList && Array.isArray(imageList.images)) {
           if (imageList.images.length === 0) {
             setAlertMessage('No hay imágenes cargadas.');
-            setAlertType('info'); // Cambiar a 'info' para mensajes informativos
+            setAlertType('info');
             setOpen(true);
-            setImageUrls([]); // Establecer imageUrls como vacío
+            setImageUrls([]);
           } else {
-            const urls = imageList.images.map(image => ({
+            const urls = imageList.images.map((image) => ({
               ...image,
               uploaded_at: new Date(image.uploaded_at),
-              id_empresa: empresaId
+              id_empresa: empresaId,
             }));
             setImageUrls(urls);
             setAlertMessage('Imágenes cargadas correctamente');
@@ -50,7 +58,6 @@ export const ImageGallery = () => {
             setOpen(true);
           }
         } else {
-          // Manejar el caso en que imageList.images no está definido
           setAlertMessage('No se pudo cargar las imágenes.');
           setAlertType('error');
           setOpen(true);
@@ -65,16 +72,15 @@ export const ImageGallery = () => {
         setLoading(false);
       }
     };
-  
+
     fetchImages();
   }, [empresaId]);
-  
 
   const handleDelete = async (public_id) => {
     setDeleting(true);
     try {
       await ImageService.deleteImage(public_id);
-      setImageUrls(imageUrls.filter(image => image.public_id !== public_id));
+      setImageUrls(imageUrls.filter((image) => image.public_id !== public_id));
       setAlertMessage('Imagen eliminada correctamente');
       setAlertType('success');
     } catch (err) {
@@ -90,31 +96,26 @@ export const ImageGallery = () => {
     setOpen(false);
   };
 
-  if (loading) {
-    return (
-      <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
-        <CircularProgress />
-      </Box>
-    );
-  }
-
-  if (error) {
-    return (
-      <Typography variant="h6" color="error" align="center">
-        Error al cargar las imágenes: {error.message}
-      </Typography>
-    );
-  }
-
   return (
-    <>
+    <Box
+      display="flex"
+      flexDirection="column"
+      minHeight="100vh"
+    >
       <Navbar />
-      <br />
-      <Container>
+      <Container sx={{ flex: 1 }} style={{marginTop:"80px"}}>
         <Typography variant="h4" gutterBottom align="center">
           Galería de Imágenes
         </Typography>
-        {imageUrls.length === 0 ? (
+        {loading ? (
+          <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+            <CircularProgress />
+          </Box>
+        ) : error ? (
+          <Typography variant="h6" color="error" align="center">
+            Error al cargar las imágenes: {error.message}
+          </Typography>
+        ) : imageUrls.length === 0 ? (
           <Typography variant="body1" align="center">
             No hay imágenes disponibles
           </Typography>
@@ -148,7 +149,6 @@ export const ImageGallery = () => {
         </Snackbar>
       </Container>
       <Footer />
-      <DenunciasyEmergencias />
-    </>
+    </Box>
   );
 };

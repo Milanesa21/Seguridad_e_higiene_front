@@ -4,6 +4,7 @@ import {
   Typography,
   Grid,
   Card,
+  Alert,
   Box,
 } from "@mui/material";
 import { Line } from "react-chartjs-2";
@@ -154,46 +155,86 @@ export const Inicio = () => {
                 </Card>
               </Grid>
               <Grid item xs={12} md={6}>
-                <Card style={{ height: "100%" }}>
-                  <Typography
-                    variant="h6"
-                    gutterBottom
-                    style={{ padding: "16px" }}
-                  >
-                    Días sin Accidentes
-                  </Typography>
-                  <Box
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                    height="100px"
-                  >
-                    <Typography variant="h4">{counter}</Typography>
-                  </Box>
-                </Card>
-              </Grid>
+  <Card
+    style={{
+      height: "100%",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      padding: "16px",
+    }}
+    elevation={3} // Agrega sombra para resaltar la tarjeta
+  >
+    <Typography
+      variant="h6"
+      gutterBottom
+      style={{
+        fontWeight: "bold",
+        color: "black", // Cambia el color para destacar
+      }}
+    >
+      Días sin Accidentes
+    </Typography>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      height="100px"
+      width="100%"
+    >
+      <Typography
+        variant="h1"
+        style={{
+          fontFamily: "'Roboto Mono', monospace", // Fuente estilo monoespaciado
+          fontWeight: "700",
+          color: "black", // Color llamativo para los números
+        }}
+      >
+        {counter}
+      </Typography>
+    </Box>
+  </Card>
+</Grid>
+
             </Grid>
           </Grid>
 
           {/* Columna secundaria */}
           <Grid item xs={12} md={4}>
-            <Card style={{ height: "100%" }}>
-              <Typography variant="h6" gutterBottom style={{ padding: "16px" }}>
-                Denuncias y Emergencias
-              </Typography>
-              <Box height={600}>
-                <DataGrid
-                  rows={rows}
-                  getRowClassName={(params) => `row-${params.row.urgency}`}
-                  columns={[
-                    { field: "message", headerName: "Mensaje", width: 300 },
-                  ]}
-                  pageSize={5}
-                  rowsPerPageOptions={[5]}
-                />
-              </Box>
-            </Card>
-          </Grid>
+  <Card style={{ height: "100%" }}>
+    <Typography variant="h6" gutterBottom style={{ padding: "16px" }}>
+      Denuncias y Emergencias
+    </Typography>
+    <Box height={600}>
+      <DataGrid
+        rows={rows}
+        getRowClassName={(params) => `row-${params.row.urgency}`}
+        columns={[
+          {
+            field: "message",
+            headerName: "Mensaje",
+            width: 445,
+            renderCell: (params) => {
+              const isEmergency = params.row.message.includes("¡Emergencia!");
+              return (
+                <Alert
+                  severity={isEmergency ? "error" : "info"}
+                  style={{ width: "100%", padding: "8px 16px", boxSizing: "border-box" }}
+                >
+                  {params.row.message}
+                </Alert>
+              );
+            },
+          },
+        ]}
+        pageSize={5}
+        rowsPerPageOptions={[5]}
+      />
+    </Box>
+  </Card>
+</Grid>
+
         </Grid>
       </div>
 

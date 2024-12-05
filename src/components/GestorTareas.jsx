@@ -154,7 +154,7 @@ export const GestorTareas = () => {
 
       {/* Calendario */}
       <Box sx={{ display: "flex", gap: "20px", justifyContent: "space-between", alignItems: "flex-start" }}>
-        <Box sx={{ flex: "0 1 80%", backgroundColor: "#fff", padding: "20px", borderRadius: "8px", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}>
+        <Box sx={{ flex: "0 1 80%", backgroundColor: "#fff", padding: "20px", borderRadius: "8px", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", display:"flex", justifyContent:"center", alignItems:"center" }}>
           <BigCalendar
             onChange={handleDateChange}
             value={date}
@@ -236,11 +236,11 @@ export const GestorTareas = () => {
                 {selectedDateTasks.map((task) => (
                   <TableRow key={task.id}>
                     <TableCell>{task.title}</TableCell>
-                    <TableCell>{task.color}</TableCell>
+                    <TableCell sx={{backgroundColor:urgencyColors[task.color]}} style={{fontWeight:"1000"}}>{task.color}</TableCell>
                     <TableCell>{task.completed ? "Sí" : "No"}</TableCell>
                     <TableCell>
-                      <Button onClick={() => handleMarkAsCompleted(task.id)}>{task.completed ? "Desmarcar" : "Marcar como completada"}</Button>
-                      <Button onClick={() => handleDeleteTask(task.id)} color="error">
+                      <Button size="small" variant="contained" sx={{marginRight:"10px"}} color={task.completed ? "secondary" : "success"} onClick={() => handleMarkAsCompleted(task.id)}>{task.completed ? "Desmarcar" : "Marcar como completada"}</Button>
+                      <Button size="small" variant="contained" color="error" onClick={() => handleDeleteTask(task.id)}>
                         Eliminar
                       </Button>
                     </TableCell>
