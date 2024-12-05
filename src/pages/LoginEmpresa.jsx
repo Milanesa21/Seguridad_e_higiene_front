@@ -41,7 +41,7 @@ export const LoginEmpresa = () => {
           setAlertType("success");
           setAlertMessage("Logueado correctamente como empresa");
           setOpen(true);
-          navigate("/");
+          navigate("/inicio");
         }
       }
     } catch (error) {

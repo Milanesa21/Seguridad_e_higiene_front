@@ -23,6 +23,7 @@ import { Footer } from "../components/Footer";
 import { CarouselComponentDB } from "../components/ChartComponentDashB/CarrouselComponentDB";
 import { GestorTareas } from "./GestorTareas";
 import { UserService } from "../service/userService";
+import { EmergencyModal } from "./EmergencyModal";
 import {DenunciasyEmergencias} from "./DenunciasyEmergencias";
 import { MedidorDeSeguridad } from "./MedidorDeSeguridad";
 
@@ -198,6 +199,7 @@ export const Inicio = () => {
 
       <GestorTareas />
       <DenunciasyEmergencias />
+      <EmergencyModal />
       <Footer />
     </div>
   );
