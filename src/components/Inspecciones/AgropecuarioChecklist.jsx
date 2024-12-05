@@ -191,9 +191,11 @@ export const AgropecuarioChecklistForm = () => {
   );
 
   const printForm = useCallback(() => {
-    setIsPrinting(true); // Cambia el estado a true para ocultar los componentes
-    window.print(); // Llama a la función de impresión
-  }, []);
+  setIsPrinting(true); // Cambia el estado a true para ocultar los componentes
+  setTimeout(() => {
+    window.print(); // Llama a la función de impresión después del retraso
+  }, 500); // Retraso de 500 ms
+}, []);
 
   const handleAfterPrint = useCallback(() => {
     setIsPrinting(false); // Cambia el estado a false después de que se termine de imprimir
@@ -210,11 +212,7 @@ export const AgropecuarioChecklistForm = () => {
     <div>
       {/* Oculta el Navbar y Footer cuando estamos imprimiendo */}
       {!isPrinting && <Navbar />}
-
-      <br />
-      <br />
-      <br />
-      <Container maxWidth="lg" sx={{ my: 4 }}>
+      <Container maxWidth="lg" sx={{ my: 4 }} style={{ marginTop: "80px" }}>
         <Typography variant="h4" align="center" gutterBottom>
           Checklist de Inspección Agropecuaria
         </Typography>

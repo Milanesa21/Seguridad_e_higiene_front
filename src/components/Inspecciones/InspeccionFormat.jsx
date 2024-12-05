@@ -152,17 +152,42 @@ export const InspectionForm = () => {
     console.log("Inspection Results:", inspectionResults);
   };
   
-  const printForm = () => {
-    const element = document.querySelector(".form-container");
-  
-    const originalContent = document.body.innerHTML; // Guardar el contenido original de la página
-    document.body.innerHTML = element.outerHTML; // Reemplazar el contenido de la página solo con el formulario
-    
-    window.print(); // Abrir el diálogo de impresión
-    
-    document.body.innerHTML = originalContent; // Restaurar el contenido original de la página después de imprimir
+const printForm = () => {
+  const element = document.querySelector(".form-container");
+
+  // Abrir una nueva ventana para impresión
+  const printWindow = window.open("", "_blank");
+  if (!printWindow) {
+    console.error("No se pudo abrir la ventana de impresión.");
+    return;
+  }
+
+  // Extraer el contenido del formulario y los estilos
+  const printContent = element.outerHTML;
+  const headContent = document.head.innerHTML;
+
+  // Configurar el contenido de la ventana de impresión
+  printWindow.document.open();
+  printWindow.document.write(`
+    <html>
+      <head>
+        ${headContent}
+      </head>
+      <body>
+        ${printContent}
+      </body>
+    </html>
+  `);
+  printWindow.document.close();
+
+  // Iniciar la impresión cuando el contenido se cargue
+  printWindow.onload = () => {
+    printWindow.focus();
+    printWindow.print();
+    printWindow.close();
   };
-  
+};
+
 
   return (
     <div className="checklistcontainer">
@@ -170,7 +195,6 @@ export const InspectionForm = () => {
       <Navbar />
 
       <div className="form-container">
-        <br />
 
         <h2 className="section-title">1. Datos del Empleador Principal</h2>
         <form className="inspection-form" onSubmit={handleSubmit}>

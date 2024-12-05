@@ -22,49 +22,122 @@ const sections = [
   {
     title: "Sección 1: Equipos de protección personal",
     fields: [
-      { label: "¿Se utiliza bata de laboratorio en todo momento?", name: "usoBataLaboratorio" },
-      { label: "¿Se utilizan gafas de protección al manejar sustancias químicas?", name: "usoGafasProteccion" },
-      { label: "¿Se utilizan guantes adecuados para los productos químicos que se manejan?", name: "usoGuantesAdecuados" },
-      { label: "¿Se usa mascarilla si es necesario (para vapores, polvo, etc.)?", name: "usoMascarilla" },
+      {
+        label: "¿Se utiliza bata de laboratorio en todo momento?",
+        name: "usoBataLaboratorio",
+      },
+      {
+        label:
+          "¿Se utilizan gafas de protección al manejar sustancias químicas?",
+        name: "usoGafasProteccion",
+      },
+      {
+        label:
+          "¿Se utilizan guantes adecuados para los productos químicos que se manejan?",
+        name: "usoGuantesAdecuados",
+      },
+      {
+        label:
+          "¿Se usa mascarilla si es necesario (para vapores, polvo, etc.)?",
+        name: "usoMascarilla",
+      },
     ],
   },
   {
     title: "Sección 2: Almacenamiento de productos químicos",
     fields: [
-      { label: "¿Están todos los productos químicos etiquetados correctamente?", name: "productosEtiquetados" },
-      { label: "¿Están los productos químicos almacenados de manera segura?", name: "productosSeguros" },
-      { label: "¿Se ha asegurado que los productos químicos incompatibles estén separados?", name: "almacenamientoCompatible" },
-      { label: "¿Está el área de almacenamiento adecuadamente ventilada?", name: "ventilacionAdecuada" },
+      {
+        label: "¿Están todos los productos químicos etiquetados correctamente?",
+        name: "productosEtiquetados",
+      },
+      {
+        label: "¿Están los productos químicos almacenados de manera segura?",
+        name: "productosSeguros",
+      },
+      {
+        label:
+          "¿Se ha asegurado que los productos químicos incompatibles estén separados?",
+        name: "almacenamientoCompatible",
+      },
+      {
+        label: "¿Está el área de almacenamiento adecuadamente ventilada?",
+        name: "ventilacionAdecuada",
+      },
     ],
   },
   {
     title: "Sección 3: Procedimientos de manejo de productos químicos",
     fields: [
-      { label: "¿Se siguen los procedimientos de manejo adecuados para cada producto químico?", name: "procedimientosSeguidos" },
-      { label: "¿Se cuenta con un procedimiento para controlar derrames químicos?", name: "derramesControlados" },
-      { label: "¿Se lleva un registro actualizado de los productos químicos utilizados?", name: "registroProductos" },
-      { label: "¿El equipo de emergencia (duchas, lavaojos, extintores) está accesible y funcional?", name: "equipoEmergenciaAccesible" },
+      {
+        label:
+          "¿Se siguen los procedimientos de manejo adecuados para cada producto químico?",
+        name: "procedimientosSeguidos",
+      },
+      {
+        label:
+          "¿Se cuenta con un procedimiento para controlar derrames químicos?",
+        name: "derramesControlados",
+      },
+      {
+        label:
+          "¿Se lleva un registro actualizado de los productos químicos utilizados?",
+        name: "registroProductos",
+      },
+      {
+        label:
+          "¿El equipo de emergencia (duchas, lavaojos, extintores) está accesible y funcional?",
+        name: "equipoEmergenciaAccesible",
+      },
     ],
   },
   {
     title: "Sección 4: Estado del equipo de laboratorio",
     fields: [
-      { label: "¿Está la campana de extracción funcionando correctamente?", name: "campanaFuncionando" },
-      { label: "¿Está el equipo de laboratorio limpio y en buen estado?", name: "equipoLimpio" },
-      { label: "¿Está el vidrio de laboratorio (matraces, tubos de ensayo, etc.) libre de daños?", name: "vidrioNoDañado" },
-      { label: "¿Se ha verificado la calibración de los equipos de laboratorio?", name: "equiposCalibrados" },
+      {
+        label: "¿Está la campana de extracción funcionando correctamente?",
+        name: "campanaFuncionando",
+      },
+      {
+        label: "¿Está el equipo de laboratorio limpio y en buen estado?",
+        name: "equipoLimpio",
+      },
+      {
+        label:
+          "¿Está el vidrio de laboratorio (matraces, tubos de ensayo, etc.) libre de daños?",
+        name: "vidrioNoDañado",
+      },
+      {
+        label:
+          "¿Se ha verificado la calibración de los equipos de laboratorio?",
+        name: "equiposCalibrados",
+      },
     ],
   },
   {
     title: "Sección 5: Eliminación de residuos químicos",
     fields: [
-      { label: "¿Están los residuos químicos correctamente etiquetados?", name: "residuosEtiquetados" },
-      { label: "¿Están los residuos químicos almacenados de manera adecuada y segura?", name: "residuosAlmacenadosCorrectamente" },
-      { label: "¿Se eliminan los residuos químicos con la frecuencia adecuada?", name: "residuosEliminadosFrecuentemente" },
-      { label: "¿Se siguen los procedimientos correctos para la eliminación de residuos?", name: "procedimientosEliminacionCorrectos" },
+      {
+        label: "¿Están los residuos químicos correctamente etiquetados?",
+        name: "residuosEtiquetados",
+      },
+      {
+        label:
+          "¿Están los residuos químicos almacenados de manera adecuada y segura?",
+        name: "residuosAlmacenadosCorrectamente",
+      },
+      {
+        label: "¿Se eliminan los residuos químicos con la frecuencia adecuada?",
+        name: "residuosEliminadosFrecuentemente",
+      },
+      {
+        label:
+          "¿Se siguen los procedimientos correctos para la eliminación de residuos?",
+        name: "procedimientosEliminacionCorrectos",
+      },
     ],
   },
 ];
+
 
 export const QuimicoChecklistForm = () => {
   const [checklistData, setChecklistData] = useState(
@@ -75,7 +148,9 @@ export const QuimicoChecklistForm = () => {
       return acc;
     }, {})
   );
+
   const [idEmpresa, setIdEmpresa] = useState(null);
+  const [isPrinting, setIsPrinting] = useState(false); // Estado para controlar la impresión
   const { user } = useAuth();
 
   useEffect(() => {
@@ -94,8 +169,6 @@ export const QuimicoChecklistForm = () => {
 
   const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
-    console.log("Checklist Data:", checklistData);
-
     try {
       const response = await QuimicaService.createChecklist(checklistData, idEmpresa);
 
@@ -111,15 +184,28 @@ export const QuimicoChecklistForm = () => {
   }, [checklistData, idEmpresa]);
 
   const printForm = useCallback(() => {
-    window.print();
+    setIsPrinting(true); // Cambiar estado para ocultar componentes
+    setTimeout(() => {
+      window.print();
+    }, 500); // Dar tiempo a los cambios visuales
   }, []);
+
+  const handleAfterPrint = useCallback(() => {
+    setIsPrinting(false); // Restaurar estado después de imprimir
+  }, []);
+
+  useEffect(() => {
+    window.onafterprint = handleAfterPrint;
+    return () => {
+      window.onafterprint = null;
+    };
+  }, [handleAfterPrint]);
 
   return (
     <div className="prueba">
-      <Navbar />
-      <br />
-      <br /> <br />
-      <Container maxWidth="lg" sx={{ my: 4 }}>
+      {!isPrinting && <Navbar />}
+
+      <Container maxWidth="lg" sx={{ my: 4 }} style={{ marginTop: "80px" }}>
         <Typography variant="h4" align="center" gutterBottom>
           CHECKLIST DE INSPECCIÓN EN LABORATORIO QUÍMICO
         </Typography>
@@ -150,18 +236,20 @@ export const QuimicoChecklistForm = () => {
               </CardContent>
             </Card>
           ))}
-          <Box display="flex" justifyContent="center" gap={2}>
-            <Button type="submit" variant="contained" color="primary">
-              Enviar
-            </Button>
-            <Button type="button" variant="outlined" onClick={printForm}>
-              Imprimir
-            </Button>
-          </Box>
+          {!isPrinting && (
+            <Box display="flex" justifyContent="center" gap={2}>
+              <Button type="submit" variant="contained" color="primary">
+                Enviar
+              </Button>
+              <Button type="button" variant="outlined" onClick={printForm}>
+                Imprimir
+              </Button>
+            </Box>
+          )}
         </form>
       </Container>
-      <Footer />
-      <DenunciasyEmergencias />
+      {!isPrinting && <Footer />}
+      {!isPrinting && <DenunciasyEmergencias />}
     </div>
   );
 };
